@@ -1,0 +1,68 @@
+{% extends "layout.twig" %}
+{% block title %}List Aluno{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <h4>Exibindo Alunos</h4>
+     <ul><div>
+      <fieldset>
+           
+<table border=2 align="center">
+  <tr> 
+    <td>Nome</td>
+    <td>CPF</td>
+    <td>Email</td>
+    <td>RG</td>
+    <td>Orgao Emissor</td>
+    <td>Senha</td>
+    <td>endereco</td>
+    <td>telefone</td>
+    <td>tipo</td>
+    <td>matricula</td>
+    <td>curso</td>
+    <td>anoIngresso</td>
+    <td>banco</td>
+    <td>agencia</td>
+    <td>cc</td>
+    <td>historico</td>
+    <td>Editar</td>
+    <td>Remover</td>
+  </tr>
+
+ {% for entity in entities %}
+  <tr> 
+    <td>&nbsp;{{entity.nome}}</td>
+    <td>&nbsp;{{entity.cpf}}</td>
+    <td>&nbsp;{{entity.email}}</td>
+    <td>&nbsp;{{entity.rg}}</td>
+    <td>&nbsp;{{entity.orgaoEmissor}}</td>
+    <td>&nbsp;{{entity.senha}}</td>
+    <td>&nbsp;{{entity.endereco}}</td>
+    <td>&nbsp;{{entity.telefone}}</td>
+    <td>&nbsp;{{entity.tipo}}</td>
+    <td>&nbsp;{{entity.matricula}}</td>
+    <td>&nbsp;{{entity.curso}}</td>
+    <td>&nbsp;{{entity.anoIngresso}}</td>
+    <td>&nbsp;{{entity.banco}}</td>
+    <td>&nbsp;{{entity.agencia}}</td>
+    <td>&nbsp;{{entity.cc}}</td>
+    <td>&nbsp;{{entity.historico}}</td>
+  <td><a href = ?acao=edit&idAluno={{entity.id_aluno}}>Alterar</a></td>
+	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=
+  delete&idAluno\={{entity.id_aluno}}>Excluir</a></td>	
+    </tr>
+  {% endfor %}
+
+<?php
+}
+}
+?>
+
+</table> 
+       </fieldset>
+      </div></ul>    
+{% endblock %}

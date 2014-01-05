@@ -1,0 +1,103 @@
+       BODY {
+            background-image: url(../img/wall.jpg);
+            /*background-image: url(images/ondas.jpg);
+            background-image: url(images/corrida.jpg);*/
+            background-color: black;
+            font-family: sans-serif;
+            position: absolute;
+            background-repeat: no-repeat;
+                            
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+       }
+
+        A {
+                color: white;
+        }
+
+        A:Hover {
+                color: lightblue;
+        }
+
+        H1 { 
+                font-variant: small-caps;
+                background-color: black;
+                color: white; 
+                padding: 10px;
+                width: 100%;
+        }
+        
+        H2 { 
+                font-size: 15pt;
+                background-color: transparent;
+                text-align: justify;
+                color: lightblue;
+        }
+
+        H3 { 
+                font-size: 12pt;
+                background-color: transparent;
+                color: white;
+        }
+        
+        H4 { 
+                font-size: 12pt;
+                background-color: transparent;
+                text-align: justify;
+                color: white;
+        }
+
+        anna { 
+                font-size: 12pt;
+                background-color: transparent;
+                text-align: justify;
+                color: white;
+        }
+        
+        p {color: rgb(0,0,255)}
+
+          .cor-tres {
+            color: white;
+            }
+
+        form{
+            color: white;
+        }
+
+          .listaP {
+            display: none;
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 360px; /* 400 */
+            left: 160px; /* 150 fica colado com o menu das cidades (Valor anterior: 300) */
+            background: none;
+        }
+
+
+          table{
+            width: 56%;
+            border: 1px; 
+            text-align: center; 
+            background-image: url(images/walltab2.jpg);
+            color: white;
+            border:1px;
+        }
+     
+        #imgpos { 
+            position: absolute;  
+            right: -400px; /* posiciona a 90px para a esquerda */ 
+            top: 75px; /* posiciona a 70px para baixo */
+        }
+ 
+        footer { 
+            position:fixed;
+            text-align: center; 
+            color: white;
+            color: lightblue;
+            bottom:0px; 
+            width:100%; 
+
+        }

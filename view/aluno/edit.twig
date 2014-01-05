@@ -1,0 +1,79 @@
+{% extends "layout.twig" %}
+
+{% block title %}Editar dados{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <h4>Editando aluno</h4>
+
+ {% for entity in entities %}
+
+     <div>         
+        <form Method ="POST" enctype="multipart/form-data" Action ="?acao=update">
+         
+        <fieldset>
+            <font color = 'white'> Aluno </font>
+          <label>Nome:</label> 
+                <input type='text' name='nome' placeholder="nome"
+                value='{{entity.nome}}' >
+            <label>CPF:</label>
+                <input id="CPF" type='text' name='cpf' placeholder="ex: 111.111.111-11"
+                value='' >
+            <label>Email:</label>
+                <input type='text' name='email' placeholder="@email.com"
+                value='' >
+            <label>RG:</label> 
+                 <input  type='text' name='rg' placeholder="ex: 11111111-11" 
+                 value='{{entity.rg}}' >
+            <label>Orgão emissor: </label>
+                 <input type='text' name='orgaoEmissor' placeholder="ex: SSPBA"
+                  value='{{entity.orgaoEmissor}}' >
+            <label>Senha: </label>
+                <input type='password' name='senha' placeholder="Senha"
+                value='' > 
+            <label>Endereco: </label>
+                 <input type='text' name='endereco' placeholder="endereço" value='{{entity.endereco}}' >
+            <label>Telefone: </label>
+                 <input type='text' name='telefone' placeholder="(71) XXXX-XXXX)"
+                  value='{{entity.telefone}}' >
+            <label>Tipo: </label>
+                 <input type='text' name='tipo' placeholder="tipo"
+                  value='{{entity.tipo}}' >
+            <label>Matricula: </label>
+                 <input type='text' name='matricula' placeholder="ex: 111111111"
+                  value='{{entity.matricula}}' >
+            <label>Curso: </label>
+                 <input type='text' name='curso' placeholder="curso"
+                  value='{{entity.curso}}' >
+            <label>Ano de Ingresso: </label>
+                 <input type='text' name='anoIngresso' placeholder="ex: 2000.1"
+                  value='{{entity.anoIngresso}}' >
+            <br>
+            Dados de conta:
+            <label>Banco: </label>
+                 <input type='text' name='banco' placeholder="banco"
+                  value='{{entity.banco}}' >
+            <label>Agencia: </label>
+                 <input type='text' name='agencia' placeholder="ex: 11111-1"
+                  value='{{entity.agencia}}' >
+            <label>Contacorrente: </label>
+                 <input type='text' name='cc' placeholder="ex: 2000.1"
+                  value='{{entity.cc}}' >
+            <label>Historico: </label>
+                 <input type='text' name='historico' placeholder="historico"
+                  value='{{entity.historico}}' >
+           
+            <p><input type='submit' class="btn" value="Edit" name="enviar">
+                 <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
+                 <input type="button" class="btn" value="Return" onClick="document.location='../View/index.php'"> </p>
+       </fieldset>
+       </form>
+       </div>    
+{% endfor %}
+
+
+{% endblock %}
