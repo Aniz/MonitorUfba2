@@ -18,13 +18,8 @@
     function selecao($tabela)
     {
 
-        switch($tabela)
-        {   
-            case 'Aluno':
-                $seleciona = "SELECT * FROM $tabela";
-            break;
-        }
-
+        $seleciona = "SELECT * FROM $tabela";
+            
         return $seleciona;
     }
 
