@@ -4,7 +4,7 @@ require_once '../vendor/autoload.php';
 require_once '../helper/twig.php';
 require_once '../entidades/Aluno.class.php';
 //r//equire_once('../model/query.php');
-//require_once('../helper/funcoes.php');
+require_once('../helper/funcoes.php');
 /*
 require_once '../config/config.php';
 require_once '../helper/database.php';
@@ -35,12 +35,11 @@ if ($acao == 'new') {
 	echo $twig->render($baseTemplate. 'new.twig', array('name' => 'Aluno'));
 
 
-
 }else if ($acao == 'edit') {
 
 $id=$_GET['idAluno'];
 	
-$sql = "SELECT * FROM aluno where id_aluno ='".$id."'"; 
+$sql = selecaoByID('Aluno',$id);	
 
 $result = mysql_query($sql, $conecta); 
  
@@ -60,7 +59,29 @@ echo $twig->render($baseTemplate.'edit.twig',
 }
  
 } else if ($acao == 'delete') {
-	// remover usuario
+		$idx=$_GET['idAluno'];
+	
+		$idS = "id_aluno =".$idx;	
+		
+$sqlDeletar = deletar('Person',$idS);
+
+$result = mysql_query($sqlDeletar, $conecta); 
+
+		if(!mysql_error())
+		{
+			echo "<script>alert(\"Removido!\");</script>";       
+			unset($_GET['acao']);
+			unset($_GET['idAluno']);
+		}	
+		else   	
+			echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
+		
+		echo $twig->render('index.php');
+		
+	//	}
+	//	else
+	//		echo "<script>alert(\"Não foi possível remover!\");</script>";       
+	//
 } else if ($acao == 'create') {
 		$senha2=$_POST['senha2'];
 		$aluno = new Aluno($_POST);   	
@@ -297,7 +318,7 @@ else
 
 
 } else if ($acao == 'consult') {
-	$sql = "SELECT * FROM aluno"; 
+	$sql = selecao("Aluno"); 
 	$result = mysql_query($sql, $conecta); 
  
 if(!$result)

@@ -31,30 +31,6 @@ class Query {
 			return md5($senha);
 		}
 
-		private function selec()
-		{
-			/*echo 'iiii';
-			echo $conn;
-			echo 'ói';
-			$sql = "SELECT * FROM aluno"; 
-$result = mysql_query($sql, $conn); 
- var_dump($result);
-/* Escreve resultados até que não haja mais linhas na tabela */ 
- 
-//while($consulta = mysql_fetch_array($result)) { 
-  // echo $consulta['nome'];
-//} 
-//mysql_free_result($result); 
-//mysql_close($conecta); 
-  
-//mysql_free_result($result); 
-//mysql_close($conecta); */
-
-				return "oioi";
-
-		
-		}
-
 		public function existeUsuario($cpf)
 		{
 			$selecionar = self::conn()->prepare("SELECT id from Aluno where cpf='$cpf'");
@@ -66,100 +42,13 @@ $result = mysql_query($sql, $conn);
 				return false;
 		}
 
-	
-
-		public function existeProva($nome,$data)
-		{
-			$s="SELECT * from Competition where nameCompetition='$nome' and dateCompetition = '$data'";
-			$selecionar = self::conn()->prepare($s);
-			$selecionar->execute();
-
-			if($selecionar->rowCount()>=1)
-				return true;
-			else
-				return false;
-		}
-
-		public function existeRelacao($P,$C)
-		{
-			$s="SELECT * from Competition_Runner where idPerson='$P' and idCompetition = '$C'";
-			$selecionar = self::conn()->prepare($s);
-			$selecionar->execute();
-
-			if($selecionar->rowCount()>=1)
-				return true;
-			else
-				return false;
-		}
-
-		public function existeUsuarioID($id)
-		{
-			$selecionar = self::conn()->prepare("select * from Competition_Runner where idPerson='$id'");
-			$selecionar->execute();
-
-			if($selecionar->rowCount()>=1)
-				return true;
-			else
-				return false;
-		}
-
-		public function existeProvaID($id)
-		{
-			$s="SELECT * from Competition_Runner where idCompetition='$id'";
-			$selecionar = self::conn()->prepare($s);
-			$selecionar->execute();
-
-			if($selecionar->rowCount()>=1)
-				return true;
-			else
-				return false;
-		}
-
-		/*2 formas
-		public function cadastraUser($dados=array()){
-		$query = "Select * from tabela where id = :id";
-		$stmt->bindValue(':id',$_GET['id']);}
-
-		public function cadastraUser($dados=array($_GET[''])){
-		$query = "Select * from tabela where id = ?";
-		$stmt->execute($dados);}
-		*/
-		//$nome=strip_tags(filter_input(INPUT_POST,'nome'));
-
-		//ununsed
-		public function cadastraUser($dados=array()){
-			if($this->existeUsuario($dados[2]))
-				return false;
-			else
-			{
-			//$dados[3]=$this->criptografar($dados[3]); //criptografa a senha
-			//echo $dados[3];
-				
-			$values = "(`name`,`lastName`,`cpf`,`password`,`gender`,`birthdate`,`email`,`height`,`weight`,`IMC`)";
-			$valores="(?,?,?,?,?,?,?,?,?,?)";
-			$sqlInserir=inserir('Person',$values,$valores);
-
-			//$sqlInserir = "INSERT INTO Person (`name`,`lastName`,`cpf`,`password`,`gender`,`birthdate`,`email`,`height`,`weight`,`IMC`) VALUES (?,?,?,?,?,?,?,?,?,?)";
-			$stmt=self::conn()->prepare($sqlInserir);
-			if($stmt->execute($dados))
-				return true;
-			else
-				return false;
-			}
-		}
-
 		//atualiza
 		public function atualiza($dados=array(),$tabela,$id){
 				switch($tabela)
 				{
-					case 'Person':	
-					$alteracao="name ='$dados[0]', lastName ='$dados[1]', password = '$dados[2]', email ='$dados[3]', height ='$dados[4]', weight='$dados[5]', IMC ='$dados[6]'";
-					$idS="idPerson='$id'";
-					break;
-	
-					case 'Competition':
-					$alteracao="dateCompetition ='$dados[0]', address ='$dados[1]', city = '$dados[2]', state ='$dados[3]', country ='$dados[4]'";
-					$idS="idCompetition='$id'";
+					case 'Aluno':	
+					$alteracao="nome ='$dados[0]', cpf ='$dados[1]', rg = '$dados[2]', email ='$dados[3]', senha ='$dados[4]', endereco='$dados[5]', telefone ='$dados[6]'";
+					$idS="id_aluno='$id'";
 					break;
 				}
 				//$sqlInserir = "INSERT INTO Person (`name`,`lastName`,`cpf`,`password`,`gender`,`birthdate`,`email`,`height`,`weight`,`IMC`) VALUES (?,?,?,?,?,?,?,?,?,?)";		

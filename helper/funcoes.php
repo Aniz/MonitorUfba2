@@ -15,6 +15,32 @@
 			return $sql_alterar;
 	}	
 
+    function selecao($tabela)
+    {
+
+        switch($tabela)
+        {   
+            case 'Aluno':
+                $seleciona = "SELECT * FROM $tabela";
+            break;
+        }
+
+        return $seleciona;
+    }
+
+    function selecaoById($tabela,$id)
+    {
+
+        switch($tabela)
+        {   
+            case 'Aluno':
+                $seleciona = "SELECT * FROM $tabela WHERE id_aluno=$id";
+            break;
+        }
+
+        return $seleciona;
+    }
+
 function msgbox($msg, $type)
     {
     if ($type == "alert")

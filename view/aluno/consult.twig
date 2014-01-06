@@ -5,6 +5,7 @@
     <style type="text/css">
         .important { color: #336699; }
     </style>
+      <script src="../helper/Mascaras.js" type="text/javascript"></script>
 {% endblock %}
 {% block content %}
     <h4>Exibindo Alunos</h4>
@@ -52,8 +53,7 @@
     <td>&nbsp;{{entity.cc}}</td>
     <td>&nbsp;{{entity.historico}}</td>
   <td><a href = ?acao=edit&idAluno={{entity.id_aluno}}>Alterar</a></td>
-	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=
-  delete&idAluno\={{entity.id_aluno}}>Excluir</a></td>	
+	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idAluno={{entity.id_aluno}}>Excluir</a></td>	
     </tr>
   {% endfor %}
 
