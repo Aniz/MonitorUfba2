@@ -28,8 +28,6 @@
 			    <li><a href="controller/professor.php?acao=consult">Lista</a></li>
 			  </ul>
 			</div>			
-
-	    </div>
 	    <div class="btn-group">
 			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 			    Projetos de Monitoria
