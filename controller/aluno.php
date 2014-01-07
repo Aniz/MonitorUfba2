@@ -310,10 +310,11 @@ if($alunoalt->getCc())
 	$sqlUpdate .= ", cc ='".$alunoalt->getCc()."'" ;
 
 if($alunoalt->getHistorico())
-	$sqlUpdate .= "historico ='".$alunoalt->getHistorico()."' " ;
+	$sqlUpdate .= ", historico ='".$alunoalt->getHistorico()."' " ;
 
 $id = $_POST['id'];
-
+$sqlUpdate .= "where id_aluno=".$id;
+echo $sqlUpdate;
 $quer = mysql_query($sqlUpdate);
 
 if(!mysql_error())

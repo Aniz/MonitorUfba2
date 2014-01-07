@@ -1,0 +1,61 @@
+{% extends "layout.twig" %}
+
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+    <script src="../helper/Mascaras.js" type="text/javascript"></script>
+{% endblock %}
+{% block content %}
+    <h4>Cadastro de Projetos de Monitoria</h4>
+
+     <div>         
+        <form Method ="POST" enctype="multipart/form-data" Action ="?acao=create">
+         
+        <fieldset>
+            <font color = 'white'> Sign up</font>
+            <label>Resumo:</label> 
+                <input type='text' name='resumo' placeholder="resumo"
+                value='{{resumo}}' >
+            <label>Atividades:</label>
+                <input id="atividades" type='text' name='atividades' placeholder="a serem desenvolvidas"
+                value='' ><br>
+            <input name="bolsa" type="checkbox">Bolsa?<br>
+            <label>Professor:</label> 
+            <select name="professor">
+                {% for prof in professores %}
+                <option value="{{prof.id_professor}}">{{prof.nome}}</option>
+            {% endfor %}
+            </select><br>
+            <input name="aprovado" type="checkbox">Aprovado?<br>
+            <label>Vagas pedidas: </label>
+                 <input type='text' name='vagasPedidas' placeholder="vagas solicitadas"
+                  value='{{vagasPedidas}}' >
+            <label>Vagas aprovadas: </label>
+                 <input type='text' name='vagasAprovadas' placeholder="vagas aprovadas"
+                  value='{{vagasAprovadas}}' >
+            <label>Carga horaria total: </label>
+                 <input type='text' name='chTotal' placeholder="carga horaria total" value='{{chTotal}}' >
+            <label>Carga horaria semanal: </label>
+                 <input type='text' name='chSemanal' placeholder="carga horaria semanal"
+                  value='{{chSemanal}}' >
+            <label>Periodo de inscricao inicio: </label>
+                 <input type='text' name='periodoInscricaoInicio' placeholder="Periodo Inscricao Inicio"
+                  value='{{periodoInscricaoInicio}}' >
+            <label>Periodo de inscricao final: </label>
+                 <input type='text' name='periodoInscricaoFinal' placeholder="Periodo Inscricao Final"
+                  value='{{periodoInscricaoFinal}}' >
+            <label>Periodo selecao: </label>
+                 <input type='text' name='periodoSelecao' placeholder="Periodo Selecao"
+                  value='{{periodoSelecao}}' >
+           
+            <p><input type='submit' class="btn" value="Register" name="enviar">
+                 <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
+                 <input type="button" class="btn" value="Return" onClick="document.location='../View/index.php'"> </p>
+       </fieldset>
+       </form>
+       </div>    
+
+{% endblock %}

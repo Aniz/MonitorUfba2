@@ -1,0 +1,59 @@
+{% extends "layout.twig" %}
+{% block title %}List Aluno{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+      <script src="../helper/Mascaras.js" type="text/javascript"></script>
+{% endblock %}
+{% block content %}
+    <h4>Exibindo Alunos</h4>
+     <ul><div>
+      <fieldset>
+           
+<table border=2 align="center">
+  <tr> 
+    <td>Resumo</td>
+    <td>atividades</td>
+    <td>bolsa</td>
+    <td>aprovado</td>
+    <td>vagasPedidas</td>
+    <td>vagasAprovadas</td>
+    <td>chTotal</td>
+    <td>chSemanal</td>
+    <td>periodoInscricaoInicio</td>
+    <td>periodoInscricaoFinal</td>
+    <td>periodoSelecao</td>
+
+    <td>Editar</td>
+    <td>Remover</td>
+  </tr>
+
+ {% for entity in entities %}
+  <tr> 
+    <td>&nbsp;{{entity.resumo}}</td>
+    <td>&nbsp;{{entity.atividades}}</td>
+    <td>&nbsp;{{entity.bolsa}}</td>
+    <td>&nbsp;{{entity.aprovado}}</td>
+    <td>&nbsp;{{entity.vagasPedidas}}</td>
+    <td>&nbsp;{{entity.vagasAprovadas}}</td>
+    <td>&nbsp;{{entity.chTotal}}</td>
+    <td>&nbsp;{{entity.chSemanal}}</td>
+    <td>&nbsp;{{entity.periodoInscricaoInicio}}</td>
+    <td>&nbsp;{{entity.periodoInscricaoFinal}}</td>
+    <td>&nbsp;{{entity.periodoSelecao}}</td>
+  <td><a href = ?acao=edit&idAluno={{entity.id_projeto}}>Alterar</a></td>
+	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idAluno={{entity.id_projeto}}>Excluir</a></td>	
+    </tr>
+  {% endfor %}
+
+<?php
+}
+}
+?>
+
+</table> 
+       </fieldset>
+      </div></ul>    
+{% endblock %}
