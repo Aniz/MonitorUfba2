@@ -237,11 +237,11 @@ else
 } else if ($acao == 'update') {		
 		//$senha2=$_POST['senha2'];
 
-	if ($_POST) {
+	/*if ($_POST) {
 	  foreach ($_POST as $key => $value) {
 	    echo $key . ' = ' . $value . '<br />';
 	  }
-	}
+	}*/
 		$alunoalt = new Aluno($_POST);   	
 		
 	//	$id = $alunoalt->getId();   
@@ -259,64 +259,61 @@ else
 		$sqlUpdate = "UPDATE ALUNO SET ";
 
 if($alunoalt->getNome())
-	$sqlUpdate .= "nome ='".$alunoalt->getNome()."', " ;
+	$sqlUpdate .= "nome ='".$alunoalt->getNome()."'" ;
 
 if($alunoalt->getCpf())
-	$sqlUpdate .= "cpf ='".$alunoalt->getCpf()."', " ;
+	$sqlUpdate .= ", cpf ='".$alunoalt->getCpf()."'" ;
 
 if($alunoalt->getEmail())
-	$sqlUpdate .= "email ='".$alunoalt->getEmail()."', " ;
+	$sqlUpdate .= ", email ='".$alunoalt->getEmail()."'" ;
 
 if($alunoalt->getRg())
-	$sqlUpdate .= "rg ='".$alunoalt->getRg()."', " ;
+	$sqlUpdate .= ", rg ='".$alunoalt->getRg()."'" ;
 
 
 if($alunoalt->getOrgaoEmissor())
-	$sqlUpdate .= "orgaoEmissor ='".$alunoalt->getOrgaoEmissor()."', " ;
+	$sqlUpdate .= ", orgaoEmissor ='".$alunoalt->getOrgaoEmissor()."'" ;
 
 
 if($alunoalt->getSenha())
-	$sqlUpdate .= "senha ='".$alunoalt->getSenha()."', " ;
+	$sqlUpdate .= ", senha ='".$alunoalt->getSenha()."'" ;
 
 
 if($alunoalt->getEndereco())
-	$sqlUpdate .= "endereco ='".$alunoalt->getEndereco()."', " ;
+	$sqlUpdate .= ", endereco ='".$alunoalt->getEndereco()."'" ;
 
 
 if($alunoalt->getTelefone())
-	$sqlUpdate .= "telefone ='".$alunoalt->getTelefone()."', " ;
+	$sqlUpdate .= ", telefone ='".$alunoalt->getTelefone()."'" ;
 
 
 if($alunoalt->getTipo())
-	$sqlUpdate .= "tipo ='".$alunoalt->getTipo()."', " ;
+	$sqlUpdate .= ", tipo ='".$alunoalt->getTipo()."'" ;
 
 
 if($alunoalt->getMatricula())
-	$sqlUpdate .= "matricula ='".$alunoalt->getMatricula()."', " ;
+	$sqlUpdate .= ", matricula ='".$alunoalt->getMatricula()."'" ;
 
 if($alunoalt->getCurso())
-	$sqlUpdate .= "curso ='".$alunoalt->getCurso()."', " ;
+	$sqlUpdate .= ", curso ='".$alunoalt->getCurso()."'" ;
 
 if($alunoalt->getAnoIngresso())
-	$sqlUpdate .= "anoIngresso ='".$alunoalt->getAnoIngresso()."', " ;
+	$sqlUpdate .= ", anoIngresso ='".$alunoalt->getAnoIngresso()."'" ;
 
 if($alunoalt->getBanco())
-	$sqlUpdate .= "banco ='".$alunoalt->getBanco()."', " ;
+	$sqlUpdate .= ", banco ='".$alunoalt->getBanco()."'" ;
 
 if($alunoalt->getAgencia())
-	$sqlUpdate .= "agencia ='".$alunoalt->getAgencia()."', " ;
+	$sqlUpdate .= ", agencia ='".$alunoalt->getAgencia()."'" ;
 
 if($alunoalt->getCc())
-	$sqlUpdate .= "cc ='".$alunoalt->getCc()."', " ;
+	$sqlUpdate .= ", cc ='".$alunoalt->getCc()."'" ;
 
 if($alunoalt->getHistorico())
 	$sqlUpdate .= "historico ='".$alunoalt->getHistorico()."' " ;
 
 $id = $_POST['id'];
 
-
-
-echo $sqlUpdate .= "where id_aluno='".$id."'";
 $quer = mysql_query($sqlUpdate);
 
 if(!mysql_error())
@@ -326,11 +323,6 @@ if(!mysql_error())
 }
 else
 	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
-
-
-
-
-
 
 
 } else if ($acao == 'consult') {
