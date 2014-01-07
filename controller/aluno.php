@@ -62,23 +62,27 @@ echo $twig->render($baseTemplate.'edit.twig',
  
 } else if ($acao == 'delete') {
 		$idx=$_GET['idAluno'];
-	
+		
 		$idS = "id_aluno =".$idx;	
 		
-$sqlDeletar = deletar('Person',$idS);
+$sqlDeletar = deletar('aluno',$idS);
+
+echo $sqlDeletar;
 
 $result = mysql_query($sqlDeletar, $conecta); 
 
 		if(!mysql_error())
 		{
-			echo "<script>alert(\"Removido!\");</script>";       
+			echo "<script>alert(\"Removido!\");</script>";    
+
 			unset($_GET['acao']);
 			unset($_GET['idAluno']);
 		}	
 		else   	
 			echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
 		
-		echo $twig->render('index.php');
+		//echo $twig->render('index.php');
+		echo ("<script>window.location.href = \"../controller/aluno.php?acao=consult\";</script>");	
 		
 	//	}
 	//	else
