@@ -30,9 +30,31 @@
 			</div>			
 
 	    </div>
+	    <div class="btn-group">
+			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			    Projetos de Monitoria
+			    <span class="caret"></span>
+			  </a>
+			  <ul class="dropdown-menu">
+			    <li><a href="controller/projeto.php?acao=new">Novo</a></li>			    
+			    <li><a href="controller/projeto.php?acao=consult">Lista</a></li>
+			  </ul>
+			</div>
+			<div class="btn-group">
+			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			    Departamento
+			    <span class="caret"></span>
+			  </a>
+			  <ul class="dropdown-menu">
+			    <li><a href="controller/departamento.php?acao=new">Novo</a></li>			    
+			    <li><a href="controller/departamento.php?acao=consult">Lista</a></li>
+			  </ul>
+			</div>			
+
+	    </div>
 
 
-<h1>MonitoeUfba</h1>
+<h1>MonitorUfba</h1>
  
 	<footer>© AJA</footer>
 
