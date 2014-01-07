@@ -15,59 +15,44 @@
      <div>         
         <form Method ="POST" enctype="multipart/form-data" Action ="?acao=update">
          
-        <fieldset>
-            <font color = 'white'> Aluno </font>
-          <label>Nome:</label> 
-                <input type='text' name='nome' placeholder="nome"
-                value='{{entity.nome}}' >
-            <label>CPF:</label>
-                <input id="CPF" type='text' name='cpf' placeholder="ex: 111.111.111-11"
-                value='{{entity.cpf}}' >
-            <label>Email:</label>
-                <input type='text' name='email' placeholder="@email.com"
-                value='{{entity.email}}' >
-            <label>RG:</label> 
-                 <input  type='text' name='rg' placeholder="ex: 11111111-11" 
-                 value='{{entity.rg}}' >
-            <label>Orgão emissor: </label>
-                 <input type='text' name='orgaoEmissor' placeholder="ex: SSPBA"
-                  value='{{entity.orgaoEmissor}}' >
-            <label>Senha: </label>
-                <input type='password' name='senha' placeholder="Senha"
-                value='{{entity.senha}}' > 
-            <label>Endereco: </label>
-                 <input type='text' name='endereco' placeholder="endereço" value='{{entity.endereco}}' >
-            <label>Telefone: </label>
-                 <input type='text' name='telefone' placeholder="(71) XXXX-XXXX)"
-                  value='{{entity.telefone}}' >
-            <label>Tipo: </label>
-                 <input type='text' name='tipo' placeholder="tipo"
-                  value='{{entity.tipo}}' >
-            <label>Matricula: </label>
-                 <input type='text' name='matricula' placeholder="ex: 111111111"
-                  value='{{entity.matricula}}' >
-            <label>Curso: </label>
-                 <input type='text' name='curso' placeholder="curso"
-                  value='{{entity.curso}}' >
-            <label>Ano de Ingresso: </label>
-                 <input type='text' name='anoIngresso' placeholder="ex: 2000.1"
-                  value='{{entity.anoIngresso}}' >
-            <br>
-            Dados de conta:
-            <label>Banco: </label>
-                 <input type='text' name='banco' placeholder="banco"
-                  value='{{entity.banco}}' >
-            <label>Agencia: </label>
-                 <input type='text' name='agencia' placeholder="ex: 11111-1"
-                  value='{{entity.agencia}}' >
-            <label>Contacorrente: </label>
-                 <input type='text' name='cc' placeholder="ex: 2000.1"
-                  value='{{entity.cc}}' >
-            <label>Historico: </label>
-                 <input type='text' name='historico' placeholder="historico"
-                  value='{{entity.historico}}' >
-                <input type='hidden' name='id' value='{{entity.id_aluno}}'>
-            <p><input type='submit' class="btn" value="Edit" name="enviar">
+           <fieldset>
+            <font color = 'white'> Sign up</font>
+            <label>Resumo:</label> 
+                <input type='text' name='resumo' placeholder="resumo"
+                value='{{resumo}}' >
+            <label>Atividades:</label>
+                <input id="atividades" type='text' name='atividades' placeholder="a serem desenvolvidas"
+                value='' ><br>
+            <input name="bolsa" type="checkbox">Bolsa?<br>
+            <label>Professor:</label> 
+            <select name="professor">
+                {% for prof in professores %}
+                <option value="{{prof.id_professor}}">{{prof.nome}}</option>
+            {% endfor %}
+            </select><br>
+            <input name="aprovado" type="checkbox">Aprovado?<br>
+            <label>Vagas pedidas: </label>
+                 <input type='text' name='vagasPedidas' placeholder="vagas solicitadas"
+                  value='{{vagasPedidas}}' >
+            <label>Vagas aprovadas: </label>
+                 <input type='text' name='vagasAprovadas' placeholder="vagas aprovadas"
+                  value='{{vagasAprovadas}}' >
+            <label>Carga horaria total: </label>
+                 <input type='text' name='chTotal' placeholder="carga horaria total" value='{{chTotal}}' >
+            <label>Carga horaria semanal: </label>
+                 <input type='text' name='chSemanal' placeholder="carga horaria semanal"
+                  value='{{chSemanal}}' >
+            <label>Periodo de inscricao inicio: </label>
+                 <input type='text' name='periodoInscricaoInicio' placeholder="Periodo Inscricao Inicio"
+                  value='{{periodoInscricaoInicio}}' >
+            <label>Periodo de inscricao final: </label>
+                 <input type='text' name='periodoInscricaoFinal' placeholder="Periodo Inscricao Final"
+                  value='{{periodoInscricaoFinal}}' >
+            <label>Periodo selecao: </label>
+                 <input type='text' name='periodoSelecao' placeholder="Periodo Selecao"
+                  value='{{periodoSelecao}}' >
+           
+            <p><input type='submit' class="btn" value="Register" name="enviar">
                  <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
                  <input type="button" class="btn" value="Return" onClick="document.location='../View/index.php'"> </p>
        </fieldset>
