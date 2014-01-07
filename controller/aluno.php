@@ -37,9 +37,11 @@ if ($acao == 'new') {
 
 }else if ($acao == 'edit') {
 
-$id=$_GET['idAluno'];
+$id = $_GET["idAluno"];
 	
 $sql = selecaoByID('Aluno',$id);	
+
+//echo $sql;
 
 $result = mysql_query($sql, $conecta); 
  
@@ -219,7 +221,7 @@ $quer = mysql_query("INSERT INTO aluno VALUES(null,'".
 	$cc."','".
 	$historico."')");
 
-
+echo $cpf;
 if(!mysql_error())
 {					
 	echo "<script>alert(\"Inserido! $mensagem\");</script>";       
@@ -230,6 +232,12 @@ else
 	
 } else if ($acao == 'update') {		
 		//$senha2=$_POST['senha2'];
+
+	if ($_POST) {
+	  foreach ($_POST as $key => $value) {
+	    echo $key . ' = ' . $value . '<br />';
+	  }
+	}
 		$alunoalt = new Aluno($_POST);   	
 		
 	//	$id = $alunoalt->getId();   
@@ -300,7 +308,11 @@ if($alunoalt->getCc())
 if($alunoalt->getHistorico())
 	$sqlUpdate .= "historico ='".$alunoalt->getHistorico()."' " ;
 
-echo $sqlUpdate .= "where id_aluno='".$id."')";
+$id = $_POST['id'];
+
+
+
+echo $sqlUpdate .= "where id_aluno='".$id."'";
 $quer = mysql_query($sqlUpdate);
 
 if(!mysql_error())
