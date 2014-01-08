@@ -5,7 +5,7 @@
  */
 class Monitoria
 {
-	/**
+    /**
    * Propriedades
    *
    */
@@ -26,7 +26,7 @@ class Monitoria
     $idCertificado='',
     $idProfessor='';
 
-	public function __call ($metodo, $parametros) {
+    public function __call ($metodo, $parametros) {
     // se for set*, "seta" um valor para a propriedade
     if (substr($metodo, 0, 3) == 'set') {
       $var = substr(strtolower(preg_replace('/([a-z])([A-Z])/', "$1_$2", $metodo)), 4);
