@@ -43,8 +43,8 @@
     <td>&nbsp;{{entity.periodo_inscricao_inicio}}</td>
     <td>&nbsp;{{entity.periodo_inscricao_final}}</td>
     <td>&nbsp;{{entity.periodo_selecao}}</td>
-  <td><a href = ?acao=edit&idAluno={{entity.id_projeto}}>Alterar</a></td>
-	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idAluno={{entity.id_projeto}}>Excluir</a></td>	
+  <td><a href = ?acao=edit&idProjeto={{entity.id_projeto}}>Atualizar Projeto</a></td>
+	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idProjeto={{entity.id_projeto}}>Excluir</a></td>	
     </tr>
   {% endfor %}
 

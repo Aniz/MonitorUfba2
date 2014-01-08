@@ -19,42 +19,53 @@
             <font color = 'white'> Sign up</font>
             <label>Resumo:</label> 
                 <input type='text' name='resumo' placeholder="resumo"
-                value='{{resumo}}' >
+                value='{{entity.resumo}}' >
             <label>Atividades:</label>
                 <input id="atividades" type='text' name='atividades' placeholder="a serem desenvolvidas"
-                value='' ><br>
+                value='{{entity.atividades}}' ><br>
+            {% if entity.bolsa %}
+            <input name="bolsa" type="checkbox" checked>Bolsa?<br>
+            {% else %}
             <input name="bolsa" type="checkbox">Bolsa?<br>
+            {% endif %}
             <label>Professor:</label> 
             <select name="professor">
                 {% for prof in professores %}
+                {% if prof.id_professor == entity.id_professor %}
+                <option value="{{prof.id_professor}}" selected>{{prof.nome}}</option>
+                {% else %}
                 <option value="{{prof.id_professor}}">{{prof.nome}}</option>
+                {% endif %}
             {% endfor %}
             </select><br>
+            {% if entity.aprovado %}
+            <input name="aprovado" type="checkbox" checked>Aprovado?<br>
+            {% else %}
             <input name="aprovado" type="checkbox">Aprovado?<br>
+            {% endif %}
             <label>Vagas pedidas: </label>
                  <input type='text' name='vagasPedidas' placeholder="vagas solicitadas"
-                  value='{{vagasPedidas}}' >
+                  value='{{entity.vagas_pedidas}}' >
             <label>Vagas aprovadas: </label>
                  <input type='text' name='vagasAprovadas' placeholder="vagas aprovadas"
-                  value='{{vagasAprovadas}}' >
+                  value='{{entity.vagas_aprovadas}}' >
             <label>Carga horaria total: </label>
-                 <input type='text' name='chTotal' placeholder="carga horaria total" value='{{chTotal}}' >
+                 <input type='text' name='chTotal' placeholder="carga horaria total" value='{{entity.ch_total}}' >
             <label>Carga horaria semanal: </label>
-                 <input type='text' name='chSemanal' placeholder="carga horaria semanal"
-                  value='{{chSemanal}}' >
+                 <input type='text' name='ch_semanal' placeholder="carga horaria semanal"
+                  value='{{entity.ch_semanal}}' >
             <label>Periodo de inscricao inicio: </label>
                  <input type='text' name='periodoInscricaoInicio' placeholder="Periodo Inscricao Inicio"
-                  value='{{periodoInscricaoInicio}}' >
+                  value='{{entity.periodo_inscricao_inicio}}' >
             <label>Periodo de inscricao final: </label>
                  <input type='text' name='periodoInscricaoFinal' placeholder="Periodo Inscricao Final"
-                  value='{{periodoInscricaoFinal}}' >
+                  value='{{entity.periodo_inscricao_final}}' >
             <label>Periodo selecao: </label>
                  <input type='text' name='periodoSelecao' placeholder="Periodo Selecao"
-                  value='{{periodoSelecao}}' >
+                  value='{{entity.periodo_selecao}}' >
            
-            <p><input type='submit' class="btn" value="Register" name="enviar">
-                 <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
-                 <input type="button" class="btn" value="Return" onClick="document.location='../View/index.php'"> </p>
+            <p><input type='submit' class="btn" value="Atualizar" name="enviar">
+              <input type="button" class="btn" value="Cancelar" onClick="document.location='../View/index.php'"> </p>
        </fieldset>
        </form>
        </div>    

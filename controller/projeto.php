@@ -194,7 +194,6 @@ else
 $id=$_GET['idProjeto'];
 	
 $sql = selecaoByID('projetoDeMonitoria','id_projeto',$id);	
-var_dump($sql);
 $result = mysql_query($sql, $conecta); 
  
 if(!$result)
@@ -204,13 +203,23 @@ else{
 	while($consulta = mysql_fetch_array($result)) { 
 	$projetos[] = $consulta;
 }
+//////edita professor
+	$sql = selecao('Professor');	
+	$result = mysql_query($sql, $conecta); 
 
-//	var_dump($alunos);
+	if(!$result)
+	    echo "<script>alert(\"Não existem professores cadastrados. Para criar um novo selecione Professor->Novo\");</script>";       
+	else{
+		while($consulta = mysql_fetch_array($result)) { 
+			$professores[] = $consulta;
+		}
+
 echo $twig->render($baseTemplate.'edit.twig',
 	array(
             'entities' => $projetos,
+            'professores' => $professores,
         ));
-}
+}}
  
 } else if ($acao == 'delete') {
 		$idx=$_GET['idProjeto'];
@@ -238,8 +247,8 @@ $result = mysql_query($sqlDeletar, $conecta);
 	//	
 } else if ($acao == 'update') {		
 		//$senha2=$_POST['senha2'];
-		$alunoalt = new Aluno($_POST);   	
-		
+		$projetoalt = new Projetodemonitoria($_POST);   	
+		var_dump($projetoalt);
 	//	$id = $alunoalt->getId();   
 	 //  	var_dump($id);
 	   	
@@ -252,61 +261,19 @@ $result = mysql_query($sqlDeletar, $conecta);
     	//}
 		//else 
 		//		{				
-		$sqlUpdate = "UPDATE ALUNO SET ";
+		$sqlUpdate = "UPDATE Projetodemonitoria SET ";
 
-if($alunoalt->getNome())
-	$sqlUpdate .= "nome ='".$alunoalt->getNome()."', " ;
+if($projetoalt->getResumo())
+	$sqlUpdate .= "resumo ='".$projetoalt->getResumo()."', " ;
 
-if($alunoalt->getCpf())
-	$sqlUpdate .= "cpf ='".$alunoalt->getCpf()."', " ;
+if($projetoalt->getAtividades())
+	$sqlUpdate .= "atividades ='".$projetoalt->getAtividades()."', " ;
 
-if($alunoalt->getEmail())
-	$sqlUpdate .= "email ='".$alunoalt->getEmail()."', " ;
+if($projetoalt->getBolsa())
+	$sqlUpdate .= "bolsa ='".$projetoalt->getBolsa()."', " ;
 
-if($alunoalt->getRg())
-	$sqlUpdate .= "rg ='".$alunoalt->getRg()."', " ;
-
-
-if($alunoalt->getOrgaoEmissor())
-	$sqlUpdate .= "orgaoEmissor ='".$alunoalt->getOrgaoEmissor()."', " ;
-
-
-if($alunoalt->getSenha())
-	$sqlUpdate .= "senha ='".$alunoalt->getSenha()."', " ;
-
-
-if($alunoalt->getEndereco())
-	$sqlUpdate .= "endereco ='".$alunoalt->getEndereco()."', " ;
-
-
-if($alunoalt->getTelefone())
-	$sqlUpdate .= "telefone ='".$alunoalt->getTelefone()."', " ;
-
-
-if($alunoalt->getTipo())
-	$sqlUpdate .= "tipo ='".$alunoalt->getTipo()."', " ;
-
-
-if($alunoalt->getMatricula())
-	$sqlUpdate .= "matricula ='".$alunoalt->getMatricula()."', " ;
-
-if($alunoalt->getCurso())
-	$sqlUpdate .= "curso ='".$alunoalt->getCurso()."', " ;
-
-if($alunoalt->getAnoIngresso())
-	$sqlUpdate .= "anoIngresso ='".$alunoalt->getAnoIngresso()."', " ;
-
-if($alunoalt->getBanco())
-	$sqlUpdate .= "banco ='".$alunoalt->getBanco()."', " ;
-
-if($alunoalt->getAgencia())
-	$sqlUpdate .= "agencia ='".$alunoalt->getAgencia()."', " ;
-
-if($alunoalt->getCc())
-	$sqlUpdate .= "cc ='".$alunoalt->getCc()."', " ;
-
-if($alunoalt->getHistorico())
-	$sqlUpdate .= "historico ='".$alunoalt->getHistorico()."' " ;
+if($projetoalt->getAprovado())
+	$sqlUpdate .= "aprovado ='".$projetoalt->getAprovado()."', " ;
 
 //echo $sqlUpdate .= "where id_aluno='".$id."')";
 //echo $sqlUpdateee .= "where id_aluno='".$id."')";
