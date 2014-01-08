@@ -89,11 +89,11 @@ echo $twig->render($baseTemplate.'edit.twig',
 }
  
 } else if ($acao == 'delete') {
-		$idx=$_GET['idAluno'];
+		$idx=$_GET['idProfessor'];
 		
-		$idS = "id_aluno =".$idx;	
+		$idS = "id_professor =".$idx;	
 		
-$sqlDeletar = deletar('aluno',$idS);
+$sqlDeletar = deletar('professor',$idS);
 
 echo $sqlDeletar;
 
@@ -104,13 +104,13 @@ $result = mysql_query($sqlDeletar, $conecta);
 			echo "<script>alert(\"Removido!\");</script>";    
 
 			unset($_GET['acao']);
-			unset($_GET['idAluno']);
+			unset($_GET['idProfessor']);
 		}	
 		else   	
 			echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
 		
 		//echo $twig->render('index.php');
-		echo ("<script>window.location.href = \"../controller/aluno.php?acao=consult\";</script>");	
+		echo ("<script>window.location.href = \"../controller/professor.php?acao=consult\";</script>");	
 		
 	//	}
 	//	else
