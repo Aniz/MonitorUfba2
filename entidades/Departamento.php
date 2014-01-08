@@ -1,65 +1,33 @@
 <?php
-
-namespace Bd\MonitorUfbaBundle\Entity;
-
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Departamento
+ * Classe Departamento
  *
- * @ORM\Table(name="departamento")
- * @ORM\Entity
  */
 class Departamento
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="chefe", type="integer", nullable=true)
-     */
-    private $chefe;
-
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set chefe
-     *
-     * @param integer $chefe
-     * @return Departamento
-     */
-    public function setChefe($chefe)
-    {
-        $this->chefe = $chefe;
+  /**
+   * Propriedades
+   *
+   */  
+    protected 
+    $id='',
+    $chefe='',
+    $nome='';
     
-        return $this;
+    public function __call ($metodo, $parametros) {
+		
+    if (substr($metodo, 0, 3) == 'set') {
+      $var = substr(strtolower(preg_replace('/([a-z])([A-Z])/', "$1_$2", $metodo)), 4);
+      $this->$var = $parametros[0];
     }
 
-    /**
-     * Get chefe
-     *
-     * @return integer 
-     */
-    public function getChefe()
-    {
-        return $this->chefe;
+    elseif (substr($metodo, 0, 3) == 'get') {
+      
+
+      $var = substr(strtolower(preg_replace('/([a-z])([A-Z])/', "$1_$2", $metodo)), 4);
+      return $this->$var;
+
     }
-}
+  }
+
+
