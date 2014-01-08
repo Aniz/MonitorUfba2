@@ -23,16 +23,10 @@
         return $seleciona;
     }
 
-    function selecaoById($tabela,$id)
+    function selecaoById($tabela,$name,$id)
     {
 
-        switch($tabela)
-        {   
-            case 'Aluno':
-                $seleciona = "SELECT * FROM $tabela WHERE id_aluno=$id";
-            break;
-        }
-
+        $seleciona = "SELECT * FROM $tabela WHERE $name=$id";
         return $seleciona;
     }
 

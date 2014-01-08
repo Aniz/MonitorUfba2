@@ -39,9 +39,9 @@ if ($acao == 'new') {
 
 $id = $_GET["idAluno"];
 	
-$sql = selecaoByID('Aluno',$id);	
+$sql = selecaoByID('Aluno','id_aluno',$id);	
 
-//echo $sql;
+echo $sql;
 
 $result = mysql_query($sql, $conecta); 
  

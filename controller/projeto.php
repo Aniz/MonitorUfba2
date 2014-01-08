@@ -193,8 +193,8 @@ else
 
 $id=$_GET['idProjeto'];
 	
-$sql = selecaoByID('projetoDeMonitoria',$id);	
-
+$sql = selecaoByID('projetoDeMonitoria','id_projeto',$id);	
+var_dump($sql);
 $result = mysql_query($sql, $conecta); 
  
 if(!$result)
