@@ -51,6 +51,6 @@ class Professor {
       $var = substr(strtolower(preg_replace('/([a-z])([A-Z])/', "$1_$2", $metodo)), 4);
       return $this->$var;
 
-    }
+    } 
   }  
 }

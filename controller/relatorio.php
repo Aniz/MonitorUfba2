@@ -31,7 +31,7 @@ $twig = twig('../view/');
 
 $baseTemplate="relatorio/";
 
-if ($acao == 'new') {
+if ($acao == 'new') {  
 
 	echo $twig->render($baseTemplate.'new.twig');
 
