@@ -29,26 +29,12 @@ $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
 $twig = twig('../view/');
 
-$baseTemplate="professor/";
+$baseTemplate="relatorio/";
 
 if ($acao == 'new') {
 
-	$departamentos = array();
+	echo $twig->render($baseTemplate.'new.twig');
 
-	$sql = selecao("departamento"); 
-	$result = mysql_query($sql, $conecta); 
- 
-if(!$result)
-	    echo "<script>alert(\"Não existem departamentos cadastrados. Para criar um novo selecione departamento->Novo\");</script>";       
-else{
-	while($consulta = mysql_fetch_array($result)) { 
-		$departamentos[] = $consulta;
-	}
-	echo $twig->render($baseTemplate.'new.twig',
-	array(
-            'departamentos' => $departamentos,
-        ));
-}
 	//echo $twig->render($baseTemplate. 'new.twig', array('name' => 'Professor'));
 
 
