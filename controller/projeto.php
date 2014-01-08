@@ -247,8 +247,10 @@ $result = mysql_query($sqlDeletar, $conecta);
 	//	
 } else if ($acao == 'update') {		
 		//$senha2=$_POST['senha2'];
-		$projetoalt = new Projetodemonitoria($_POST);   	
-		var_dump($projetoalt);
+		$id = $_POST['id'];
+		echo $id;
+		$projetoalt = new Projetodemonitoria($_POST);  
+
 	//	$id = $alunoalt->getId();   
 	 //  	var_dump($id);
 	   	
@@ -263,20 +265,55 @@ $result = mysql_query($sqlDeletar, $conecta);
 		//		{				
 		$sqlUpdate = "UPDATE Projetodemonitoria SET ";
 
-if($projetoalt->getResumo())
-	$sqlUpdate .= "resumo ='".$projetoalt->getResumo()."', " ;
+$sqlUpdate .= "vagas_pedidas ='".$projetoalt->getVagasPedidas()."'";
+
 
 if($projetoalt->getAtividades())
-	$sqlUpdate .= "atividades ='".$projetoalt->getAtividades()."', " ;
+	$sqlUpdate .= ", atividades ='".$projetoalt->getAtividades()."'";
+
+if($projetoalt->getResumo())
+	$sqlUpdate .= ", resumo ='".$projetoalt->getResumo()."'";
 
 if($projetoalt->getBolsa())
-	$sqlUpdate .= "bolsa ='".$projetoalt->getBolsa()."', " ;
+	$sqlUpdate .= ", bolsa ='".$projetoalt->getBolsa()."'";
 
 if($projetoalt->getAprovado())
-	$sqlUpdate .= "aprovado ='".$projetoalt->getAprovado()."', " ;
+	if($projetoalt->getAprovado()=='on')
+		$sqlUpdate .= ", aprovado = 1";
+	else
+		$sqlUpdate .= ", aprovado = 0";
 
-//echo $sqlUpdate .= "where id_aluno='".$id."')";
-//echo $sqlUpdateee .= "where id_aluno='".$id."')";
+if($projetoalt->getVagasAprovadas())
+	$sqlUpdate .= ", vagas_aprovadas ='".$projetoalt->getVagasAprovadas()."'";
+
+if($projetoalt->getChTotal())
+	$sqlUpdate .= ", ch_total ='".$projetoalt->getChTotal()."'";
+
+if($projetoalt->getChSemanal())
+	$sqlUpdate .= ", ch_semanal ='".$projetoalt->getChSemanal()."'";
+
+if($projetoalt->getPeriodoInscricaoInicio())
+	$sqlUpdate .= ", periodo_inscricao_inicio ='".$projetoalt->getPeriodoInscricaoInicio()."'";
+
+if($projetoalt->getPeriodoInscricaoFinal())
+	$sqlUpdate .= ", periodo_inscricao_final ='".$projetoalt->getPeriodoInscricaoFinal()."'";
+
+if($projetoalt->getPeriodoSelecao())
+	$sqlUpdate .= ", periodo_selecao ='".$projetoalt->getPeriodoSelecao()."'";
+
+if($projetoalt->getIdProfessor())
+	$sqlUpdate .= ", id_professor ='".$projetoalt->getIdProfessor()."'";
+
+if($projetoalt->getIdSelecao())
+	$sqlUpdate .= ", id_selecao ='".$projetoalt->getIdSelecao()."'";
+
+if($projetoalt->getIdEdital())
+	$sqlUpdate .= ", id_edital ='".$projetoalt->getIdEdital()."'";
+
+if($projetoalt->getIdRelatorio())
+	$sqlUpdate .= ", id_relatorio ='".$projetoalt->getIdRelatorio()."'";
+
+echo $sqlUpdate .= " where id_projeto='".$id."'";
 $quer = mysql_query($sqlUpdate);
 
 if(!mysql_error())

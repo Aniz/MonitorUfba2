@@ -35,6 +35,7 @@ class Projetodemonitoria {
   public function __construct ($dados){
     //filter_var($dados, FILTER_SANITIZE_STRING);//filtrar
     $this->setResumo($dados['resumo']);
+    $this->setAtividades($dados['atividades']);
     $this->setBolsa($dados['bolsa']);    
     $this->setAprovado($dados['aprovado']);    
     $this->setVagasPedidas($dados['vagasPedidas']);    

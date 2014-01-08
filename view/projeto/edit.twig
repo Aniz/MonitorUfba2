@@ -43,9 +43,6 @@
             {% else %}
             <input name="aprovado" type="checkbox">Aprovado?<br>
             {% endif %}
-            <label>Vagas pedidas: </label>
-                 <input type='text' name='vagasPedidas' placeholder="vagas solicitadas"
-                  value='{{entity.vagas_pedidas}}' >
             <label>Vagas aprovadas: </label>
                  <input type='text' name='vagasAprovadas' placeholder="vagas aprovadas"
                   value='{{entity.vagas_aprovadas}}' >
@@ -63,7 +60,8 @@
             <label>Periodo selecao: </label>
                  <input type='text' name='periodoSelecao' placeholder="Periodo Selecao"
                   value='{{entity.periodo_selecao}}' >
-           
+           <input type='hidden' name='id' value='{{entity.id_projeto}}'>
+           <input type='hidden' name='vagasPedidas' value='{{entity.vagas_pedidas}}'>
             <p><input type='submit' class="btn" value="Atualizar" name="enviar">
               <input type="button" class="btn" value="Cancelar" onClick="document.location='../View/index.php'"> </p>
        </fieldset>
