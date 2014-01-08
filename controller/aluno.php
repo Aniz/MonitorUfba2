@@ -41,7 +41,7 @@ $id = $_GET["idAluno"];
 	
 $sql = selecaoByID('Aluno','id_aluno',$id);	
 
-echo $sql;
+//echo $sql;
 
 $result = mysql_query($sql, $conecta); 
  
@@ -335,8 +335,9 @@ if(!$result)
 else{
 
 	while($consulta = mysql_fetch_array($result)) { 
-	$alunos[] = $consulta;
-}
+		$alunos[] = $consulta;
+	}
+
 echo $twig->render($baseTemplate.'consult.twig',
 	array(
             'entities' => $alunos,
