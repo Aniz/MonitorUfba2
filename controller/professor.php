@@ -56,9 +56,11 @@ else{
 
 $id = $_GET["idProfessor"];
 	
-$sql = selecaoByID('Professor',$id);	
+$sql = selecaoByID('professor','id_professor',$id);	
 
-//echo $sql;
+$departamentos = array();
+
+echo $sql;
 
 $result = mysql_query($sql, $conecta); 
  
@@ -67,13 +69,22 @@ if(!$result)
 else{
 
 	while($consulta = mysql_fetch_array($result)) { 
-	$professores[] = $consulta;
+		$professores[] = $consulta;
+	}
+
+$sql = selecao("departamento"); 
+
+$result = mysql_query($sql, $conecta); 
+
+while($consulta = mysql_fetch_array($result)) { 
+		$departamentos[] = $consulta;
 }
 
 //	var_dump($alunos);
 echo $twig->render($baseTemplate.'edit.twig',
 	array(
             'entities' => $professores,
+            'departamentos' => $departamentos,
         ));
 }
  
@@ -226,7 +237,7 @@ else
 	    echo $key . ' = ' . $value . '<br />';
 	  }
 	}
-		$alunoalt = new Aluno($_POST);   	
+		$professoralt = new Professor($_POST);   	
 		
 	//	$id = $alunoalt->getId();   
 	 //  	var_dump($id);
@@ -240,67 +251,52 @@ else
     	//}
 		//else 
 		//		{				
-		$sqlUpdate = "UPDATE ALUNO SET ";
+		$sqlUpdate = "UPDATE PROFESSOR SET ";
 
-if($alunoalt->getNome())
-	$sqlUpdate .= "nome ='".$alunoalt->getNome()."', " ;
+if($professoralt->getNome())
+	$sqlUpdate .= "nome ='".$professoralt->getNome()."', " ;
 
-if($alunoalt->getCpf())
-	$sqlUpdate .= "cpf ='".$alunoalt->getCpf()."', " ;
+if($professoralt->getCpf())
+	$sqlUpdate .= "cpf ='".$professoralt->getCpf()."', " ;
 
-if($alunoalt->getEmail())
-	$sqlUpdate .= "email ='".$alunoalt->getEmail()."', " ;
+if($professoralt->getEmail())
+	$sqlUpdate .= "email ='".$professoralt->getEmail()."', " ;
 
-if($alunoalt->getRg())
-	$sqlUpdate .= "rg ='".$alunoalt->getRg()."', " ;
-
-
-if($alunoalt->getOrgaoEmissor())
-	$sqlUpdate .= "orgaoEmissor ='".$alunoalt->getOrgaoEmissor()."', " ;
+if($professoralt->getRg())
+	$sqlUpdate .= "rg ='".$professoralt->getRg()."', " ;
 
 
-if($alunoalt->getSenha())
-	$sqlUpdate .= "senha ='".$alunoalt->getSenha()."', " ;
+if($professoralt->getOrgaoEmissor())
+	$sqlUpdate .= "orgao_emissor ='".$professoralt->getOrgaoEmissor()."', " ;
 
 
-if($alunoalt->getEndereco())
-	$sqlUpdate .= "endereco ='".$alunoalt->getEndereco()."', " ;
+if($professoralt->getSenha())
+	$sqlUpdate .= "senha ='".$professoralt->getSenha()."', " ;
 
 
-if($alunoalt->getTelefone())
-	$sqlUpdate .= "telefone ='".$alunoalt->getTelefone()."', " ;
+if($professoralt->getEndereco())
+	$sqlUpdate .= "endereco ='".$professoralt->getEndereco()."', " ;
 
 
-if($alunoalt->getTipo())
-	$sqlUpdate .= "tipo ='".$alunoalt->getTipo()."', " ;
+if($professoralt->getTelefone())
+	$sqlUpdate .= "telefone ='".$professoralt->getTelefone()."', " ;
 
 
-if($alunoalt->getMatricula())
-	$sqlUpdate .= "matricula ='".$alunoalt->getMatricula()."', " ;
+if($professoralt->getTipo())
+	$sqlUpdate .= "tipo ='".$professoralt->getTipo()."', " ;
 
-if($alunoalt->getCurso())
-	$sqlUpdate .= "curso ='".$alunoalt->getCurso()."', " ;
 
-if($alunoalt->getAnoIngresso())
-	$sqlUpdate .= "anoIngresso ='".$alunoalt->getAnoIngresso()."', " ;
+if($professoralt->getMatricula())
+	$sqlUpdate .= "matricula ='".$professoralt->getMatricula()."', " ;
 
-if($alunoalt->getBanco())
-	$sqlUpdate .= "banco ='".$alunoalt->getBanco()."', " ;
-
-if($alunoalt->getAgencia())
-	$sqlUpdate .= "agencia ='".$alunoalt->getAgencia()."', " ;
-
-if($alunoalt->getCc())
-	$sqlUpdate .= "cc ='".$alunoalt->getCc()."', " ;
-
-if($alunoalt->getHistorico())
-	$sqlUpdate .= "historico ='".$alunoalt->getHistorico()."' " ;
+if($professoralt->getDepartamento())
+	$sqlUpdate .= "id_departamento ='".$professoralt->getDepartamento()."' " ;
 
 $id = $_POST['id'];
 
 
 
-echo $sqlUpdate .= "where id_aluno='".$id."'";
+echo $sqlUpdate .= "where id_professor='".$id."'";
 $quer = mysql_query($sqlUpdate);
 
 if(!mysql_error())
@@ -318,13 +314,30 @@ else
 if(!$result)
 	    echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
 else{
+	
 
 	while($consulta = mysql_fetch_array($result)) { 
-	$professores[] = $consulta;
-}
+		$professores[] = $consulta;
+		
+	}
+
+	// Transformando id de departamento no nome do departamento
+	$i=0;
+	foreach ($professores as $key) {
+		$sql2 = selecaoByID("departamento","id_departamento",$key['id_departamento']);
+		$result2 = mysql_query($sql2, $conecta); 
+		while($consulta2 = mysql_fetch_array($result2)) { 
+			$departamentos_nomes[$i] = $consulta2;
+			$professores[$i]['id_departamento'] = $consulta2['nome'];
+			//echo $consulta2['nome'];
+		}
+		$i++;
+	}
+	
+	
 echo $twig->render($baseTemplate.'consult.twig',
 	array(
-            'entities' => $professores,
+            'entities' => $professores,            
         ));
 }
 //mysql_free_result($result); 
