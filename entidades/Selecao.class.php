@@ -16,6 +16,21 @@ class Selecao
     $aprovado='',
     $horarioAtendimento='';
 
+  /**
+   * Construtor
+   *
+   * @param string $nome Nome completo da pessoa
+   */
+  public function __construct ($dados){
+    //filter_var($dados, FILTER_SANITIZE_STRING);//filtrar
+    $this->setNota($dados['nota']);
+    $this->setIdAluno($dados['aluno']);
+    $this->setIdProjeto($dados['projeto']);
+    $this->setAprovado($dados['aprovado']);
+    $this->setHorarioAtendimento($dados['horarioAtendimento']);
+    
+  }
+
  public function __call ($metodo, $parametros) {
     // se for set*, "seta" um valor para a propriedade
     if (substr($metodo, 0, 3) == 'set') {
