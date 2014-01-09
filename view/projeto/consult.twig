@@ -25,7 +25,7 @@
     <td>periodoInscricaoInicio</td>
     <td>periodoInscricaoFinal</td>
     <td>periodoSelecao</td>
-
+    <td>Edital</td>
     <td>Editar</td>
     <td>Remover</td>
   </tr>
@@ -43,6 +43,13 @@
     <td>&nbsp;{{entity.periodo_inscricao_inicio}}</td>
     <td>&nbsp;{{entity.periodo_inscricao_final}}</td>
     <td>&nbsp;{{entity.periodo_selecao}}</td>
+  <td>
+
+{% if entity.id_edital %}
+  <a href = ?acao=download&idEdital={{entity.id_edital}}>Download</a>
+{% endif %}
+  </td>    
+  
   <td><a href = ?acao=edit&idProjeto={{entity.id_projeto}}>Atualizar Projeto</a></td>
 	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idProjeto={{entity.id_projeto}}>Excluir</a></td>  
     </tr>

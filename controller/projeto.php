@@ -306,12 +306,6 @@ if(!mysql_error())
 else
 	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
 
-
-
-
-
-
-
 } else if ($acao == 'consult') {
 	$sql = selecao("projetoDeMonitoria"); 
 	$result = mysql_query($sql, $conecta); 
@@ -330,6 +324,20 @@ echo $twig->render($baseTemplate.'consult.twig',
 }
 //mysql_free_result($result); 
 //mysql_close($conecta); 
+}else if ($acao == 'download') {
+	$id = $_GET['idEdital'];
+
+	$sql = "SELECT * FROM edital WHERE id_edital=".$id;
+	$download = mysql_query($sql,$conecta);
+	$nome = mysql_result($download, 0, "nome");
+	$tipo = mysql_result($download, 0, "tipo");
+	$conteudo = mysql_result($download, 0, "arquivo");
+	
+	header('Content-Type: text/html; charset=utf-8'); 
+	header('Content-Type: filesize($conteudo)');
+	header('Content-Type: application/pdf');
+	header("Content-Disposition: attachment; filename=$nome");
+	print($conteudo);
 }else {
 	echo $twig->render('404.twig');
 }
