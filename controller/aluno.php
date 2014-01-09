@@ -106,7 +106,8 @@ $result = mysql_query($sqlDeletar, $conecta);
     	}*/
 	//	else 
 	//			{			
-		echo $aluno->getNome();
+		echo $aluno->getOrgaoEmissor();
+		echo $aluno->getAnoIngresso();
 
 			$dados=array($aluno->getNome(),$aluno->getCpf(),$aluno->getEmail(),$aluno->getRg(),$aluno->getOrgaoEmissor(),
 				$aluno->getSenha(),$aluno->getEndereco(),$aluno->getTelefone(),$aluno->getTipo(),$aluno->getMatricula(), 
@@ -402,7 +403,7 @@ else{
 	while($consulta = mysql_fetch_array($result)) { 
 		$alunos[] = $consulta;
 	}
-
+	
 echo $twig->render($baseTemplate.'consult.twig',
 	array(
             'entities' => $alunos,
