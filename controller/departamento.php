@@ -15,6 +15,7 @@ $twig = twig('../view/');
 $baseTemplate="departamento/";
 
 if ($acao == 'new') {
+
 $professores = array();	
 $sql = selecao('Professor');
 
@@ -37,9 +38,7 @@ $id = $_GET["idDepartamento"];
 
 $sql = selecao('Professor');	
 $result = mysql_query($sql, $conecta); 
-if(!$result)
-	    echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
-else{
+if($result){
 	while($consulta = mysql_fetch_array($result)) { 
 	$professores[] = $consulta;
 }
@@ -78,15 +77,10 @@ $result = mysql_query($sqlDeletar, $conecta);
 			unset($_GET['idDepartamento']);
 		}	
 		else   	
-			echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
+			echo "<script>alert(\"Para deletar esse registro ele nao pode estar associado a nenhum professor`\");</script>";       
 		
-		//echo $twig->render('index.php');
 		echo ("<script>window.location.href = \"../controller/Departamento.php?acao=consult\";</script>");	
 		
-	//	}
-	//	else
-	//		echo "<script>alert(\"Não foi possível remover!\");</script>";       
-	//
 } else if ($acao == 'create') {
 	
 	$departamento = new Departamento($_POST);   
@@ -120,24 +114,21 @@ else
 	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
 	
 } else if ($acao == 'update') {		
-
 	/*if ($_POST) {
 	  foreach ($_POST as $key => $value) {
 	    echo $key . ' = ' . $value . '<br />';
 	  }
 	}*/
-		$departamentoalt = new Departamento($_POST);   	
-		
+		$Departamentoalt = new Departamento($_POST);   	
 		$sqlUpdate = "UPDATE Departamento SET ";
-
 
 $sqlUpdate .= "nome ='".$Departamentoalt->getNome()."'" ;
 
 $sqlUpdate .= ", chefe ='".$Departamentoalt->getChefe()."'" ;
 
 $id = $_POST['id'];
-$sqlUpdate .= "where id_departamento=".$id;
-
+echo $sqlUpdate .= "where id_departamento=".$id;
+$quer = mysql_query($sqlUpdate);
 if(!mysql_error())
 {					
 	echo "<script>alert(\"Editado! $mensagem\");</script>";       
