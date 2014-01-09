@@ -14,6 +14,18 @@ class Departamento
     $chefe='',
     $nome='';
     
+    /**
+   * Construtor
+   *
+   * @param string $nome Nome completo da pessoa
+   */
+  public function __construct ($dados){
+    //filter_var($dados, FILTER_SANITIZE_STRING);//filtrar
+    $this->setChefe($dados['chefe']);
+    $this->setNome($dados['nome']);
+
+  }
+
     public function __call ($metodo, $parametros) {
 		
     if (substr($metodo, 0, 3) == 'set') {
@@ -29,5 +41,6 @@ class Departamento
 
     }
   }
+}
 
 

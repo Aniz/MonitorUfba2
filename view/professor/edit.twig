@@ -49,7 +49,11 @@
             <label>Departamento: </label>
                <select  name="departamento">
                 {% for depart in departamentos %}
-                <option value="{{depart.id_departamento}}">{{depart.nome}}</option>
+                 {% if depart.id_departamento == entity.id_departamento %}
+                <option value="{{depart.id_departamento}}" selected>{{depart.nome}}</option>
+                {% else %}
+                 <option value="{{depart.id_departamento}}">{{depart.nome}}</option>
+                 {% endif %}
                 {% endfor %}
             </select><br>
 
