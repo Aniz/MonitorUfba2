@@ -138,6 +138,7 @@ $result = mysql_query($sqlDeletar, $conecta);
 	}
 		
 	$id = $_POST['id'];
+	$publicacao = $_POST['publicacao'];
 		
 	$sqlUpdate = "UPDATE edital SET ";
 
@@ -158,7 +159,7 @@ $result = mysql_query($sqlDeletar, $conecta);
 	$dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
 
 	$sq = "UPDATE edital SET arquivo ='".$dados."',
-	tipo ='".$tipo."',nome ='".$nome."' where id_edital='".$id."'";
+	tipo ='".$tipo."',nome ='".$nome."',publicacao ='".$publicacao."' where id_edital='".$id."'";
 	
 	echo $sq;
 	

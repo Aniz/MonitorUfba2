@@ -8,7 +8,7 @@
     </style>
 {% endblock %}
 {% block content %}
-    <h4>Editando Professor</h4>
+    <h4>Editando Edital</h4>
 
  {% for entity in entities %}
 
@@ -16,16 +16,16 @@
         <form Method ="POST" enctype="multipart/form-data" Action ="?acao=update">
          
         <fieldset> 
-            <font color = 'white'> Relatorio </font>
+            <font color = 'white'> Edital </font>
                 
                 <label>Data de publicação: </label>
-                 <input type='input' name='publicacao' placeholder="Periodo Inscricao Inicio"
+                 <input type='input' name='publicacao' placeholder="Periodo Publicação"
                   value='{{entity.publicacao}}' >
 
                 <label>Arquivo: </label>
                 <input type="file" name="arquivo" value='{{entity.arquivo}}'><br>
           
-                <input type='hidden' name='id' value='{{entity.id_relatorio}}'>
+                <input type='hidden' name='id' value='{{entity.id_edital}}'>
             <p><input type='submit' class="btn" value="Edit" name="enviar">
                  <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
                  <input type="button" class="btn" value="Return" onClick="document.location='../View/index.php'"> </p>
