@@ -28,7 +28,9 @@ class Aluno {
     $banco='',
     $agencia='',
     $cc='',
+    $genero='',
     $historico='';
+
   /**
    * Construtor
    *
@@ -51,6 +53,7 @@ class Aluno {
     $this->setBanco($dados['banco']);    
     $this->setAgencia($dados['agencia']);
     $this->setCc($dados['cc']);
+    $this->setGenero($dados['genero']);
     $this->setHistorico($dados['historico']);
   }
 

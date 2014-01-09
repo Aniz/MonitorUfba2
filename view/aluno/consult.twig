@@ -51,7 +51,7 @@
     <td>&nbsp;{{entity.banco}}</td>
     <td>&nbsp;{{entity.agencia}}</td>
     <td>&nbsp;{{entity.cc}}</td>
-    <td>&nbsp;{{entity.historico}}</td>
+    <td><a href = ?acao=download&idAluno={{entity.id_aluno}}>Download</a></td>  
   <td><a href = ?acao=edit&idAluno={{entity.id_aluno}}>Alterar</a></td>
 	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idAluno={{entity.id_aluno}}>Excluir</a></td>	
     </tr>
