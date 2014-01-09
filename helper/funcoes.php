@@ -1,6 +1,12 @@
 <?php
 //operacoes no banco	
-	function inserir($tabela,$values,$valores){
+	
+    function conectar(){
+        $conecta = mysql_connect("localhost", "root", "") or print (mysql_error()); 
+        mysql_select_db("Monitoria", $conecta) or print(mysql_error());           
+        return $conecta;
+}
+    function inserir($tabela,$values,$valores){
 		$sql_inserir = "INSERT INTO $tabela $values VALUES $valores";
 		return $sql_inserir;
 	}

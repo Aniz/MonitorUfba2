@@ -7,9 +7,7 @@ require_once('../helper/funcoes.php');
 
 
 //banco
-$conecta = mysql_connect("localhost", "root", "") or print (mysql_error()); 
-mysql_select_db("Monitoria", $conecta) or print(mysql_error()); 			
-
+$conecta = conectar();
 $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
 $twig = twig('../view/');
