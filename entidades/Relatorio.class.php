@@ -14,6 +14,7 @@ class Professor {
    */
   protected
     $id='',
+    $tipo='',
     $arquivo='';
   /**
    * Construtor
@@ -23,7 +24,7 @@ class Professor {
   public function __construct ($dados){
     //filter_var($dados, FILTER_SANITIZE_STRING);//filtrar
     $this->setNome($dados['arquivo']);
-   
+    $this->setNome($dados['tipo']);
     
   }
 

@@ -32,7 +32,7 @@ $twig = twig('../view/');
 $baseTemplate="relatorio/";
 
 if ($acao == 'new') {  
-
+	 
 	echo $twig->render($baseTemplate.'new.twig');
 
 	//echo $twig->render($baseTemplate. 'new.twig', array('name' => 'Professor'));
@@ -104,116 +104,39 @@ $result = mysql_query($sqlDeletar, $conecta);
 	//
 } else if ($acao == 'create') {
 		//$senha2=$_POST['senha2'];
-		$professor = new Professor($_POST);   	
+		$arquivo = $_FILES["arquivo"]["tmp_name"]; 
+		$tipo    = $_FILES["arquivo"]["type"];
+		$nome  = $_FILES["arquivo"]["name"];
 
-	  	/*$val = $aluno->ValidaUsuario($senha2);//valida
-		
-		if(!empty($val))
-		{
-			foreach ($val as $erro) 
-				echo $twig->render($baseTemplate.'erro.twig', array('Erros' => $erro));
-    	}*/
-	//	else 
-	//			{			
-		echo $professor->getNome();
+		chdir('temp');
 
-			$dados=array($professor->getNome(),$professor->getCpf(),$professor->getEmail(),$professor->getRg(),$professor->getOrgaoEmissor(),
-				$professor->getSenha(),$professor->getEndereco(),$professor->getTelefone(),$professor->getTipo(),$professor->getMatricula(), 
-				$professor->getDepartamento());
+		echo $tipo;
+		echo $nome;
+		echo getcwd()."\\ultimo.pdf";
 
-if(!$professor->getNome())
-	$nome = "";
-else
-	$nome = $professor->getNome();
+		move_uploaded_file($arquivo, getcwd()."\\ultimo.pdf");
 
-if(!$professor->getCpf())
-	$cpf = "";
-else
-	$cpf = $professor->getCpf();
+		$pont = fopen(getcwd()."\\ultimo.pdf", "rb");
 
-if(!$professor->getEmail())
-	$email = "";
-else
-	$email = $professor->getEmail();
+		$dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
 
-if(!$professor->getRg())
-	$rg = "";
-else
-	$rg = $professor->getRg();
+		$sq = "INSERT INTO relatorio (arquivo,
+		tipo) VALUES('".$dados."', '".$tipo."')";
 
-if(!$professor->getOrgaoEmissor())
-	$oe = "";
-else
-	$oe = $professor->getOrgaoEmissor();
+		$sql = mysql_query($sq,$conecta);
 
-if(!$professor->getSenha())
-	$senha = "";
-else
-	$senha = $professor->getSenha();
+		echo $sql;
 
-if(!$professor->getEndereco())
-	$endereco = "";
-else
-	$endereco = $professor->getEndereco();
-
-if(!$professor->getTelefone())
-	$telefone = "";
-else
-	$telefone = $professor->getTelefone();
-
-if(!$professor->getTipo())
-	$tipo = "";
-else
-	$tipo = $professor->getTipo();
-
-if(!$professor->getMatricula())
-	$matricula = "";
-else
-	$matricula = $professor->getMatricula();
-
-if(!$professor->getDepartamento())
-	$departamento = "";
-else
-	$departamento = $professor->getDepartamento();
+		//$relatorio = new relatorio($_FILES);  
 
 
-
-/*echo "INSERT INTO 
-professor VALUES('".
-	$professor->getCpf()."','".
-	$nome."','".
-	$professor->getEmail()."','".
-	$professor->getSenha()."','".
-	$professor->getRg()."','".
-	$professor->getOrgaoEmissor()."','".
-	$professor->getEndereco()."','".
-	$professor->getTelefone()."','".
-	$professor->getTipo()."','".
-	$professor->getMatricula()."','".
-	$professor->getDepartamento().
-")";
-*/
-$quer = mysql_query("INSERT INTO professor VALUES(null,'".
-	$cpf."','".
-	$nome."','".
-	$email."','".
-	$senha."','".
-	$rg."','".
-	$oe."','".
-	$endereco."','".
-	$telefone."','".
-	$tipo."','".
-	$matricula."','". 
-	$departamento."')");
-
-//echo $cpf;
-if(!mysql_error())
-{					
-	echo "<script>alert(\"Inserido! $mensagem\");</script>";       
-	echo ("<script>window.location.href = \"../index.php\";</script>");	
-}
-else
-	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
+		if(!mysql_error())
+		{					
+			echo "<script>alert(\"Inserido! $mensagem\");</script>";       
+			echo ("<script>window.location.href = \"../index.php\";</script>");	
+		}
+		else
+			echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
 	
 } else if ($acao == 'update') {		
 		//$senha2=$_POST['senha2'];
