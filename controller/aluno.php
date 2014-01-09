@@ -3,28 +3,10 @@
 require_once '../vendor/autoload.php';
 require_once '../helper/twig.php';
 require_once '../entidades/Aluno.class.php';
-//r//equire_once('../model/query.php');
 require_once('../helper/funcoes.php');
-/*
-require_once '../config/config.php';
-require_once '../helper/database.php';
-require_once '../model/pessoa.php';
-require_once '../helper/Pessoa.class.php';*/
-//require_once('../model/BD.class.php');
-//require('../model/Query.php');	
-//require('../model/conexao.php');	
-//require('../model/execute.php');	
-//	BD::conn();
-//	$usuario = new Query();
-//require_once '../helper/Validacao.class.php';
-// incluir twig
-// incluir model pessoa
-// incluir classe de validacao
 
 //banco
-$conecta = mysql_connect("localhost", "root", "") or print (mysql_error()); 
-mysql_select_db("Monitoria", $conecta) or print(mysql_error()); 			
-
+$conecta = conectar();
 $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
 $twig = twig('../view/');
