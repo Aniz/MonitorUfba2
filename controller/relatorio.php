@@ -121,13 +121,15 @@ $result = mysql_query($sqlDeletar, $conecta);
 		$dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
 
 		$sq = "INSERT INTO relatorio (arquivo,
-		tipo) VALUES('".$dados."', '".$tipo."')";
-
+		tipo,nome) VALUES('".$dados."', '".$tipo."','".$nome."')";
+		
+		echo $sq;
+		
 		$sql = mysql_query($sq,$conecta);
 
-		echo $sql;
+		
 
-		//$relatorio = new relatorio($_FILES);  
+		//$relatorio = new relatorio($_POST);  
 
 
 		if(!mysql_error())
@@ -217,7 +219,7 @@ else
 	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
 
 } else if ($acao == 'consult') {
-	$sql = selecao("Professor"); 
+	$sql = selecao("relatorio"); 
 	$result = mysql_query($sql, $conecta); 
  
 if(!$result)
@@ -226,27 +228,13 @@ else{
 	
 
 	while($consulta = mysql_fetch_array($result)) { 
-		$professores[] = $consulta;
+		$relatorios[] = $consulta;
 		
 	}
 
-	// Transformando id de departamento no nome do departamento
-	$i=0;
-	foreach ($professores as $key) {
-		$sql2 = selecaoByID("departamento","id_departamento",$key['id_departamento']);
-		$result2 = mysql_query($sql2, $conecta); 
-		while($consulta2 = mysql_fetch_array($result2)) { 
-			$departamentos_nomes[$i] = $consulta2;
-			$professores[$i]['id_departamento'] = $consulta2['nome'];
-			//echo $consulta2['nome'];
-		}
-		$i++;
-	}
-	
-	
-echo $twig->render($baseTemplate.'consult.twig',
+	echo $twig->render($baseTemplate.'consult.twig',
 	array(
-            'entities' => $professores,            
+            'entities' => $relatorios,            
         ));
 }
 //mysql_free_result($result); 

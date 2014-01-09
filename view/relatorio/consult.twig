@@ -8,40 +8,22 @@
       <script src="../helper/Mascaras.js" type="text/javascript"></script>
 {% endblock %}
 {% block content %}
-    <h4>Exibindo Professor</h4>
+    <h4>Exibindo Relatorios</h4>
      <ul><div>
       <fieldset>
            
 <table border=2 align="center">
   <tr> 
     <td>Nome</td> 
-    <td>CPF</td>
-    <td>Email</td>
-    <td>RG</td>
-    <td>Orgao Emissor</td>
-    <td>Senha</td>
-    <td>endereco</td>
-    <td>telefone</td>
-    <td>tipo</td>
-    <td>matricula</td>
-    <td>departamento</td>    
+    <td>tipo</td>     
   </tr>
 
  {% for entity in entities %}
   <tr> 
     <td>&nbsp;{{entity.nome}}</td>
-    <td>&nbsp;{{entity.cpf}}</td>
-    <td>&nbsp;{{entity.email}}</td>
-    <td>&nbsp;{{entity.rg}}</td>
-    <td>&nbsp;{{entity.orgao_emissor}}</td>
-    <td>&nbsp;{{entity.senha}}</td>
-    <td>&nbsp;{{entity.endereco}}</td>
-    <td>&nbsp;{{entity.telefone}}</td>
-    <td>&nbsp;{{entity.tipo}}</td>
-    <td>&nbsp;{{entity.matricula}}</td>
-    <td>&nbsp;{{entity.id_departamento}}</td>   
-  <td><a href = ?acao=edit&idProfessor={{entity.id_professor}}>Alterar</a></td>
-	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idProfessor={{entity.id_professor}}>Excluir</a></td>	
+    <td>&nbsp;{{entity.tipo}}</td>    
+  <td><a href = ?acao=edit&idRelatorio={{entity.id_relatorio}}>Alterar</a></td>
+	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idRelatorio={{entity.id_relatorio}}>Excluir</a></td>	
     </tr>
   {% endfor %}
 
