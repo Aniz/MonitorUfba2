@@ -63,6 +63,7 @@
            <input type='hidden' name='id' value='{{entity.id_projeto}}'>
            <input type='hidden' name='vagasPedidas' value='{{entity.vagas_pedidas}}'>
             <p><input type='submit' class="btn" value="Atualizar" name="enviar">
+              <input type="button" class="btn" value="Adicionar Edital" onClick="document.location='../controller/edital.php?acao=newProjeto&idProjeto={{entity.id_projeto}}'">
               <input type="button" class="btn" value="Cancelar" onClick="document.location='../View/index.php'"> </p>
        </fieldset>
        </form>
