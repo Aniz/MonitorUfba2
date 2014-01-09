@@ -40,18 +40,18 @@
     <td>&nbsp;{{entity.cpf}}</td>
     <td>&nbsp;{{entity.email}}</td>
     <td>&nbsp;{{entity.rg}}</td>
-    <td>&nbsp;{{entity.orgaoEmissor}}</td>
+    <td>&nbsp;{{entity.orgao_emissor}}</td>
     <td>&nbsp;{{entity.senha}}</td>
     <td>&nbsp;{{entity.endereco}}</td>
     <td>&nbsp;{{entity.telefone}}</td>
     <td>&nbsp;{{entity.tipo}}</td>
     <td>&nbsp;{{entity.matricula}}</td>
     <td>&nbsp;{{entity.curso}}</td>
-    <td>&nbsp;{{entity.anoIngresso}}</td>
+    <td>&nbsp;{{entity.ano_ingresso}}</td>
     <td>&nbsp;{{entity.banco}}</td>
     <td>&nbsp;{{entity.agencia}}</td>
     <td>&nbsp;{{entity.cc}}</td>
-    <td>&nbsp;{{entity.historico}}</td>
+    <td><a href = ?acao=download&idAluno={{entity.id_aluno}}>Download</a></td>  
   <td><a href = ?acao=edit&idAluno={{entity.id_aluno}}>Alterar</a></td>
 	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idAluno={{entity.id_aluno}}>Excluir</a></td>	
     </tr>

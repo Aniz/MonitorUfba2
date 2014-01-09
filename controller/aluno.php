@@ -50,6 +50,11 @@ if(!$result)
 else{
 
 	while($consulta = mysql_fetch_array($result)) { 
+	if($consulta['genero'] == 'M')
+		$consulta['genero'] = "Masculino";
+	else
+		$consulta['genero'] = "Feminino";
+	
 	$alunos[] = $consulta;
 }
 
@@ -89,7 +94,7 @@ $result = mysql_query($sqlDeletar, $conecta);
 	//		echo "<script>alert(\"Não foi possível remover!\");</script>";       
 	//
 } else if ($acao == 'create') {
-		$senha2=$_POST['senha2'];
+		//$senha2=$_POST['senha2'];
 		$aluno = new Aluno($_POST);   	
 
 	  	/*$val = $aluno->ValidaUsuario($senha2);//valida
@@ -101,11 +106,12 @@ $result = mysql_query($sqlDeletar, $conecta);
     	}*/
 	//	else 
 	//			{			
-		echo $aluno->getNome();
+		echo $aluno->getOrgaoEmissor();
+		echo $aluno->getAnoIngresso();
 
 			$dados=array($aluno->getNome(),$aluno->getCpf(),$aluno->getEmail(),$aluno->getRg(),$aluno->getOrgaoEmissor(),
 				$aluno->getSenha(),$aluno->getEndereco(),$aluno->getTelefone(),$aluno->getTipo(),$aluno->getMatricula(), 
-				$aluno->getCurso(),$aluno->getAnoIngresso(),$aluno->getBanco(),$aluno->getAgencia(),$aluno->getCc(),$aluno->getHistorico());
+				$aluno->getCurso(),$aluno->getAnoIngresso(),$aluno->getBanco(),$aluno->getAgencia(),$aluno->getCc(),$aluno->getGenero(),$aluno->getHistorico());
 
 if(!$aluno->getNome())
 	$nome = "";
@@ -182,11 +188,37 @@ if(!$aluno->getCc())
 else
 	$cc = $aluno->getCc();
 
-if(!$aluno->getHistorico())
-	$historico = "";
+if(!$aluno->getGenero())
+	$genero= "";
 else
-	$historico = $aluno->getHistorico();
-/*
+	$genero = $aluno->getGenero();
+
+$dados;
+$tipo;
+$nome_historico;
+
+
+	
+$arquivo = $_FILES["historico"]["tmp_name"]; 
+$tipo    = $_FILES["historico"]["type"];
+$nome_historico  = $_FILES["historico"]["name"];
+
+chdir('temp');
+
+echo $tipo;
+echo $nome;
+echo getcwd()."\\ultimo.pdf";
+
+echo $nome_historico;
+
+move_uploaded_file($arquivo, getcwd()."\\ultimo.pdf");
+
+$pont = fopen(getcwd()."\\ultimo.pdf", "rb");
+
+$dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
+
+
+
 echo "INSERT INTO 
 aluno VALUES('".
 	$aluno->getCpf()."','".
@@ -204,8 +236,8 @@ aluno VALUES('".
 	$aluno->getBanco()."','".
 	$aluno->getAgencia()."','".
 	$aluno->getCc()."','".
-	$aluno->getHistorico().
-")";*/
+	$aluno->dados.
+")";
 
 $quer = mysql_query("INSERT INTO aluno VALUES(null,'".
 	$cpf."','".
@@ -223,9 +255,12 @@ $quer = mysql_query("INSERT INTO aluno VALUES(null,'".
 	$banco."','".
 	$agencia."','".
 	$cc."','".
-	$historico."')");
+	$dados."','".
+	$genero."','".
+	$tipo."','".
+	$nome_historico."')");
 
-echo $cpf;
+//echo $cpf;
 if(!mysql_error())
 {					
 	echo "<script>alert(\"Inserido! $mensagem\");</script>";       
@@ -272,7 +307,7 @@ if($alunoalt->getRg())
 
 
 if($alunoalt->getOrgaoEmissor())
-	$sqlUpdate .= ", orgaoEmissor ='".$alunoalt->getOrgaoEmissor()."'" ;
+	$sqlUpdate .= ", orgao_emissor ='".$alunoalt->getOrgaoEmissor()."'" ;
 
 
 if($alunoalt->getSenha())
@@ -298,7 +333,7 @@ if($alunoalt->getCurso())
 	$sqlUpdate .= ", curso ='".$alunoalt->getCurso()."'" ;
 
 if($alunoalt->getAnoIngresso())
-	$sqlUpdate .= ", anoIngresso ='".$alunoalt->getAnoIngresso()."'" ;
+	$sqlUpdate .= ", ano_ingresso ='".$alunoalt->getAnoIngresso()."'" ;
 
 if($alunoalt->getBanco())
 	$sqlUpdate .= ", banco ='".$alunoalt->getBanco()."'" ;
@@ -309,14 +344,45 @@ if($alunoalt->getAgencia())
 if($alunoalt->getCc())
 	$sqlUpdate .= ", cc ='".$alunoalt->getCc()."'" ;
 
-if($alunoalt->getHistorico())
-	$sqlUpdate .= ", historico ='".$alunoalt->getHistorico()."' " ;
+$gen = 'M';
+echo "teste teste ".$alunoalt->getGenero();
+if($alunoalt->getGenero() == "Feminino")
+	$gen = 'F';
+
+if($alunoalt->getGenero())
+	$sqlUpdate .= ", genero ='".$gen."'" ;
+
+$aux = $sqlUpdate;
+
+$arquivo = $_FILES["historico"]["tmp_name"]; 
+$tipo_historico    = $_FILES["historico"]["type"];
+$nome_historico  = $_FILES["historico"]["name"];
+
+chdir('temp');
+
+//echo $tipo_historico;
+//echo $nome_historico;
+//echo getcwd()."\\ultimo.pdf";
+
+move_uploaded_file($arquivo, getcwd()."\\ultimo.pdf");
+
+$pont = fopen(getcwd()."\\ultimo.pdf", "rb");
+
+$dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
+
+$sqlUpdate .= ", historico ='".$dados."',
+tipo_historico ='".$tipo_historico."',nome_historico ='".$nome_historico."' ";
+
+
+
 
 $id = $_POST['id'];
 $sqlUpdate .= "where id_aluno=".$id;
 echo $sqlUpdate;
+echo $aux.",
+tipo_historico ='".$tipo_historico."',nome_historico ='".$nome_historico." ' where id_aluno=".$id ;
 $quer = mysql_query($sqlUpdate);
-
+echo mysql_error();
 if(!mysql_error())
 {					
 	echo "<script>alert(\"Editado! $mensagem\");</script>";       
@@ -337,12 +403,28 @@ else{
 	while($consulta = mysql_fetch_array($result)) { 
 		$alunos[] = $consulta;
 	}
-
+	
 echo $twig->render($baseTemplate.'consult.twig',
 	array(
             'entities' => $alunos,
         ));
 }
+}else if ($acao == 'download') {
+	$id = $_GET['idAluno'];
+
+	$sql = "SELECT * FROM aluno WHERE id_aluno=".$id;
+	$download = mysql_query($sql,$conecta);
+	$nome_historico = mysql_result($download, 0, "nome_historico");
+	$tipo = mysql_result($download, 0, "tipo_historico");
+	$conteudo = mysql_result($download, 0, "historico");
+	
+	header('Content-Type: text/html; charset=utf-8'); 
+	header('Content-Type: filesize($conteudo)');
+	header('Content-Type: application/pdf');
+	header("Content-Disposition: attachment; filename=$nome_historico");
+	print($conteudo);
+
+
 //mysql_free_result($result); 
 //mysql_close($conecta); 
 }else {

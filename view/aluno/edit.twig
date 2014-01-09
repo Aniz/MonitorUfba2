@@ -20,6 +20,12 @@
           <label>Nome:</label> 
                 <input type='text' name='nome' placeholder="nome"
                 value='{{entity.nome}}' >
+            <label>Genero:</label> 
+            <select name="genero" >
+              <option value='{{entity.genero}}' >{{entity.genero}}</option> 
+              <option value="M" >Masculino</option>
+              <option value="F" >Feminino</option>              
+            </select>
             <label>CPF:</label>
                 <input id="CPF" type='text' name='cpf' placeholder="ex: 111.111.111-11"
                 value='{{entity.cpf}}' >
@@ -31,7 +37,7 @@
                  value='{{entity.rg}}' >
             <label>Orgão emissor: </label>
                  <input type='text' name='orgaoEmissor' placeholder="ex: SSPBA"
-                  value='{{entity.orgaoEmissor}}' >
+                  value='{{entity.orgao_emissor}}' >
             <label>Senha: </label>
                 <input type='password' name='senha' placeholder="Senha"
                 value='{{entity.senha}}' > 
@@ -51,7 +57,7 @@
                   value='{{entity.curso}}' >
             <label>Ano de Ingresso: </label>
                  <input type='text' name='anoIngresso' placeholder="ex: 2000.1"
-                  value='{{entity.anoIngresso}}' >
+                  value='{{entity.ano_ingresso}}' >
             <br>
             Dados de conta:
             <label>Banco: </label>
@@ -64,8 +70,8 @@
                  <input type='text' name='cc' placeholder="ex: 2000.1"
                   value='{{entity.cc}}' >
             <label>Historico: </label>
-                 <input type='text' name='historico' placeholder="historico"
-                  value='{{entity.historico}}' >
+                 <input type="file" name="historico" value='{{entity.historico}}'><br>
+                  
                 <input type='hidden' name='id' value='{{entity.id_aluno}}'>
             <p><input type='submit' class="btn" value="Edit" name="enviar">
                  <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
