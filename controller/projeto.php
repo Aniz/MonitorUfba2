@@ -225,8 +225,8 @@ echo $twig->render($baseTemplate.'edit.twig',
 		$idx=$_GET['idProjeto'];
 	
 		$idS = "id_projeto =".$idx;	
-		
-$sqlDeletar = deletar('Person',$idS);
+		var_dump($idS);
+echo $sqlDeletar = deletar('projetoDeMonitoria',$idS);
 
 $result = mysql_query($sqlDeletar, $conecta); 
 
