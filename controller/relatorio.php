@@ -40,13 +40,9 @@ if ($acao == 'new') {
 
 }else if ($acao == 'edit') {
 
-$id = $_GET["idProfessor"];
+$id = $_GET["idRelatorio"];
 	
-$sql = selecaoByID('professor','id_professor',$id);	
-
-$departamentos = array();
-
-echo $sql;
+$sql = selecaoByID('relatorio','id_relatorio',$id);	
 
 $result = mysql_query($sql, $conecta); 
  
@@ -55,22 +51,12 @@ if(!$result)
 else{
 
 	while($consulta = mysql_fetch_array($result)) { 
-		$professores[] = $consulta;
+		$relatorios[] = $consulta;
 	}
 
-$sql = selecao("departamento"); 
-
-$result = mysql_query($sql, $conecta); 
-
-while($consulta = mysql_fetch_array($result)) { 
-		$departamentos[] = $consulta;
-}
-
-//	var_dump($alunos);
 echo $twig->render($baseTemplate.'edit.twig',
 	array(
-            'entities' => $professores,
-            'departamentos' => $departamentos,
+            'entities' => $relatorios,            
         ));
 }
  
@@ -148,75 +134,41 @@ $result = mysql_query($sqlDeletar, $conecta);
 	    echo $key . ' = ' . $value . '<br />';
 	  }
 	}
-		$professoralt = new Professor($_POST);   	
 		
-	//	$id = $alunoalt->getId();   
-	 //  	var_dump($id);
-	   	
-	   	//$val = $alunoalt->ValidaUsuarioAlterado($senha2);//valida
+	$id = $_POST['id'];
 		
-		//if(!empty($val))
-		//{
-		//	foreach ($val as $erro) 
-		//		echo $twig->render($baseTemplate.'erro.twig', array('Erros' => $erro));
-    	//}
-		//else 
-		//		{				
-		$sqlUpdate = "UPDATE PROFESSOR SET ";
+	$sqlUpdate = "UPDATE relatorio SET ";
 
-if($professoralt->getNome())
-	$sqlUpdate .= "nome ='".$professoralt->getNome()."', " ;
+	$arquivo = $_FILES["arquivo"]["tmp_name"]; 
+	$tipo    = $_FILES["arquivo"]["type"];
+	$nome  = $_FILES["arquivo"]["name"];
 
-if($professoralt->getCpf())
-	$sqlUpdate .= "cpf ='".$professoralt->getCpf()."', " ;
+	chdir('temp');
 
-if($professoralt->getEmail())
-	$sqlUpdate .= "email ='".$professoralt->getEmail()."', " ;
+	echo $tipo;
+	echo $nome;
+	echo getcwd()."\\ultimo.pdf";
 
-if($professoralt->getRg())
-	$sqlUpdate .= "rg ='".$professoralt->getRg()."', " ;
+	move_uploaded_file($arquivo, getcwd()."\\ultimo.pdf");
 
+	$pont = fopen(getcwd()."\\ultimo.pdf", "rb");
 
-if($professoralt->getOrgaoEmissor())
-	$sqlUpdate .= "orgao_emissor ='".$professoralt->getOrgaoEmissor()."', " ;
+	$dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
 
+	$sq = "UPDATE relatorio SET arquivo ='".$dados."',
+	tipo ='".$tipo."',nome ='".$nome."' where id_relatorio='".$id."'";
+	
+	echo $sq;
+	
+	$sql = mysql_query($sq,$conecta);	
 
-if($professoralt->getSenha())
-	$sqlUpdate .= "senha ='".$professoralt->getSenha()."', " ;
-
-
-if($professoralt->getEndereco())
-	$sqlUpdate .= "endereco ='".$professoralt->getEndereco()."', " ;
-
-
-if($professoralt->getTelefone())
-	$sqlUpdate .= "telefone ='".$professoralt->getTelefone()."', " ;
-
-
-if($professoralt->getTipo())
-	$sqlUpdate .= "tipo ='".$professoralt->getTipo()."', " ;
-
-
-if($professoralt->getMatricula())
-	$sqlUpdate .= "matricula ='".$professoralt->getMatricula()."', " ;
-
-if($professoralt->getDepartamento())
-	$sqlUpdate .= "id_departamento ='".$professoralt->getDepartamento()."' " ;
-
-$id = $_POST['id'];
-
-
-
-echo $sqlUpdate .= "where id_professor='".$id."'";
-$quer = mysql_query($sqlUpdate);
-
-if(!mysql_error())
-{					
-	echo "<script>alert(\"Editado! $mensagem\");</script>";       
-	echo ("<script>window.location.href = \"../index.php\";</script>");	
-}
-else
-	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
+	if(!mysql_error())
+	{					
+		echo "<script>alert(\"Editado! $mensagem\");</script>";       
+		echo ("<script>window.location.href = \"../index.php\";</script>");	
+	}
+	else
+		echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
 
 } else if ($acao == 'consult') {
 	$sql = selecao("relatorio"); 
@@ -236,7 +188,24 @@ else{
 	array(
             'entities' => $relatorios,            
         ));
-}
+
+	}
+}else if ($acao == 'download') {
+	$id = $_GET['idRelatorio'];
+
+	$sql = "SELECT * FROM relatorio WHERE id_relatorio=".$id;
+	$download = mysql_query($sql,$conecta);
+	$nome = mysql_result($download, 0, "nome");
+	$tipo = mysql_result($download, 0, "tipo");
+	$conteudo = mysql_result($download, 0, "arquivo");
+	
+	header('Content-Type: text/html; charset=utf-8'); 
+	header('Content-Type: filesize($conteudo)');
+	header('Content-Type: application/pdf');
+	header("Content-Disposition: attachment; filename=$nome");
+	print($conteudo);
+
+
 //mysql_free_result($result); 
 //mysql_close($conecta); 
 }else {
