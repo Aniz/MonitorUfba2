@@ -77,18 +77,7 @@
 			    <li><a href="controller/monitoria.php?acao=new">Novo</a></li>			    
 			    <li><a href="controller/monitoria.php?acao=consult">Lista</a></li>
 			  </ul>
-		</div>	
-		<div class="btn-group">
-			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-			    Selecao
-			    <span class="caret"></span>
-			  </a>
-			  <ul class="dropdown-menu">
-			    <li><a href="controller/selecao.php?acao=new">Novo</a></li>			    
-			    <li><a href="controller/selecao.php?acao=consult">Lista</a></li>
-			  </ul>
 		</div>				
-
 	    </div>
 
 
