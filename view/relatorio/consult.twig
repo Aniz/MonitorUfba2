@@ -22,6 +22,7 @@
   <tr> 
     <td>&nbsp;{{entity.nome}}</td>
     <td>&nbsp;{{entity.tipo}}</td>    
+  <td><a href = ?acao=download&idRelatorio={{entity.id_relatorio}}>Download</a></td>  
   <td><a href = ?acao=edit&idRelatorio={{entity.id_relatorio}}>Alterar</a></td>
 	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idRelatorio={{entity.id_relatorio}}>Excluir</a></td>	
     </tr>
