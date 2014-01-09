@@ -3,28 +3,11 @@
 require_once '../vendor/autoload.php';
 require_once '../helper/twig.php';
 require_once '../entidades/Edital.class.php';
-//r//equire_once('../model/query.php');
 require_once('../helper/funcoes.php');
-/*
-require_once '../config/config.php';
-require_once '../helper/database.php';
-require_once '../model/pessoa.php';
-require_once '../helper/Pessoa.class.php';*/
-//require_once('../model/BD.class.php');
-//require('../model/Query.php');	
-//require('../model/conexao.php');	
-//require('../model/execute.php');	
-//	BD::conn();
-//	$usuario = new Query();
-//require_once '../helper/Validacao.class.php';
-// incluir twig
-// incluir model pessoa
-// incluir classe de validacao
+
 
 //banco
-$conecta = mysql_connect("localhost", "root", "") or print (mysql_error()); 
-mysql_select_db("Monitoria", $conecta) or print(mysql_error()); 			
-
+$conecta = conectar();
 $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
 $twig = twig('../view/');
@@ -32,8 +15,20 @@ $twig = twig('../view/');
 $baseTemplate="edital/";
 
 if ($acao == 'new') {  
-	 
+ 
 	echo $twig->render($baseTemplate.'new.twig');
+
+	//echo $twig->render($baseTemplate. 'new.twig', array('name' => 'Professor'));
+
+
+}else if ($acao == 'newProjeto') {  
+
+	$idProjeto = $_GET['idProjeto'];
+ 	echo $_GET['idProjeto'];
+	echo $twig->render($baseTemplate.'newEP.twig', 
+		array(
+			'entity' => $idProjeto,
+			));
 
 	//echo $twig->render($baseTemplate. 'new.twig', array('name' => 'Professor'));
 
@@ -111,17 +106,37 @@ $result = mysql_query($sqlDeletar, $conecta);
 		$sq = "INSERT INTO edital (arquivo,
 		tipo,nome,publicacao) VALUES('".$dados."', '".$tipo."','".$nome."','".$pub."')";
 		
-		echo $sq;
+
+
+		//echo $_POST['id'];
 		
 		$sql = mysql_query($sq,$conecta);
 
 		
+		if($_POST['id']){
+
+			$idx = $_POST['id'];
+			$sq1 =  "SELECT MAX(id_edital) as id FROM edital";
+			$sql2 = mysql_query($sq1,$conecta);
+			//$idxd = explode('#', $sql2);
+
+			while($consulta = mysql_fetch_array($sql2)) { 
+				$editais[] = $consulta;
+		
+			}
+			
+			$sql_tab1 ="UPDATE projetodemonitoria SET id_edital ='".$editais[0]['id']."' where id_projeto='".$idx."'";
+			echo $sql_tab1;
+			$sql2 = mysql_query($sql_tab1,$conecta);
+			
+		}
 
 		//$relatorio = new relatorio($_POST);  
 
 
 		if(!mysql_error())
 		{					
+			
 			echo "<script>alert(\"Inserido! $mensagem\");</script>";       
 			echo ("<script>window.location.href = \"../index.php\";</script>");	
 		}
