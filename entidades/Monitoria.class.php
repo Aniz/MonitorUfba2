@@ -12,19 +12,42 @@ class Monitoria
     protected 
     $id='',
     $dataInicio='',
+    $dataFim='',
     $semestre='',
     $status='',
     $bolsa='',
-    $idRelatorioAluno='',
-    $idRelatorioProfessor='',
     $unidade='',
     $orgao='',
     $componentesCurriculres='',
-    $termo='',
+
+    $idRelatorioAluno='',
+    $idRelatorioProfessor='',
     $idProfessorOrientador='',
     $idAluno='',
     $idCertificado='',
     $idProfessor='';
+
+/**
+   * Construtor
+   *
+   * @param string $nome Nome completo da pessoa
+   */
+  public function __construct ($dados){
+    //filter_var($dados, FILTER_SANITIZE_STRING);//filtrar
+    $this->setDataInicio($dados['dataInicio']);
+    $this->setDataFim($dados['dataFim']);
+    $this->setSemestre($dados['semestre']);
+    $this->setStatus($dados['status']);
+    $this->setBolsa($dados['bolsa']);
+    $this->setUnidade($dados['unidade']);
+    $this->setOrgao($dados['orgao']);
+    $this->setComponentesCurriculares($dados['componentesCurriculres']);
+  
+    $this->setIdProfessor($dados['idProfessor']);
+    $this->setIdAluno($dados['idAluno']);
+    $this->setIdProfessorOrientador($dados['idProfessorOrientador']);
+
+  }
 
     public function __call ($metodo, $parametros) {
     // se for set*, "seta" um valor para a propriedade

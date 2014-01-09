@@ -1,0 +1,79 @@
+{% extends "layout.twig" %}
+
+{% block title %}Editar dados{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <h4>Editando Monitoria</h4>
+
+ {% for entity in entities %}
+
+     <div>         
+        <form Method ="POST" enctype="multipart/form-data" Action ="?acao=update">
+         
+          <fieldset>
+            <font color = 'white'> Sign up</font>
+            <label>Data de inicio:</label> 
+                <input type='date' name='dataInicio' placeholder="dataInicio"
+                value='{{dataInicio}}' >
+            <label>Data de Fim:</label> 
+                <input type='date' name='dataFim' placeholder="data de fim"
+                value='{{dataFim}}' >
+            <label>Semestre:</label>
+                <input id="semestre" type='text' name='semestre' placeholder="semestre"
+                value='{{ semestre }}' ><br>
+            <input name="bolsa" type="checkbox">Bolsa?<br>
+            <input name="status" type="checkbox">Ativa?<br>
+            <label>Professor:</label> 
+             <select name="idProfessor">
+                {% for prof in professores %}
+                {% if prof.id_professor == entity.id_professor %}
+                <option value="{{prof.id_professor}}" selected>{{prof.nome}}</option>
+                {% else %}
+                <option value="{{prof.id_professor}}">{{prof.nome}}</option>
+                {% endif %}
+            {% endfor %}
+          </select><br>
+            <label>Professor orientador:</label>
+             <select name="idProfessorOrientador">
+                {% for prof in professores %}
+                {% if prof.id_professor == entity.id_professor %}
+                <option value="{{prof.id_professor}}" selected>{{prof.nome}}</option>
+                {% else %}
+                <option value="{{prof.id_professor}}">{{prof.nome}}</option>
+                {% endif %}
+                {% endfor %}
+            </select><br>
+            <label>Aluno:</label> 
+            <select name="idAluno">
+                {% for alu in alunos %}
+                 {% if alu.id_aluno == entity.id_aluno %}
+                <option value="{{alu.id_aluno}}" selected>{{alu.nome}}</option>
+                {% else %}
+                <option value="{{alu.id_aluno}}">{{alu.nome}}</option>
+                {% endif %}
+              
+                {% endfor %}
+            </select><br>
+            <label>Unidade: </label>
+                 <input type='text' name='unidade' placeholder="unidade"
+                  value='{{unidade}}' >
+            <label>Orgão: </label>
+                 <input type='text' name='orgao' placeholder="orgão"
+                  value='{{orgao}}' >
+            <label>Componentes curriculares: </label>
+                 <input type='text' name='componentesCurriculres' placeholder="componentes curriculres" value='{{componentesCurriculres}}' > 
+            <p><input type='submit' class="btn" value="Register" name="enviar">
+                 <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
+                 <input type="button" class="btn" value="Return" onClick="document.location='../View/index.php'"> </p>
+       </fieldset>
+      </form>
+       </div>    
+{% endfor %}
+
+
+{% endblock %}
