@@ -2,7 +2,7 @@
 
 require_once '../vendor/autoload.php';
 require_once '../helper/twig.php';
-require_once '../entidades/Relatorio.class.php';
+require_once '../entidades/Edital.class.php';
 //r//equire_once('../model/query.php');
 require_once('../helper/funcoes.php');
 /*
@@ -29,7 +29,7 @@ $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
 $twig = twig('../view/');
 
-$baseTemplate="relatorio/";
+$baseTemplate="edital/";
 
 if ($acao == 'new') {  
 	 
@@ -40,9 +40,9 @@ if ($acao == 'new') {
 
 }else if ($acao == 'edit') {
 
-$id = $_GET["idRelatorio"];
+$id = $_GET["idEdital"];
 	
-$sql = selecaoByID('relatorio','id_relatorio',$id);	
+$sql = selecaoByID('edital','id_edital',$id);	
 
 $result = mysql_query($sql, $conecta); 
  
@@ -51,21 +51,21 @@ if(!$result)
 else{
 
 	while($consulta = mysql_fetch_array($result)) { 
-		$relatorios[] = $consulta;
+		$editais[] = $consulta;
 	}
 
 echo $twig->render($baseTemplate.'edit.twig',
 	array(
-            'entities' => $relatorios,            
+            'entities' => $editais,            
         ));
 }
  
 } else if ($acao == 'delete') {
-		$idx=$_GET['idRelatorio'];
+		$idx=$_GET['idEdital'];
 		
-		$idS = "id_relatorio =".$idx;	
+		$idS = "id_edital =".$idx;	
 		
-$sqlDeletar = deletar('relatorio',$idS);
+$sqlDeletar = deletar('edital',$idS);
 
 echo $sqlDeletar;
 
@@ -76,13 +76,13 @@ $result = mysql_query($sqlDeletar, $conecta);
 			echo "<script>alert(\"Removido!\");</script>";    
 
 			unset($_GET['acao']);
-			unset($_GET['idRelatorio']);
+			unset($_GET['idEdital']);
 		}	
 		else   	
 			echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
 		
 		//echo $twig->render('index.php');
-		echo ("<script>window.location.href = \"../controller/relatorio.php?acao=consult\";</script>");	
+		echo ("<script>window.location.href = \"../controller/edital.php?acao=consult\";</script>");	
 		
 	//	}
 	//	else
@@ -93,6 +93,8 @@ $result = mysql_query($sqlDeletar, $conecta);
 		$arquivo = $_FILES["arquivo"]["tmp_name"]; 
 		$tipo    = $_FILES["arquivo"]["type"];
 		$nome  = $_FILES["arquivo"]["name"];
+
+		$pub = $_POST['publicacao'];
 
 		chdir('temp');
 
@@ -106,8 +108,8 @@ $result = mysql_query($sqlDeletar, $conecta);
 
 		$dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
 
-		$sq = "INSERT INTO relatorio (arquivo,
-		tipo,nome) VALUES('".$dados."', '".$tipo."','".$nome."')";
+		$sq = "INSERT INTO edital (arquivo,
+		tipo,nome,publicacao) VALUES('".$dados."', '".$tipo."','".$nome."','".$pub."')";
 		
 		echo $sq;
 		
@@ -136,8 +138,9 @@ $result = mysql_query($sqlDeletar, $conecta);
 	}
 		
 	$id = $_POST['id'];
+	$publicacao = $_POST['publicacao'];
 		
-	$sqlUpdate = "UPDATE relatorio SET ";
+	$sqlUpdate = "UPDATE edital SET ";
 
 	$arquivo = $_FILES["arquivo"]["tmp_name"]; 
 	$tipo    = $_FILES["arquivo"]["type"];
@@ -155,8 +158,8 @@ $result = mysql_query($sqlDeletar, $conecta);
 
 	$dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
 
-	$sq = "UPDATE relatorio SET arquivo ='".$dados."',
-	tipo ='".$tipo."',nome ='".$nome."' where id_relatorio='".$id."'";
+	$sq = "UPDATE edital SET arquivo ='".$dados."',
+	tipo ='".$tipo."',nome ='".$nome."',publicacao ='".$publicacao."' where id_edital='".$id."'";
 	
 	echo $sq;
 	
@@ -171,7 +174,7 @@ $result = mysql_query($sqlDeletar, $conecta);
 		echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
 
 } else if ($acao == 'consult') {
-	$sql = selecao("relatorio"); 
+	$sql = selecao("edital"); 
 	$result = mysql_query($sql, $conecta); 
  
 if(!$result)
@@ -180,20 +183,20 @@ else{
 	
 
 	while($consulta = mysql_fetch_array($result)) { 
-		$relatorios[] = $consulta;
+		$editais[] = $consulta;
 		
 	}
 
 	echo $twig->render($baseTemplate.'consult.twig',
 	array(
-            'entities' => $relatorios,            
+            'entities' => $editais,            
         ));
 
 	}
 }else if ($acao == 'download') {
-	$id = $_GET['idRelatorio'];
+	$id = $_GET['idEdital'];
 
-	$sql = "SELECT * FROM relatorio WHERE id_relatorio=".$id;
+	$sql = "SELECT * FROM edital WHERE id_edital=".$id;
 	$download = mysql_query($sql,$conecta);
 	$nome = mysql_result($download, 0, "nome");
 	$tipo = mysql_result($download, 0, "tipo");

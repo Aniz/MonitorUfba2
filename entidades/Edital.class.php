@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Classe Relatorio
+ * Classe Edital
  *
  */
 require_once '../helper/funcoes.php';
 
-class Relatorio {
+class Edital {
 
   /**
    * Propriedades

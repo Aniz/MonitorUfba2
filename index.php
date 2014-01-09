@@ -57,6 +57,16 @@
 			    <li><a href="controller/relatorio.php?acao=new">Novo</a></li>			    
 			    <li><a href="controller/relatorio.php?acao=consult">Lista</a></li>
 			  </ul>
+		</div>	
+		<div class="btn-group">
+			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			    Edital
+			    <span class="caret"></span>
+			  </a>
+			  <ul class="dropdown-menu">
+			    <li><a href="controller/edital.php?acao=new">Novo</a></li>			    
+			    <li><a href="controller/edital.php?acao=consult">Lista</a></li>
+			  </ul>
 		</div>		
 		<div class="btn-group">
 			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
