@@ -21,8 +21,7 @@ class Professor {
     $orgaoEmissor='',
     $senha='',
     $endereco='',
-    $telefone='',
-    $tipo='',
+    $telefone='',    
     $matricula='',
     $departamento='';
   /**
@@ -39,8 +38,7 @@ class Professor {
     $this->setOrgaoEmissor($dados['orgaoEmissor']);
     $this->setSenha($dados['senha']);
     $this->setEndereco($dados['endereco']);
-    $this->setTelefone($dados['telefone']);
-    $this->setTipo($dados['tipo']);
+    $this->setTelefone($dados['telefone']);    
     $this->setMatricula($dados['matricula']);
     $this->setDepartamento($dados['departamento']);
     

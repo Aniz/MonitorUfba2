@@ -103,6 +103,8 @@ $result = mysql_query($sqlDeletar, $conecta);
 		//$senha2=$_POST['senha2'];
 		$professor = new Professor($_POST);   	
 
+		//var_dump($_POST);
+
 	  	/*$val = $aluno->ValidaUsuario($senha2);//valida
 		
 		if(!empty($val))
@@ -115,7 +117,7 @@ $result = mysql_query($sqlDeletar, $conecta);
 		echo $professor->getNome();
 
 			$dados=array($professor->getNome(),$professor->getCpf(),$professor->getEmail(),$professor->getRg(),$professor->getOrgaoEmissor(),
-				$professor->getSenha(),$professor->getEndereco(),$professor->getTelefone(),$professor->getTipo(),$professor->getMatricula(), 
+				$professor->getSenha(),$professor->getEndereco(),$professor->getTelefone(),$professor->getMatricula(), 
 				$professor->getDepartamento());
 
 if(!$professor->getNome())
@@ -158,10 +160,6 @@ if(!$professor->getTelefone())
 else
 	$telefone = $professor->getTelefone();
 
-if(!$professor->getTipo())
-	$tipo = "";
-else
-	$tipo = $professor->getTipo();
 
 if(!$professor->getMatricula())
 	$matricula = "";
@@ -175,7 +173,7 @@ else
 
 
 
-/*echo "INSERT INTO 
+echo "INSERT INTO 
 professor VALUES('".
 	$professor->getCpf()."','".
 	$nome."','".
@@ -184,12 +182,11 @@ professor VALUES('".
 	$professor->getRg()."','".
 	$professor->getOrgaoEmissor()."','".
 	$professor->getEndereco()."','".
-	$professor->getTelefone()."','".
-	$professor->getTipo()."','".
+	$professor->getTelefone()."','".	
 	$professor->getMatricula()."','".
 	$professor->getDepartamento().
 ")";
-*/
+
 $quer = mysql_query("INSERT INTO professor VALUES(null,'".
 	$cpf."','".
 	$nome."','".
@@ -198,8 +195,7 @@ $quer = mysql_query("INSERT INTO professor VALUES(null,'".
 	$rg."','".
 	$oe."','".
 	$endereco."','".
-	$telefone."','".
-	$tipo."','".
+	$telefone."','".	
 	$matricula."','". 
 	$departamento."')");
 
@@ -263,11 +259,6 @@ if($professoralt->getEndereco())
 
 if($professoralt->getTelefone())
 	$sqlUpdate .= "telefone ='".$professoralt->getTelefone()."', " ;
-
-
-if($professoralt->getTipo())
-	$sqlUpdate .= "tipo ='".$professoralt->getTipo()."', " ;
-
 
 if($professoralt->getMatricula())
 	$sqlUpdate .= "matricula ='".$professoralt->getMatricula()."', " ;

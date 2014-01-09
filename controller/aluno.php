@@ -92,7 +92,7 @@ $result = mysql_query($sqlDeletar, $conecta);
 		echo $aluno->getAnoIngresso();
 
 			$dados=array($aluno->getNome(),$aluno->getCpf(),$aluno->getEmail(),$aluno->getRg(),$aluno->getOrgaoEmissor(),
-				$aluno->getSenha(),$aluno->getEndereco(),$aluno->getTelefone(),$aluno->getTipo(),$aluno->getMatricula(), 
+				$aluno->getSenha(),$aluno->getEndereco(),$aluno->getTelefone(),$aluno->getMatricula(), 
 				$aluno->getCurso(),$aluno->getAnoIngresso(),$aluno->getBanco(),$aluno->getAgencia(),$aluno->getCc(),$aluno->getGenero(),$aluno->getHistorico());
 
 if(!$aluno->getNome())
@@ -134,11 +134,6 @@ if(!$aluno->getTelefone())
 	$telefone = "";
 else
 	$telefone = $aluno->getTelefone();
-
-if(!$aluno->getTipo())
-	$tipo = "";
-else
-	$tipo = $aluno->getTipo();
 
 if(!$aluno->getMatricula())
 	$matricula = "";
@@ -201,7 +196,7 @@ $dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
 
 
 
-echo "INSERT INTO 
+/*echo "INSERT INTO 
 aluno VALUES('".
 	$aluno->getCpf()."','".
 	$nome."','".
@@ -219,7 +214,7 @@ aluno VALUES('".
 	$aluno->getAgencia()."','".
 	$aluno->getCc()."','".
 	$aluno->dados.
-")";
+")";*/
 
 $quer = mysql_query("INSERT INTO aluno VALUES(null,'".
 	$cpf."','".
@@ -230,7 +225,6 @@ $quer = mysql_query("INSERT INTO aluno VALUES(null,'".
 	$oe."','".
 	$endereco."','".
 	$telefone."','".
-	$tipo."','".
 	$matricula."','". 
 	$curso."','".
 	$ai."','".

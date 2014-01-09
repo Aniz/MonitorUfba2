@@ -21,7 +21,6 @@ class Aluno {
     $senha='',
     $endereco='',
     $telefone='',
-    $tipo='',
     $matricula='',
     $curso='',
     $anoIngresso='',
@@ -46,7 +45,6 @@ class Aluno {
     $this->setSenha($dados['senha']);
     $this->setEndereco($dados['endereco']);
     $this->setTelefone($dados['telefone']);
-    $this->setTipo($dados['tipo']);
     $this->setMatricula($dados['matricula']);
     $this->setCurso($dados['curso']);
     $this->setAnoIngresso($dados['anoIngresso']);
