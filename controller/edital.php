@@ -2,7 +2,7 @@
 
 require_once '../vendor/autoload.php';
 require_once '../helper/twig.php';
-require_once '../entidades/Professor.class.php';
+require_once '../entidades/Edital.class.php';
 //r//equire_once('../model/query.php');
 require_once('../helper/funcoes.php');
 /*
@@ -76,13 +76,13 @@ $result = mysql_query($sqlDeletar, $conecta);
 			echo "<script>alert(\"Removido!\");</script>";    
 
 			unset($_GET['acao']);
-			unset($_GET['idProfessor']);
+			unset($_GET['idEdital']);
 		}	
 		else   	
 			echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
 		
 		//echo $twig->render('index.php');
-		echo ("<script>window.location.href = \"../controller/professor.php?acao=consult\";</script>");	
+		echo ("<script>window.location.href = \"../controller/edital.php?acao=consult\";</script>");	
 		
 	//	}
 	//	else
@@ -93,6 +93,8 @@ $result = mysql_query($sqlDeletar, $conecta);
 		$arquivo = $_FILES["arquivo"]["tmp_name"]; 
 		$tipo    = $_FILES["arquivo"]["type"];
 		$nome  = $_FILES["arquivo"]["name"];
+
+		$pub = $_POST['publicacao'];
 
 		chdir('temp');
 
@@ -107,7 +109,7 @@ $result = mysql_query($sqlDeletar, $conecta);
 		$dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
 
 		$sq = "INSERT INTO edital (arquivo,
-		tipo,nome) VALUES('".$dados."', '".$tipo."','".$nome."')";
+		tipo,nome,publicacao) VALUES('".$dados."', '".$tipo."','".$nome."','".$pub."')";
 		
 		echo $sq;
 		

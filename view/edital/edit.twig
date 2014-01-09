@@ -1,0 +1,38 @@
+{% extends "layout.twig" %}
+
+{% block title %}Editar dados{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <h4>Editando Professor</h4>
+
+ {% for entity in entities %}
+
+     <div>         
+        <form Method ="POST" enctype="multipart/form-data" Action ="?acao=update">
+         
+        <fieldset> 
+            <font color = 'white'> Relatorio </font>
+                
+                <label>Data de publicação: </label>
+                 <input type='input' name='publicacao' placeholder="Periodo Inscricao Inicio"
+                  value='{{entity.publicacao}}' >
+
+                <label>Arquivo: </label>
+                <input type="file" name="arquivo" value='{{entity.arquivo}}'><br>
+          
+                <input type='hidden' name='id' value='{{entity.id_relatorio}}'>
+            <p><input type='submit' class="btn" value="Edit" name="enviar">
+                 <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
+                 <input type="button" class="btn" value="Return" onClick="document.location='../View/index.php'"> </p>
+       </fieldset>
+       </form>
+       </div>    
+{% endfor %}
+
+
+{% endblock %}

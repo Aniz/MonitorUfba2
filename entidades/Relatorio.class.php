@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Classe Professor
+ * Classe Relatorio
  *
  */
 require_once '../helper/funcoes.php';
