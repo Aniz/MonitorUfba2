@@ -46,7 +46,7 @@ $professores = array();
 
 } else if ($acao == 'create') {
 		$monitoria = new Monitoria($_POST);  
-	var_dump($_POST);
+	//var_dump($_POST);
 		
 	//	var_dump($projeto);
 		/*	
@@ -59,7 +59,7 @@ $professores = array();
 	//			{	
 //trocaPorID(&$post['id_relatorio']);		
 		//echo $projeto->getResumo();
-var_dump($monitoria);
+//var_dump($monitoria);
 $dataInicio = implode("-", array_reverse(explode("/", $monitoria->getDataInicio())));
 if(!$dataInicio)
 	$dataInicio = ''; 
@@ -104,16 +104,16 @@ $idProfessorOrientador = $monitoria->getIdProfessorOrientador();
 if(!$idProfessorOrientador)
 	$idProfessorOrientador = 0;
 
-echo $quer = mysql_query("INSERT INTO Monitoria (data_inicio, data_fim, semestre, status, bolsa, id_relatorio_aluno, id_relatorio_professor, unidade, orgao, componentes_curriculres, id_professor_orientador, id_certificado, id_aluno, id_professor) Monitoria VALUES(null,'".
+echo $quer = mysql_query("INSERT INTO Monitoria VALUES(null,'".
 	$dataInicio."','".
 	$dataFim."','".
 	$semestre."','".
 	$status."','".
-	$bolsa."','0','0','".
+	$bolsa."',null,null,'".
 	$unidade."','".
 	$orgao."','".
 	$componentesCurriculares."','".
-	$idProfessorOrientador."','0','".
+	$idProfessorOrientador."',null,null,'".
 	$idAluno."','".
 	$idProfessor."')");
 
