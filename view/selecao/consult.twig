@@ -1,0 +1,46 @@
+{% extends "layout.twig" %}
+{% block title %}List Aluno{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+      <script src="../helper/Mascaras.js" type="text/javascript"></script>
+{% endblock %}
+{% block content %}
+    <h4>Exibindo Alunos</h4>
+     <ul><div>
+      <fieldset>
+           
+<table border=2 align="center">
+  <tr> 
+    <td>Nota</td>
+    <td>idAluno</td>
+    <td>idProjeto</td>
+    <td>aprovado</td>
+    <td>Horario de atendimento</td>
+    <td>Editar</td>
+    <td>Remover</td>
+  </tr>
+
+ {% for entity in entities %}
+  <tr> 
+    <td>&nbsp;{{entity.nota}}</td>
+    <td>&nbsp;{{entity.id_aluno}}</td>
+    <td>&nbsp;{{entity.id_projeto}}</td>
+    <td>&nbsp;{{entity.aprovado}}</td>
+    <td>&nbsp;{{entity.horarioAtendimento}}</td>  
+  <td><a href = ?acao=edit&idSelecao={{entity.id_selecao}}>Editar</a></td>
+	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idSelecao={{entity.id_selecao}}>Excluir</a></td>  
+    </tr>
+  {% endfor %}
+
+<?php
+}
+}
+?>
+
+</table> 
+       </fieldset>
+      </div></ul>    
+{% endblock %}
