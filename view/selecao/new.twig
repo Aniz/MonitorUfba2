@@ -9,13 +9,13 @@
     <script src="../helper/Mascaras.js" type="text/javascript"></script>
 {% endblock %}
 {% block content %}
-    <h4>Cadastro de Selecao</h4>
-
-     <div>         
-        <form Method ="POST" enctype="multipart/form-data" Action ="?acao=create">
-         
-        <fieldset>
+<h4>Cadastro de Selecao</h4>
+<div>         
+  <form Method ="POST" enctype="multipart/form-data" Action ="?acao=create">  
+  <fieldset>
+    <div class="container-fluid">
             <font color = 'white'> Sign up</font>
+                <div class="span9">    
             <label>Nota:</label> 
                 <input type='text' name='nota' placeholder="nota"
                 value='{{nota}}' >
@@ -38,6 +38,7 @@
             <p><input type='submit' class="btn" value="Register" name="enviar">
                  <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
                  <input type="button" class="btn" value="Return" onClick="document.location='../View/index.php'"> </p>
+       </div>
        </fieldset>
        </form>
        </div>    
