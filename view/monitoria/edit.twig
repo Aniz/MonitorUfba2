@@ -15,60 +15,76 @@
      <div>         
         <form Method ="POST" enctype="multipart/form-data" Action ="?acao=update">
          
-          <fieldset>
-            <font color = 'white'> Sign up</font>
+    <fieldset> 
+   <div class="container-fluid">
+    <div class="row-fluid"> 
+      <font color = 'white'>Nova Monitoria</font>
+          <div class="span3">
             <label>Data de inicio:</label> 
                 <input type='date' name='dataInicio' placeholder="dataInicio"
                 value='{{dataInicio}}' >
+          </div>
+          <div class="span3">
             <label>Data de Fim:</label> 
                 <input type='date' name='dataFim' placeholder="data de fim"
                 value='{{dataFim}}' >
+          </div>
+          <div class="span3">
             <label>Semestre:</label>
                 <input id="semestre" type='text' name='semestre' placeholder="semestre"
-                value='{{ semestre }}' ><br>
-            <input name="bolsa" type="checkbox">Bolsa?<br>
-            <input name="status" type="checkbox">Ativa?<br>
+                value='{{ semestre }}' >
+          </div>
+      </div>
+      
+      <div class="row-fluid"> 
+           <div class="span3">
             <label>Professor:</label> 
-             <select name="idProfessor">
+            <select name="idProfessor">
                 {% for prof in professores %}
-                {% if prof.id_professor == entity.id_professor %}
-                <option value="{{prof.id_professor}}" selected>{{prof.nome}}</option>
-                {% else %}
                 <option value="{{prof.id_professor}}">{{prof.nome}}</option>
-                {% endif %}
-            {% endfor %}
-          </select><br>
+                {% endfor %}
+            </select>
+          </div>
+           <div class="span3"> 
             <label>Professor orientador:</label>
              <select name="idProfessorOrientador">
                 {% for prof in professores %}
-                {% if prof.id_professor == entity.id_professor %}
-                <option value="{{prof.id_professor}}" selected>{{prof.nome}}</option>
-                {% else %}
                 <option value="{{prof.id_professor}}">{{prof.nome}}</option>
-                {% endif %}
                 {% endfor %}
-            </select><br>
+            </select>
+          </div>
+           <div class="span3"> 
             <label>Aluno:</label> 
             <select name="idAluno">
                 {% for alu in alunos %}
-                 {% if alu.id_aluno == entity.id_aluno %}
-                <option value="{{alu.id_aluno}}" selected>{{alu.nome}}</option>
-                {% else %}
                 <option value="{{alu.id_aluno}}">{{alu.nome}}</option>
-                {% endif %}
-              
                 {% endfor %}
-            </select><br>
-            <label>Unidade: </label>
+            </select>
+          </div>
+        </div>
+
+      <div class="row-fluid"> 
+        <div class="span3">
+             <label>Unidade: </label>
                  <input type='text' name='unidade' placeholder="unidade"
                   value='{{unidade}}' >
+        </div>
+         <div class="span3"> 
             <label>Orgão: </label>
                  <input type='text' name='orgao' placeholder="orgão"
                   value='{{orgao}}' >
+          </div>
+               <div class="span1">
+          <input name="bolsa" type="checkbox">Bolsa?<br>
+            <input name="status" type="checkbox">Ativa?<br>
+        </div>  
+         <div class="span9"> 
             <label>Componentes curriculares: </label>
-                 <input type='text' name='componentesCurriculres' placeholder="componentes curriculres" value='{{componentesCurriculres}}' > 
-            <p><input type='submit' class="btn" value="Register" name="enviar">
-                 <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
+                 <textarea id="content" style="margin: 0px 0px 10px; width: 724px; height: 115px;" type='text' name='componentesCurriculres' placeholder="componentes curriculres" value='{{componentesCurriculres}}' ></textarea>
+        </div>
+        </div>
+      </div>
+          <p><input type='submit' class="btn" value="Register" name="enviar">
                  <input type="button" class="btn" value="Return" onClick="document.location='../View/index.php'"> </p>
        </fieldset>
       </form>

@@ -14,10 +14,8 @@
 
 <div>         
   <form Method ="POST" enctype="multipart/form-data" Action ="?acao=create">
-  <fieldset>
-  
+  <fieldset> 
    <div class="container-fluid">
-  
     <div class="row-fluid"> 
       <font color = 'white'>Nova Monitoria</font>
           <div class="span3">
@@ -36,8 +34,8 @@
                 value='{{ semestre }}' >
           </div>
       </div>
-
-         <div class="row-fluid"> 
+      
+      <div class="row-fluid"> 
            <div class="span3">
             <label>Professor:</label> 
             <select name="idProfessor">
@@ -79,14 +77,12 @@
           <input name="bolsa" type="checkbox">Bolsa?<br>
             <input name="status" type="checkbox">Ativa?<br>
         </div>
-   
-          
+
          <div class="span9"> 
             <label>Componentes curriculares: </label>
-                 <textarea id="content" style="width:100%" type='text' name='componentesCurriculres' placeholder="componentes curriculres" value='{{componentesCurriculres}}' ></textarea>
+                 <textarea id="content" style="margin: 0px 0px 10px; width: 724px; height: 115px;" type='text' name='componentesCurriculres' placeholder="componentes curriculres" value='{{componentesCurriculres}}' ></textarea>
         </div>
       </div>
-
       </div>
             <p><input type='submit' class="btn" value="Register" name="enviar">
                  <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">

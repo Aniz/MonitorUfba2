@@ -43,8 +43,6 @@ $sql = selecaoByID('professor','id_professor',$id);
 
 $departamentos = array();
 
-echo $sql;
-
 $result = mysql_query($sql, $conecta); 
  
 if(!$result)
