@@ -88,8 +88,8 @@ $result = mysql_query($sqlDeletar, $conecta);
     	}*/
 	//	else 
 	//			{			
-		echo $aluno->getOrgaoEmissor();
-		echo $aluno->getAnoIngresso();
+		//echo $aluno->getOrgaoEmissor();
+		//echo $aluno->getAnoIngresso();
 
 			$dados=array($aluno->getNome(),$aluno->getCpf(),$aluno->getEmail(),$aluno->getRg(),$aluno->getOrgaoEmissor(),
 				$aluno->getSenha(),$aluno->getEndereco(),$aluno->getTelefone(),$aluno->getMatricula(), 
@@ -182,11 +182,11 @@ $nome_historico  = $_FILES["historico"]["name"];
 
 chdir('temp');
 
-echo $tipo;
-echo $nome;
-echo getcwd()."\\ultimo.pdf";
+//echo $tipo;
+//echo $nome;
+//echo getcwd()."\\ultimo.pdf";
 
-echo $nome_historico;
+//echo $nome_historico;
 
 move_uploaded_file($arquivo, getcwd()."\\ultimo.pdf");
 
@@ -194,31 +194,32 @@ $pont = fopen(getcwd()."\\ultimo.pdf", "rb");
 
 $dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
 
-
-
 /*echo "INSERT INTO 
 aluno VALUES('".
 	$aluno->getCpf()."','".
 	$nome."','".
-	$aluno->getEmail()."','".
-	$aluno->getSenha()."','".
-	$aluno->getRg()."','".
-	$aluno->getOrgaoEmissor()."','".
-	$aluno->getEndereco()."','".
-	$aluno->getTelefone()."','".
-	$aluno->getTipo()."','".
-	$aluno->getMatricula()."','".
-	$aluno->getCurso()."','".
-	$aluno->getAnoIngresso()."','".
-	$aluno->getBanco()."','".
-	$aluno->getAgencia()."','".
-	$aluno->getCc()."','".
-	$aluno->dados.
-")";*/
+	$genero.",".
+	$email."','".
+	$senha."','".
+	$rg."','".
+	$oe."','".
+	$endereco."','".
+	$telefone."','".
+	$matricula."','". 
+	$curso."','".
+	$ai."','".
+	$banco."','".
+	$agencia."','".
+	$cc."','".
+	$dados."','".
+	$genero."','".
+	$tipo."','".
+	$nome_historico."')";*/
 
 $quer = mysql_query("INSERT INTO aluno VALUES(null,'".
 	$cpf."','".
 	$nome."','".
+	$genero.",".
 	$email."','".
 	$senha."','".
 	$rg."','".
@@ -236,7 +237,6 @@ $quer = mysql_query("INSERT INTO aluno VALUES(null,'".
 	$tipo."','".
 	$nome_historico."')");
 
-//echo $cpf;
 if(!mysql_error())
 {					
 	echo "<script>alert(\"Inserido! $mensagem\");</script>";       
@@ -297,11 +297,6 @@ if($alunoalt->getEndereco())
 if($alunoalt->getTelefone())
 	$sqlUpdate .= ", telefone ='".$alunoalt->getTelefone()."'" ;
 
-
-if($alunoalt->getTipo())
-	$sqlUpdate .= ", tipo ='".$alunoalt->getTipo()."'" ;
-
-
 if($alunoalt->getMatricula())
 	$sqlUpdate .= ", matricula ='".$alunoalt->getMatricula()."'" ;
 
@@ -348,8 +343,6 @@ $dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
 
 $sqlUpdate .= ", historico ='".$dados."',
 tipo_historico ='".$tipo_historico."',nome_historico ='".$nome_historico."' ";
-
-
 
 
 $id = $_POST['id'];
