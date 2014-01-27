@@ -14,16 +14,18 @@
            
 <table border=2 align="center">
   <tr> 
-    <td>Atividade</td>
-    <td>Tabela</td>
     <td>Professor</td>
+    <td>Data</td>
+    <td>Alteracao</td>
+    <td>Tabela</td>
    </tr>
 
  {% for entity in entities %}
   <tr> 
-    <td>&nbsp;{{atividade}}</td>
-    <td>&nbsp;{{tabela}}</td>
-    <td>&nbsp;{{professor}}</td>
+    <td>&nbsp;{{entity.professor}}</td>
+    <td>&nbsp;{{entity.data}}</td>
+    <td>&nbsp;{{entity.alteracao}}</td>
+    <td>&nbsp;{{entity.tabela}}</td>
   <td>
 
 <?php
