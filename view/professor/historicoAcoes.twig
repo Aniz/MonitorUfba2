@@ -1,0 +1,37 @@
+{% extends "layout.twig" %}
+{% block title %}List Aluno{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+      <script src="../helper/Mascaras.js" type="text/javascript"></script>
+{% endblock %}
+{% block content %}
+    <h4>Exibindo Projetos</h4>
+     <ul><div>
+      <fieldset>
+           
+<table border=2 align="center">
+  <tr> 
+    <td>Atividade</td>
+    <td>Tabela</td>
+    <td>Professor</td>
+   </tr>
+
+ {% for entity in entities %}
+  <tr> 
+    <td>&nbsp;{{atividade}}</td>
+    <td>&nbsp;{{tabela}}</td>
+    <td>&nbsp;{{professor}}</td>
+  <td>
+
+<?php
+}
+}
+?>
+
+</table> 
+       </fieldset>
+      </div></ul>    
+{% endblock %}
