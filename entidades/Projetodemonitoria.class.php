@@ -22,6 +22,7 @@ class Projetodemonitoria {
     $periodoInscricaoInicio='',
     $periodoInscricaoFinal='',
     $periodoSelecao='',
+    $codigo='',
     $id_relatorio='',
     $id_edital='',
     $id_selecao='',
@@ -46,7 +47,9 @@ class Projetodemonitoria {
     $this->setPeriodoInscricaoFinal($dados['periodoInscricaoFinal']);    
     $this->setPeriodoSelecao($dados['periodoSelecao']);    
    
-    $this->setIdProfessor($dados['professor']);       
+    $this->setIdProfessor($dados['professor']);     
+    $now = date('dd').date('mm').date('Y');
+    $this->setCodigo($this->getId().$now);       
   }
 
   /**

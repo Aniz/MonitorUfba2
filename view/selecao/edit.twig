@@ -8,40 +8,36 @@
     </style>
 {% endblock %}
 {% block content %}
-    <h4>Editando aluno</h4>
-
- {% for entity in entities %}
-
-     <div>         
-        <form Method ="POST" enctype="multipart/form-data" Action ="?acao=update">
+<h4>Editando seleçao</h4>
+  <div>         
+    <form Method ="POST" enctype="multipart/form-data" Action ="?acao=update">
          
-           <fieldset>
-            <font color = 'white'> Sign up</font>
-            <label>Nota:</label> 
-                <input type='text' name='nota' placeholder="nota"
-                value='{{nota}}' >
-            <label>Aluno:</label> 
-            <select name="professor">
-                {% for prof in professores %}
-                <option value="{{prof.id_professor}}">{{prof.nome}}</option>
-                {% endfor %}
-            </select><br>
-            <label>Projeto:</label> 
-            <select name="professor">
-                {% for prof in professores %}
-                <option value="{{prof.id_professor}}">{{prof.nome}}</option>
-                {% endfor %}
-            </select><br>
+    <fieldset>
+      <div class="container-fluid">
+    
+      <font color = 'white'> Atualizar Seleção do projeto: </font>
+        
+        {% for entity in entities %}
+          <label>Projeto: {{entity.id_projeto}}</label> 
+          <label>Aluno {{entity.id_aluno}}</label> 
+          <label>Nota:</label> 
+          <input type='text' name='nota' placeholder="nota"
+                    value='{{entity.nota}}' >
+          {% if entity.aprovado %}
+            <input name="aprovado" type="checkbox" checked>Aprovado?<br>
+          {% else %}
             <input name="aprovado" type="checkbox">Aprovado?<br>
-            <label>Horario de atendimento: </label>
-                 <input type='text' name='horarioAtendimento' placeholder="1=dia 2=tarde 3=noite"
-                  value='{{horarioAtendimento}}' >
-            <p><input type='submit' class="btn" value="Atualizar" name="enviar">
-              <input type="button" class="btn" value="Cancelar" onClick="document.location='../View/index.php'"> </p>
-       </fieldset>
-       </form>
-       </div>    
-{% endfor %}
+          {% endif %}
+          <label>Horario de atendimento: </label>
+          <input type='text' name='horarioAtendimento' placeholder="1=dia 2=tarde 3=noite"
+                      value='{{entity.horario_atendimento}}' >
+                   
+        {% endfor %}
 
-
+        <p><input type='submit' class="btn" value="Atualizar" name="enviar">
+        <input type="button" class="btn" value="Cancelar" onClick="document.location='../View/index.php'"> </p>
+    </div>
+    </fieldset>
+  </form>
+</div> 
 {% endblock %}

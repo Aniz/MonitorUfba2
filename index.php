@@ -80,7 +80,7 @@
 		</div>				
 	    <div class="btn-group">
 			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-			    Seleção
+			    Selecao
 			    <span class="caret"></span>
 			  </a>
 			  <ul class="dropdown-menu">

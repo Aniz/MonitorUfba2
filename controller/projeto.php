@@ -132,6 +132,10 @@ $id_professor = $projeto->getIdProfessor();
 if(!$id_professor)
 	$id_professor = 0;
 
+$codigo = $projeto->getCodigo();
+if(!$codigo)
+	$codigo = 0;
+
 /*echo "INSERT INTO 
 projetoDeMonitoria VALUES('".
   $resumo."','".
@@ -148,6 +152,7 @@ projetoDeMonitoria VALUES('".
     $id_professor."',null,null,null)";*/
 
 echo $quer = mysql_query("INSERT INTO projetoDeMonitoria VALUES(null,'".
+	$codigo."','".
 	$resumo."','".
     $atividades."','".
     $bolsa."','".

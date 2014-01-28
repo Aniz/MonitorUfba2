@@ -13,6 +13,12 @@ $twig = twig('../view/');
 
 $baseTemplate="selecao/";
 
+/****************************
+*
+*  New
+*
+****************************/
+
 if ($acao == 'new') {
 $editais = array();
 $professores = array();
@@ -41,6 +47,12 @@ $selecoes = array();
 	}
 
 	echo $twig->render($baseTemplate. 'new.twig', array('alunos' => $alunos, 'projetos'=>$projetos));//, 'editais' => $editais, 'relatorios' => $relatorios, 'selecoes' => $selecoes));
+
+/****************************
+*
+*  Create
+*
+****************************/
 
 } else if ($acao == 'create') {
 
@@ -82,50 +94,55 @@ if(!mysql_error())
 else
 	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
 
+/****************************
+*
+*  Edit
+*
+****************************/
 
 }else if ($acao == 'edit') {
 
-$id=$_GET['idSelecao'];
+	$id=$_GET['idSelecao'];
+		
+	$sql = selecaoByID('Selecao','id_selecao',$id);	
+	$result = mysql_query($sql, $conecta); 
 	
-$sql = selecaoByID('Selecao','id_selecao',$id);	
-$result = mysql_query($sql, $conecta); 
- 
-if(!$result)
-	    echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
-else{
-
-	while($consulta = mysql_fetch_array($result)) { 
-	$selecaos[] = $consulta;
+	if(!$result)
+		    echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
+	else{
+		while($consulta = mysql_fetch_array($result)) { 
+		$selecoes[] = $consulta;
+	}
 }
-//////edita professor
-$sql = selecao('Aluno');	
+	//////edita professor
+	/*$sql = selecao('Aluno');	
 	$result = mysql_query($sql, $conecta); 
 
 	if(!$result)
-	    echo "<script>alert(\"Não existem professores cadastrados. Para criar um novo selecione Professor->Novo\");</script>";       
+	    echo "<script>alert(\"Não existem alunos cadastrados. Para criar um novo selecione Professor->Novo\");</script>";       
 	else{
 		while($consulta = mysql_fetch_array($result)) { 
 			$alunos[] = $consulta;
 		}
-	}
+	}*/
 
-	$sql = selecao('Projeto');	
+	/*$sql = selecao('Projetodemonitoria');	
 	$result = mysql_query($sql, $conecta); 
 
 	if(!$result)
-	    echo "<script>alert(\"Não existem professores cadastrados. Para criar um novo selecione Professor->Novo\");</script>";       
+	    echo "<script>alert(\"Não existem projetos cadastrados. Para criar um novo selecione Professor->Novo\");</script>";       
 	else{
 		while($consulta = mysql_fetch_array($result)) { 
 			$projetos[] = $consulta;
 		}
-
+	*/
 echo $twig->render($baseTemplate.'edit.twig',
 	array(
-            'entities' => $selecaos,
-            'professores' => $professores,
-            'alunos' => $alunos,
+            'entities' => $selecoes,
+           // 'projetos' => $projetos,
+           // 'alunos' => $alunos,
         ));
-}}
+
  
 } else if ($acao == 'delete') {
 		$idx=$_GET['idSelecao'];
@@ -151,6 +168,13 @@ $result = mysql_query($sqlDeletar, $conecta);
 	//	else
 	//		echo "<script>alert(\"Não foi possível remover!\");</script>";       
 	//	
+
+/****************************
+*
+*  Update
+*
+****************************/
+
 } else if ($acao == 'update') {		
 		$id = $_POST['id'];
 		echo $id;
@@ -217,10 +241,16 @@ if(!mysql_error())
 else
 	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
 
+/****************************
+*
+*  Consult
+*
+****************************/
+
 } else if ($acao == 'consult') {
 	$sql = selecao("Selecao"); 
 	$result = mysql_query($sql, $conecta); 
- echo $sql;
+ 
 if(!$result)
 	    echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
 else{
@@ -228,14 +258,19 @@ else{
 	while($consulta = mysql_fetch_array($result)) { 
 	$selecoes[] = $consulta;
 }
-var_dump($selecoes);
+
 echo $twig->render($baseTemplate.'consult.twig',
 	array(
             'entities' => $selecoes,
         ));
 }
-//mysql_free_result($result); 
-//mysql_close($conecta); 
+
+/****************************
+*
+*  Download
+*
+****************************/
+
 }else if ($acao == 'download') {
 	$id = $_GET['idEdital'];
 
@@ -250,7 +285,18 @@ echo $twig->render($baseTemplate.'consult.twig',
 	header('Content-Type: application/pdf');
 	header("Content-Disposition: attachment; filename=$nome");
 	print($conteudo);
+
+/****************************
+*
+*  Erro
+*
+****************************/
+
 }else {
 	echo $twig->render('404.twig');
 }
+
+//mysql_free_result($result); 
+//mysql_close($conecta); 
+
 
