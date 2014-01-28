@@ -19,67 +19,37 @@
     <div class="container-fluid">
         <div class="row-fluid"> 
             <font color = 'white'> Sign up</font>
-            <div class="span9">
-                <label>Nome:</label> 
-                    <input style="width: 710px;" type='text' name='nome' placeholder="nome"
-                    value='{{nome}}' >
-            </div>
-            <div class="span3">
-                <label>Genero:</label> 
-                <select name="genero"> 
-                  <option value="" >Genero</option>
-                  <option value="M" >Masculino</option>
-                  <option value="F" >Feminino</option>       
-                </select>
-            </div>
-            <div class="span3"> 
-                <label>CPF:</label>
-                    <input id="CPF" type='text' name='cpf' placeholder="ex: 111.111.111-11"
-                    value='' >
-            </div>
+            
+            <label>Nome: {{entity.nome}}
+            Genero: {{entity.genero}}
+             CPF: {{entity.cpf}}
+             RG: {{entity.rg}}
+             Orgão emissor: {{entity.orgao_emissor}}
+             Matricula: {{entity.matricula}}</label>
+           
             <div class="span3">
                 <label>Email:</label>
                     <input type='text' name='email' placeholder="@email.com"
-                    value='' >
-            </div>
-            <div class="span3">
-                <label>RG:</label> 
-                     <input  type='text' name='rg' placeholder="ex: 11111111-11" 
-                     value='{{rg}}' >
-            </div>
-            <div class="span3">
-                <label>Orgão emissor: </label>
-                     <input type='text' name='orgaoEmissor' placeholder="ex: SSPBA"
-                      value='{{orgaoEmissor}}' >
-            </div>
-            <div class="span3">
-                <label>Senha: </label>
-                    <input type='password' name='senha' placeholder="Senha"
-                    value='' > 
+                    value='{{entity.email}}'>
             </div>
             <div class="span9">
                 <label>Endereco: </label>
-                     <input style="width: 710px;" type='text' name='endereco' placeholder="endereço" value='{{endereco}}' >
+                     <input style="width: 710px;" type='text' name='endereco' placeholder="endereço" value='{{entity.endereco}}' >
             </div>
             <div class="span3">
                 <label>Telefone: </label>
                      <input type='text' name='telefone' placeholder="(71) XXXX-XXXX)"
-                      value='{{telefone}}' >
-            </div>
-            <div class="span3">
-                <label>Matricula: </label>
-                     <input type='text' name='matricula' placeholder="ex: 111111111"
-                      value='{{matricula}}' >
+                      value='{{entity.telefone}}' >
             </div>
             <div class="span3">
                 <label>Ano de Ingresso: </label>
                      <input type='text' name='anoIngresso' placeholder="ex: 2000.1"
-                      value='{{anoIngresso}}' >
+                      value='{{entity.ano_ingresso}}' >
             </div>
             <div class="span6">
                 <label>Curso: </label>
                      <input style="width: 460px;" type='text' name='curso' placeholder="curso"
-                      value='{{curso}}' >
+                      value='{{entity.curso}}' >
             </div>
             <div class="span3"> 
                 <label>Historico: </label>

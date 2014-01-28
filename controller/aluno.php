@@ -194,7 +194,7 @@ $pont = fopen(getcwd()."\\ultimo.pdf", "rb");
 
 $dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
 
-/*echo "INSERT INTO 
+echo "INSERT INTO 
 aluno VALUES('".
 	$aluno->getCpf()."','".
 	$nome."','".
@@ -214,7 +214,7 @@ aluno VALUES('".
 	$dados."','".
 	$genero."','".
 	$tipo."','".
-	$nome_historico."')";*/
+	$nome_historico."')";
 
 $quer = mysql_query("INSERT INTO aluno VALUES(null,'".
 	$cpf."','".
@@ -236,6 +236,7 @@ $quer = mysql_query("INSERT INTO aluno VALUES(null,'".
 	$genero."','".
 	$tipo."','".
 	$nome_historico."')");
+//(`cpf`, `nome`, `genero`, `email`, `senha`, `rg`, `orgao_emissor`, `endereco`, `telefone`, `matricula`, `curso`, `ano_ingresso`, `banco`, `agencia`, `cc`, `tipo`, `nome_historico`)
 
 if(!mysql_error())
 {					
