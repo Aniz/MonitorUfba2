@@ -83,10 +83,20 @@
                   value='{{periodoSelecao}}' >
            </div>
            </div>
-    </div>
+    
           <p><input type='submit' class="btn" value="Atualizar" name="enviar">
               <input type="button" class="btn" value="Adicionar Edital" onClick="document.location='../controller/edital.php?acao=newProjeto&idProjeto={{entity.id_projeto}}'">
               <input type="button" class="btn" value="Cancelar" onClick="document.location='../View/index.php'"> </p>
+    </div>   
+ <div class="container-fluid">
+         <input type="button" class="btn" value="Criar Seleção" onClick="document.location='../controller/selecao.php?acao=newSelecao&idProjeto={{entity.id_projeto}}'">
+
+         <input type="button" class="btn" value="Criar monitoria" onClick="document.location='../controller/monitoria.php?acao=newMonitoria&idProjeto={{entity.id_projeto}}'">
+        
+         <input type="button" class="btn" value="Adicionar relatorio" onClick="document.location='../controller/selecao.php?acao=newRealatorio&idProjeto={{entity.id_projeto}}'">
+
+   </div>
+
        </fieldset>
        </form>
        </div>    
