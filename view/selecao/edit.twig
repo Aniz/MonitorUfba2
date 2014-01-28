@@ -28,10 +28,13 @@
           {% else %}
             <input name="aprovado" type="checkbox">Aprovado?<br>
           {% endif %}
-          <label>Horario de atendimento: </label>
-          <input type='text' name='horarioAtendimento' placeholder="1=dia 2=tarde 3=noite"
-                      value='{{entity.horario_atendimento}}' >
-                   
+             <label>Horario de atendimento: </label>
+            <select name="listmultiple[]" size="3" multiple="true">
+            <option value="1">Manhã</option>
+            <option value="2">Tarde</option>
+            <option value="4">Noite</option>
+          </select>
+          
         {% endfor %}
 
         <p><input type='submit' class="btn" value="Atualizar" name="enviar">

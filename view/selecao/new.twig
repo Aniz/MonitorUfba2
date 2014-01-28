@@ -32,9 +32,14 @@
                 {% endfor %}
             </select><br>
             <input name="aprovado" type="checkbox">Aprovado?<br>
+            
             <label>Horario de atendimento: </label>
-                 <input type='text' name='horarioAtendimento' placeholder="1=dia 2=tarde 3=noite"
-                  value='{{horarioAtendimento}}' >
+            <select name="listmultiple[]" size="3" multiple="true">
+            <option value="1">Manhã</option>
+            <option value="2">Tarde</option>
+            <option value="4">Noite</option>
+          </select>
+
             <p><input type='submit' class="btn" value="Register" name="enviar">
                  <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
                  <input type="button" class="btn" value="Return" onClick="document.location='../View/index.php'"> </p>

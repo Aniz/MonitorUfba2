@@ -62,9 +62,9 @@ $nota = $selecao->getNota();
 if(!$nota)
 	$nota = "";
 
-$horarioAtendimento = $selecao->getHorarioAtendimento();
-if(!$horarioAtendimento)
-	$horarioAtendimento = "";
+//$horarioAtendimento = $selecao->getHorarioAtendimento();
+//if(!$horarioAtendimento)
+//	$horarioAtendimento = "";
 
 $idAluno = $selecao->getIdAluno();
 if(!$idAluno)
@@ -77,6 +77,11 @@ if(!$idProjeto)
 $aprovado = $selecao->getAprovado();
 if(!$aprovado)
 	$aprovado = 0;
+
+$values = $_POST['listmultiple'];
+
+foreach($values as $v)
+	$horarioAtendimento = $horarioAtendimento+$v;
 
 echo $quer = mysql_query("INSERT INTO selecao VALUES(null,'".
 	$nota."','".
@@ -114,6 +119,9 @@ else
 		$selecoes[] = $consulta;
 	}
 }
+
+$values = $_POST['listmultiple'];
+
 	//////edita professor
 	/*$sql = selecao('Aluno');	
 	$result = mysql_query($sql, $conecta); 
