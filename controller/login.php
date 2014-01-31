@@ -26,4 +26,12 @@ else{
 	unset ($_SESSION['senha']); 
 	
 	header('location:../login.php'); 
-} ?>
+} 
+
+if(isset($_GET['acao']))
+{
+	unset ($_SESSION['login']); 
+	unset ($_SESSION['senha']); 
+	header('location:../login.php'); 
+}
+?>
