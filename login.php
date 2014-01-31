@@ -11,8 +11,16 @@
             <form method="post" action="controller/login.php" id="formlogin" name="formlogin" > <fieldset id="fie"> 
             <legend>LOGIN</legend><br /> 
             <label>NOME : </label> 
-            <input type="text" name="login" id="login" /><br /> 
-            <label>SENHA :</label> <input type="password" name="senha" id="senha" /><br /> 
+                <input type="text" name="login" id="login" /><br /> 
+            <label>SENHA :</label> 
+                <input type="password" name="senha" id="senha" /><br /> 
+            <label>Tipo:</label> 
+                <select name="tipo">                   
+                  <option value="aluno" >Aluno</option>
+                  <option value="professor" >Professor</option>       
+                  <option value="administrador" >Administrador</option>       
+                </select><br />
+
             <input type="submit" value="LOGAR   " /> </fieldset> </form>
 
 
