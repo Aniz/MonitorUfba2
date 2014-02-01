@@ -4,12 +4,16 @@
  burlando assim a obrigação de fazer um login, com isso se ele não estiver feito o login não será criado a session, 
  então ao verificar que a session não existe a página redireciona o mesmo para a index.php.*/ 
 	 session_start(); 
+	 
 	 if((!isset ($_SESSION['login']) == true) and (!isset ($_SESSION['senha']) == true)) {
 	  	unset($_SESSION['login']); 
 	  	unset($_SESSION['senha']); 
+	  	unset($_SESSION['tipo']); 
 	  	header('location:login.php'); 
-	  } 
-	  $logado = $_SESSION['login']; 
+	  }else{ 
+	  	if($_SESSION['tipo'] == 'professor'){
+	  			$logado = $_SESSION['login'];
+	 
   ?>
 
 
@@ -105,8 +109,35 @@
 		</div>				
 	    
 	    </div>
+<?php  
+  		}
+  		if($_SESSION['tipo'] == 'aluno'){
+	  			$logado = $_SESSION['login'];
+  	
 
+?>
+				<div class="btn-group">
+				  		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+				   		 Relatorio
+				   		 <span class="caret"></span>
+				 		 </a>
+				 		 <ul class="dropdown-menu">
+				 		   <li><a href="controller/relatorio.php?acao=new">Novo</a></li>			    
+				 		   <li><a href="controller/relatorio.php?acao=consult">Lista</a></li>
+				 		 </ul>
+				</div>	
+<?php  
+  		}
+  		if($_SESSION['tipo'] == 'administrador'){
+	  			$logado = $_SESSION['login'];
+  	
 
+?>
+
+<?php
+		}
+	}
+?>
 <h1>MonitorUfba</h1>
  
 	<footer>© AJA</footer>

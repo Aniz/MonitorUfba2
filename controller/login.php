@@ -18,13 +18,14 @@ $result = mysql_query("SELECT * FROM $tipo WHERE email = '$login' AND SENHA = '$
 if(mysql_num_rows ($result) > 0 ) { 
 	$_SESSION['login'] = $login; 
 	$_SESSION['senha'] = $senha; 
+	$_SESSION['tipo'] = $tipo; 
 	header('location:../index.php'); 
 }
 else{ 
 	
 	unset ($_SESSION['login']); 
 	unset ($_SESSION['senha']); 
-	
+	unset ($_SESSION['tipo']); 
 	header('location:../login.php'); 
 } 
 
@@ -32,6 +33,7 @@ if(isset($_GET['acao']))
 {
 	unset ($_SESSION['login']); 
 	unset ($_SESSION['senha']); 
+	unset ($_SESSION['tipo']);
 	header('location:../login.php'); 
 }
 ?>
