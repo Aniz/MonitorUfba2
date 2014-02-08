@@ -21,10 +21,11 @@ if(mysql_num_rows($result) > 0 ) { ;
 	$_SESSION['tipo'] = $tipo; 
 
 	while($consulta = mysql_fetch_array($result)) { 
-		if($consulta['admin'])
+		if($consulta['admin']){
 			$_SESSION['tipo'] = 'administrador';
+			$tipo = 'administrador';
+		}
 	}
-
 	$twig = twig('../view/');
 	echo $twig->render('index.twig', array('tipo' => $tipo));
 }
