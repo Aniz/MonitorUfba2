@@ -9,12 +9,15 @@ require_once('../helper/funcoes.php');
 $conecta = conectar();
 $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
+session_start(); 	
+$tipo = $_SESSION['tipo'];
+
 $twig = twig('../view/');
 
 $baseTemplate="aluno/";
 
 if ($acao == 'new') {
-	echo $twig->render($baseTemplate. 'new.twig', array('name' => 'Aluno'));
+	echo $twig->render($baseTemplate. 'new.twig', array('tipo' => $tipo));
 
 
 }else if ($acao == 'edit') {
@@ -22,8 +25,6 @@ if ($acao == 'new') {
 $id = $_GET["idAluno"];
 	
 $sql = selecaoByID('Aluno','id_aluno',$id);	
-
-//echo $sql;
 
 $result = mysql_query($sql, $conecta); 
  
@@ -40,21 +41,18 @@ else{
 	$alunos[] = $consulta;
 }
 
-//	var_dump($alunos);
 echo $twig->render($baseTemplate.'edit.twig',
 	array(
             'entities' => $alunos,
+            'tipo' => $tipo,
         ));
 }
  
 } else if ($acao == 'delete') {
 		$idx=$_GET['idAluno'];
-		
 		$idS = "id_aluno =".$idx;	
 		
 $sqlDeletar = deletar('aluno',$idS);
-
-echo $sqlDeletar;
 
 $result = mysql_query($sqlDeletar, $conecta); 
 
@@ -174,19 +172,11 @@ $dados;
 $tipo;
 $nome_historico;
 
-
-	
 $arquivo = $_FILES["historico"]["tmp_name"]; 
 $tipo    = $_FILES["historico"]["type"];
 $nome_historico  = $_FILES["historico"]["name"];
 
 chdir('temp');
-
-//echo $tipo;
-//echo $nome;
-//echo getcwd()."\\ultimo.pdf";
-
-//echo $nome_historico;
 
 move_uploaded_file($arquivo, getcwd()."\\ultimo.pdf");
 
@@ -194,7 +184,7 @@ $pont = fopen(getcwd()."\\ultimo.pdf", "rb");
 
 $dados = addslashes(fread($pont, filesize(getcwd()."\\ultimo.pdf")));
 
-echo "INSERT INTO 
+/*echo "INSERT INTO 
 aluno VALUES('".
 	$aluno->getCpf()."','".
 	$nome."','".
@@ -214,7 +204,7 @@ aluno VALUES('".
 	$dados."','".
 	$genero."','".
 	$tipo."','".
-	$nome_historico."')";
+	$nome_historico."')";*/
 
 $quer = mysql_query("INSERT INTO aluno VALUES(null,'".
 	$cpf."','".
@@ -244,7 +234,7 @@ if(!mysql_error())
 	echo ("<script>window.location.href = \"../index.php\";</script>");	
 }
 else
-	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
+	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!',  'tipo' => $tipo,));
 	
 } else if ($acao == 'update') {		
 		//$senha2=$_POST['senha2'];
@@ -377,6 +367,7 @@ else{
 echo $twig->render($baseTemplate.'consult.twig',
 	array(
             'entities' => $alunos,
+             'tipo' => $tipo,
         ));
 }
 }else if ($acao == 'download') {
@@ -397,7 +388,8 @@ echo $twig->render($baseTemplate.'consult.twig',
 
 //mysql_free_result($result); 
 //mysql_close($conecta); 
-}else {
-	echo $twig->render('404.twig');
+}
+else {
+	echo $twig->render('404.twig', array('tipo' => $tipo));
 }
 

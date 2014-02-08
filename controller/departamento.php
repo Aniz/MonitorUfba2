@@ -9,10 +9,15 @@ require_once('../helper/funcoes.php');
 //banco
 $conecta = conectar();
 $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
+session_start(); 	
+$tipo = $_SESSION['tipo'];
 
 $twig = twig('../view/');
 
 $baseTemplate="departamento/";
+
+if(!$tipo = $_SESSION['tipo'])
+	header('location:../login.php'); 
 
 if ($acao == 'new') {
 
@@ -30,7 +35,7 @@ else{
 }
 
 
-	echo $twig->render($baseTemplate. 'new.twig', array('professores' => $professores));
+	echo $twig->render($baseTemplate. 'new.twig', array('professores' => $professores, 'tipo' => $tipo));
 }
 }else if ($acao == 'edit') {
 
@@ -54,7 +59,7 @@ else{
 
 echo $twig->render($baseTemplate.'edit.twig',
 	array(
-            'entities' => $Departamentos, 'professores'=> $professores
+            'entities' => $Departamentos, 'professores'=> $professores, 'tipo' => $tipo,
         ));
 }
  
@@ -64,8 +69,6 @@ echo $twig->render($baseTemplate.'edit.twig',
 		$idS = "id_departamento =".$idx;	
 		
 $sqlDeletar = deletar('Departamento',$idS);
-
-echo $sqlDeletar;
 
 $result = mysql_query($sqlDeletar, $conecta); 
 
@@ -84,8 +87,6 @@ $result = mysql_query($sqlDeletar, $conecta);
 } else if ($acao == 'create') {
 	
 	$departamento = new Departamento($_POST);   
-	var_dump($departamento);	
-	//$dados=array($departamento->getNome(),$departamento->getChefe());
 
 $nome = $departamento->getNome();
 if(!$nome)
@@ -96,10 +97,10 @@ if(!$chefe)
 	$chefe = "";
 
 
-echo "INSERT INTO 
+/*echo "INSERT INTO 
 Departamento VALUES(null,'".
 	$nome."','".
-	$chefe."')";
+	$chefe."')";*/
 
 $quer = mysql_query("INSERT INTO Departamento VALUES(null,'".
 	$chefe."','".
@@ -111,7 +112,7 @@ if(!mysql_error())
 	echo ("<script>window.location.href = \"../index.php\";</script>");	
 }
 else
-	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
+	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!', 'tipo' => $tipo,));
 	
 } else if ($acao == 'update') {		
 	/*if ($_POST) {
@@ -135,7 +136,7 @@ if(!mysql_error())
 	echo ("<script>window.location.href = \"../index.php\";</script>");	
 }
 else
-	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
+	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!', 'tipo' => $tipo));
 
 
 } else if ($acao == 'consult') {
@@ -153,6 +154,7 @@ else{
 echo $twig->render($baseTemplate.'consult.twig',
 	array(
             'entities' => $Departamentos,
+            'tipo' => $tipo,
         ));
 }
 }else {

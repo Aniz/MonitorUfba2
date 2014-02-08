@@ -9,16 +9,18 @@ $conecta = conectar();
 
 $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
+session_start(); 	
+$tipo = $_SESSION['tipo'];
 $twig = twig('../view/');
 
 $baseTemplate="relatorio/";
 
+if(!$tipo = $_SESSION['tipo'])
+	header('location:../login.php'); 
+
 if ($acao == 'new') {  
 	 
-	echo $twig->render($baseTemplate.'new.twig');
-
-	//echo $twig->render($baseTemplate. 'new.twig', array('name' => 'Professor'));
-
+	echo $twig->render($baseTemplate.'new.twig',array('tipo' => $tipo));
 
 }else if ($acao == 'edit') {
 
@@ -38,7 +40,8 @@ else{
 
 echo $twig->render($baseTemplate.'edit.twig',
 	array(
-            'entities' => $relatorios,            
+            'entities' => $relatorios,   
+            'tipo' => $tipo,        
         ));
 }
  
@@ -48,8 +51,6 @@ echo $twig->render($baseTemplate.'edit.twig',
 		$idS = "id_relatorio =".$idx;	
 		
 $sqlDeletar = deletar('relatorio',$idS);
-
-echo $sqlDeletar;
 
 $result = mysql_query($sqlDeletar, $conecta); 
 
@@ -71,16 +72,11 @@ $result = mysql_query($sqlDeletar, $conecta);
 	//		echo "<script>alert(\"Não foi possível remover!\");</script>";       
 	//
 } else if ($acao == 'create') {
-		//$senha2=$_POST['senha2'];
 		$arquivo = $_FILES["arquivo"]["tmp_name"]; 
 		$tipo    = $_FILES["arquivo"]["type"];
 		$nome  = $_FILES["arquivo"]["name"];
 
 		chdir('temp');
-
-		echo $tipo;
-		echo $nome;
-		echo getcwd()."\\ultimo.pdf";
 
 		move_uploaded_file($arquivo, getcwd()."\\ultimo.pdf");
 
@@ -90,15 +86,8 @@ $result = mysql_query($sqlDeletar, $conecta);
 
 		$sq = "INSERT INTO relatorio (arquivo,
 		tipo,nome) VALUES('".$dados."', '".$tipo."','".$nome."')";
-		
-		echo $sq;
-		
+				
 		$sql = mysql_query($sq,$conecta);
-
-		
-
-		//$relatorio = new relatorio($_POST);  
-
 
 		if(!mysql_error())
 		{					
@@ -106,16 +95,16 @@ $result = mysql_query($sqlDeletar, $conecta);
 			echo ("<script>window.location.href = \"../index.php\";</script>");	
 		}
 		else
-			echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
+			echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!','tipo' => $tipo));
 	
 } else if ($acao == 'update') {		
 		//$senha2=$_POST['senha2'];
 
-	if ($_POST) {
+	/*if ($_POST) {
 	  foreach ($_POST as $key => $value) {
 	    echo $key . ' = ' . $value . '<br />';
 	  }
-	}
+	}*/
 		
 	$id = $_POST['id'];
 		
@@ -127,10 +116,6 @@ $result = mysql_query($sqlDeletar, $conecta);
 
 	chdir('temp');
 
-	echo $tipo;
-	echo $nome;
-	echo getcwd()."\\ultimo.pdf";
-
 	move_uploaded_file($arquivo, getcwd()."\\ultimo.pdf");
 
 	$pont = fopen(getcwd()."\\ultimo.pdf", "rb");
@@ -140,8 +125,6 @@ $result = mysql_query($sqlDeletar, $conecta);
 	$sq = "UPDATE relatorio SET arquivo ='".$dados."',
 	tipo ='".$tipo."',nome ='".$nome."' where id_relatorio='".$id."'";
 	
-	echo $sq;
-	
 	$sql = mysql_query($sq,$conecta);	
 
 	if(!mysql_error())
@@ -150,7 +133,7 @@ $result = mysql_query($sqlDeletar, $conecta);
 		echo ("<script>window.location.href = \"../index.php\";</script>");	
 	}
 	else
-		echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
+		echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!',array('tipo' => $tipo)));
 
 } else if ($acao == 'consult') {
 	$sql = selecao("relatorio"); 
@@ -168,7 +151,8 @@ else{
 
 	echo $twig->render($baseTemplate.'consult.twig',
 	array(
-            'entities' => $relatorios,            
+            'entities' => $relatorios, 
+            'tipo' => $tipo,           
         ));
 
 	}

@@ -10,12 +10,19 @@ $conecta = conectar();
 
 $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
+
+session_start(); 	
+$tipo = $_SESSION['tipo'];
+
 $twig = twig('../view/');
+
 
 $baseTemplate="professor/";
 
-if ($acao == 'new') {
+if(!$tipo = $_SESSION['tipo'])
+	header('location:../login.php'); 
 
+if ($acao == 'new') {
 	$departamentos = array();
 
 	$sql = selecao("departamento"); 
@@ -30,6 +37,7 @@ else{
 	echo $twig->render($baseTemplate.'new.twig',
 	array(
             'departamentos' => $departamentos,
+            'tipo' => $tipo,
         ));
 }
 	//echo $twig->render($baseTemplate. 'new.twig', array('name' => 'Professor'));
@@ -66,6 +74,7 @@ echo $twig->render($baseTemplate.'edit.twig',
 	array(
             'entities' => $professores,
             'departamentos' => $departamentos,
+            'tipo' => $tipo,
         ));
 }
  
@@ -75,8 +84,6 @@ echo $twig->render($baseTemplate.'edit.twig',
 		$idS = "id_professor =".$idx;	
 		
 $sqlDeletar = deletar('professor',$idS);
-
-echo $sqlDeletar;
 
 $result = mysql_query($sqlDeletar, $conecta); 
 
@@ -112,8 +119,7 @@ $result = mysql_query($sqlDeletar, $conecta);
     	}*/
 	//	else 
 	//			{			
-		echo $professor->getNome();
-
+		
 			$dados=array($professor->getNome(),$professor->getCpf(),$professor->getEmail(),$professor->getRg(),$professor->getOrgaoEmissor(),
 				$professor->getSenha(),$professor->getEndereco(),$professor->getTelefone(),$professor->getMatricula(), 
 				$professor->getDepartamento());
@@ -158,7 +164,6 @@ if(!$professor->getTelefone())
 else
 	$telefone = $professor->getTelefone();
 
-
 if(!$professor->getMatricula())
 	$matricula = "";
 else
@@ -170,7 +175,13 @@ else
 	$departamento = $professor->getDepartamento();
 
 
+$pquer = mysql_query("Select email from professor");
+$aquer = mysql_query("Select email from aluno");
 
+if((mysql_num_rows($pquer) > 0)||(mysql_num_rows($aquer) > 0)) { 
+	echo $twig->render($baseTemplate.'new.twig', array('Erros' => 'Erro! Esse email já está cadastrado! ',array('tipo' => $tipo,'entity'=>$entity)));
+}
+/*
 echo "INSERT INTO 
 professor VALUES('".
 	$professor->getCpf()."','".
@@ -183,7 +194,7 @@ professor VALUES('".
 	$professor->getTelefone()."','".	
 	$professor->getMatricula()."','".
 	$professor->getDepartamento().
-")";
+")";*/
 
 $quer = mysql_query("INSERT INTO professor VALUES(null,'".
 	$cpf."','".
@@ -204,16 +215,9 @@ if(!mysql_error())
 	echo ("<script>window.location.href = \"../index.php\";</script>");	
 }
 else
-	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
+	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!',array('tipo' => $tipo)));
 	
 } else if ($acao == 'update') {		
-		//$senha2=$_POST['senha2'];
-
-	if ($_POST) {
-	  foreach ($_POST as $key => $value) {
-	    echo $key . ' = ' . $value . '<br />';
-	  }
-	}
 		$professoralt = new Professor($_POST);   	
 		
 	//	$id = $alunoalt->getId();   
@@ -266,9 +270,7 @@ if($professoralt->getDepartamento())
 
 $id = $_POST['id'];
 
-
-
-echo $sqlUpdate .= "where id_professor='".$id."'";
+$sqlUpdate .= "where id_professor='".$id."'";
 $quer = mysql_query($sqlUpdate);
 
 if(!mysql_error())
@@ -277,7 +279,7 @@ if(!mysql_error())
 	echo ("<script>window.location.href = \"../index.php\";</script>");	
 }
 else
-	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
+	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!','tipo' => $tipo));
 
 } else if ($acao == 'consult') {
 	$sql = selecao("Professor"); 
@@ -301,7 +303,6 @@ else{
 		while($consulta2 = mysql_fetch_array($result2)) { 
 			$departamentos_nomes[$i] = $consulta2;
 			$professores[$i]['id_departamento'] = $consulta2['nome'];
-			//echo $consulta2['nome'];
 		}
 		$i++;
 	}
@@ -309,7 +310,8 @@ else{
 	
 echo $twig->render($baseTemplate.'consult.twig',
 	array(
-            'entities' => $professores,            
+            'entities' => $professores,    
+            'tipo' => $tipo,        
         ));
 }
 //mysql_free_result($result); 

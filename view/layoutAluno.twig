@@ -1,50 +1,24 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        {% block head %}
-            <link rel="stylesheet" href="../public/css/bootstrap.css" />
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>{% block title %}{% endblock %} - MonitorUfba </title>
-        {% endblock %}
-            <script type="text/javascript" src="../public/js/jquery-1.8.3.min.js"></script>
-            <script type="text/javascript" src="../public/js/bootstrap.js"></script>
-              <link href="../public/theme.css" rel="stylesheet" type="text/css"> 
-    </head>
-    <body>
-
-		<div id="menu">
-		{% block menu %}
-			<div class="btn-group">
-			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-			    Meus dados
-			    <span class="caret"></span>
-			  </a>
-			  <ul class="dropdown-menu">
-			    <li><a href="aluno.php?acao=new">Novo cadastro</a></li>		
-			    <li><a href="aluno.php?acao=edit">Editar dados</a></li>		
-			  </ul>
-			</div>
-			<div class="btn-group">
-			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-			    Monitorias
-			    <span class="caret"></span>
-			  </a>
-			  <ul class="dropdown-menu">
-			  	<li><a href="projeto.php?acao=consult">Nova inscrição</a></li>
-			    <li><a href="monitoria.php?acao=consultById">Minhas monitorias</a></li>		
-			    <li><a href="selecao.php?acao=consultById">Resultados de seleções</a></li>		
-			    
-			  </ul>
-			</div>			
-	    </div>
-	    {% endblock %}
-
-        <div id="content">{% block content %}{% endblock %}</div>
-
-        <div id="footer">
-            {% block footer %}
-AJA
-            {% endblock %}
-        </div>
-    </body>
-</html>
+{% block menu %}
+	<div class="btn-group">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Meus dados
+		<span class="caret"></span>
+	</a>
+	<ul class="dropdown-menu">
+	    <li><a href="aluno.php?acao=new">Novo cadastro</a></li>		
+	    <li><a href="aluno.php?acao=edit">Editar dados</a></li>		
+	</ul>
+	</div>
+	<div class="btn-group">
+	  	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		    Monitorias
+		    <span class="caret"></span>
+	  	</a>
+	  	<ul class="dropdown-menu">
+		  	<li><a href="projeto.php?acao=consult">Nova inscrição</a></li>
+		    <li><a href="monitoria.php?acao=consultById">Minhas monitorias</a></li>		
+		    <li><a href="selecao.php?acao=consultById">Resultados de seleções</a></li>	
+		</ul>
+	</div>
+	<a href="login.php?acao=sair">Sair</a>		
+{% endblock %}

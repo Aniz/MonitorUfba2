@@ -10,15 +10,20 @@ $conecta = conectar();
 
 $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
+session_start(); 	
+$tipo = $_SESSION['tipo'];
 $twig = twig('../view/');
 
 $baseTemplate="projeto/";
 
+if(!$tipo = $_SESSION['tipo'])
+	header('location:../login.php'); 
+
 if ($acao == 'new') {
-$editais = array();
-$professores = array();
-$relatorios = array();
-$selecoes = array();
+	$editais = array();
+	$professores = array();
+	$relatorios = array();
+	$selecoes = array();
 //Professores
 	$sql = selecao('Professor');	
 	$result = mysql_query($sql, $conecta); 
@@ -63,7 +68,7 @@ $selecoes = array();
 			$editais[] = $consulta;
 		}
 	}*/
-	echo $twig->render($baseTemplate. 'new.twig', array('professores' => $professores));//, 'editais' => $editais, 'relatorios' => $relatorios, 'selecoes' => $selecoes));
+	echo $twig->render($baseTemplate. 'new.twig', array('professores' => $professores,'tipo'=>$tipo));//, 'editais' => $editais, 'relatorios' => $relatorios, 'selecoes' => $selecoes));
 
 } else if ($acao == 'create') {
 
@@ -173,7 +178,7 @@ if(!mysql_error())
 	echo ("<script>window.location.href = \"../index.php\";</script>");	
 }
 else
-	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
+	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!','tipo'=>$tipo));
 
 
 }else if ($acao == 'edit') {
@@ -205,6 +210,7 @@ echo $twig->render($baseTemplate.'edit.twig',
 	array(
             'entities' => $projetos,
             'professores' => $professores,
+            'tipo'=>$tipo,
         ));
 }}
  
@@ -212,8 +218,7 @@ echo $twig->render($baseTemplate.'edit.twig',
 		$idx=$_GET['idProjeto'];
 	
 		$idS = "id_projeto =".$idx;	
-		var_dump($idS);
-echo $sqlDeletar = deletar('projetoDeMonitoria',$idS);
+		$sqlDeletar = deletar('projetoDeMonitoria',$idS);
 
 $result = mysql_query($sqlDeletar, $conecta); 
 
@@ -226,7 +231,7 @@ $result = mysql_query($sqlDeletar, $conecta);
 		else   	
 			echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
 		
-		echo $twig->render('index.php');
+		echo $twig->render('index.php',array('tipo'=>$tipo));
 		
 	//	}
 	//	else
@@ -235,7 +240,6 @@ $result = mysql_query($sqlDeletar, $conecta);
 } else if ($acao == 'update') {		
 		//$senha2=$_POST['senha2'];
 		$id = $_POST['id'];
-		echo $id;
 		$projetoalt = new Projetodemonitoria($_POST);  
 
 	//	$id = $alunoalt->getId();   
@@ -300,7 +304,7 @@ if($projetoalt->getIdEdital())
 if($projetoalt->getIdRelatorio())
 	$sqlUpdate .= ", id_relatorio ='".$projetoalt->getIdRelatorio()."'";
 
-echo $sqlUpdate .= " where id_projeto='".$id."'";
+$sqlUpdate .= " where id_projeto='".$id."'";
 $quer = mysql_query($sqlUpdate);
 
 if(!mysql_error())
@@ -309,7 +313,7 @@ if(!mysql_error())
 	echo ("<script>window.location.href = \"../index.php\";</script>");	
 }
 else
-	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
+	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!','tipo'=>$tipo));
 
 } else if ($acao == 'consult') {
 	$sql = selecao("projetoDeMonitoria"); 
@@ -325,6 +329,7 @@ else{
 echo $twig->render($baseTemplate.'consult.twig',
 	array(
             'entities' => $projetos,
+            'tipo' => $tipo,
         ));
 }
 //mysql_free_result($result); 

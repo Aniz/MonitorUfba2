@@ -10,27 +10,27 @@ require_once('../helper/funcoes.php');
 $conecta = conectar();
 $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
+session_start(); 	
+$tipo = $_SESSION['tipo'];
+
 $twig = twig('../view/');
 
 $baseTemplate="edital/";
 
-if ($acao == 'new') {  
- 
-	echo $twig->render($baseTemplate.'new.twig');
+if(!$tipo = $_SESSION['tipo'])
+	header('location:../login.php'); 
 
-	//echo $twig->render($baseTemplate. 'new.twig', array('name' => 'Professor'));
-
+if ($acao == 'new') {   
+	echo $twig->render($baseTemplate.'new.twig', array('tipo' => $tipo));
 
 }else if ($acao == 'newProjeto') {  
 
 	$idProjeto = $_GET['idProjeto'];
- 	echo $_GET['idProjeto'];
 	echo $twig->render($baseTemplate.'newEP.twig', 
 		array(
 			'entity' => $idProjeto,
+			'tipo' => $tipo,
 			));
-
-	//echo $twig->render($baseTemplate. 'new.twig', array('name' => 'Professor'));
 
 
 }else if ($acao == 'edit') {
@@ -51,7 +51,8 @@ else{
 
 echo $twig->render($baseTemplate.'edit.twig',
 	array(
-            'entities' => $editais,            
+            'entities' => $editais, 
+            'tipo' => $tipo,           
         ));
 }
  
@@ -61,8 +62,6 @@ echo $twig->render($baseTemplate.'edit.twig',
 		$idS = "id_edital =".$idx;	
 		
 $sqlDeletar = deletar('edital',$idS);
-
-echo $sqlDeletar;
 
 $result = mysql_query($sqlDeletar, $conecta); 
 
@@ -93,10 +92,6 @@ $result = mysql_query($sqlDeletar, $conecta);
 
 		chdir('temp');
 
-		echo $tipo;
-		echo $nome;
-		echo getcwd()."\\ultimo.pdf";
-
 		move_uploaded_file($arquivo, getcwd()."\\ultimo.pdf");
 
 		$pont = fopen(getcwd()."\\ultimo.pdf", "rb");
@@ -106,10 +101,6 @@ $result = mysql_query($sqlDeletar, $conecta);
 		$sq = "INSERT INTO edital (arquivo,
 		tipo,nome,publicacao) VALUES('".$dados."', '".$tipo."','".$nome."','".$pub."')";
 		
-
-
-		//echo $_POST['id'];
-		
 		$sql = mysql_query($sq,$conecta);
 
 		
@@ -118,25 +109,19 @@ $result = mysql_query($sqlDeletar, $conecta);
 			$idx = $_POST['id'];
 			$sq1 =  "SELECT MAX(id_edital) as id FROM edital";
 			$sql2 = mysql_query($sq1,$conecta);
-			//$idxd = explode('#', $sql2);
-
+			
 			while($consulta = mysql_fetch_array($sql2)) { 
 				$editais[] = $consulta;
 		
 			}
 			
 			$sql_tab1 ="UPDATE projetodemonitoria SET id_edital ='".$editais[0]['id']."' where id_projeto='".$idx."'";
-			echo $sql_tab1;
 			$sql2 = mysql_query($sql_tab1,$conecta);
 			
 		}
 
-		//$relatorio = new relatorio($_POST);  
-
-
 		if(!mysql_error())
 		{					
-			
 			echo "<script>alert(\"Inserido! $mensagem\");</script>";       
 			echo ("<script>window.location.href = \"../index.php\";</script>");	
 		}
@@ -144,13 +129,12 @@ $result = mysql_query($sqlDeletar, $conecta);
 			echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!'));
 	
 } else if ($acao == 'update') {		
-		//$senha2=$_POST['senha2'];
 
-	if ($_POST) {
+	/*if ($_POST) {
 	  foreach ($_POST as $key => $value) {
 	    echo $key . ' = ' . $value . '<br />';
 	  }
-	}
+	}*/
 		
 	$id = $_POST['id'];
 	$publicacao = $_POST['publicacao'];
@@ -163,10 +147,6 @@ $result = mysql_query($sqlDeletar, $conecta);
 
 	chdir('temp');
 
-	echo $tipo;
-	echo $nome;
-	echo getcwd()."\\ultimo.pdf";
-
 	move_uploaded_file($arquivo, getcwd()."\\ultimo.pdf");
 
 	$pont = fopen(getcwd()."\\ultimo.pdf", "rb");
@@ -175,9 +155,7 @@ $result = mysql_query($sqlDeletar, $conecta);
 
 	$sq = "UPDATE edital SET arquivo ='".$dados."',
 	tipo ='".$tipo."',nome ='".$nome."',publicacao ='".$publicacao."' where id_edital='".$id."'";
-	
-	echo $sq;
-	
+		
 	$sql = mysql_query($sq,$conecta);	
 
 	if(!mysql_error())
@@ -192,19 +170,19 @@ $result = mysql_query($sqlDeletar, $conecta);
 	$sql = selecao("edital"); 
 	$result = mysql_query($sql, $conecta); 
  
-if(!$result)
+	if(!$result)
 	    echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
-else{
-	
+	else{
 
-	while($consulta = mysql_fetch_array($result)) { 
-		$editais[] = $consulta;
+		while($consulta = mysql_fetch_array($result)) { 
+			$editais[] = $consulta;
 		
-	}
+		}
 
 	echo $twig->render($baseTemplate.'consult.twig',
 	array(
-            'entities' => $editais,            
+            'entities' => $editais,  
+            'tipo' => $tipo,          
         ));
 
 	}
