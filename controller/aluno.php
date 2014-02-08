@@ -322,10 +322,6 @@ $nome_historico  = $_FILES["historico"]["name"];
 
 chdir('temp');
 
-//echo $tipo_historico;
-//echo $nome_historico;
-//echo getcwd()."\\ultimo.pdf";
-
 move_uploaded_file($arquivo, getcwd()."\\ultimo.pdf");
 
 $pont = fopen(getcwd()."\\ultimo.pdf", "rb");
@@ -338,11 +334,9 @@ tipo_historico ='".$tipo_historico."',nome_historico ='".$nome_historico."' ";
 
 $id = $_POST['id'];
 $sqlUpdate .= "where id_aluno=".$id;
-echo $sqlUpdate;
-echo $aux.",
-tipo_historico ='".$tipo_historico."',nome_historico ='".$nome_historico." ' where id_aluno=".$id ;
+$aux.",tipo_historico ='".$tipo_historico."',nome_historico ='".$nome_historico." ' where id_aluno=".$id ;
 $quer = mysql_query($sqlUpdate);
-echo mysql_error();
+
 if(!mysql_error())
 {					
 	echo "<script>alert(\"Editado! $mensagem\");</script>";       
