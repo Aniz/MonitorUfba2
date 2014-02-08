@@ -1,0 +1,83 @@
+{% block menu %}
+	<div class="btn-group">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		    Aluno
+		    <span class="caret"></span>
+		</a>
+			<ul class="dropdown-menu">
+			    <li><a href="aluno.php?acao=new">Novo</a></li>			    
+			    <li><a href="aluno.php?acao=consult">Lista</a></li>
+			</ul>
+	</div>
+	<div class="btn-group">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		    Professor
+		    <span class="caret"></span>
+	  	</a>
+	  	<ul class="dropdown-menu">
+		    <li><a href="professor.php?acao=new">Novo</a></li>			    
+		    <li><a href="professor.php?acao=consult">Lista</a></li>
+	  	</ul>
+	</div>			
+	<div class="btn-group">
+	  	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		    Projetos de Monitoria
+		    <span class="caret"></span>
+	  	</a>
+		<ul class="dropdown-menu">
+			<li><a href="projeto.php?acao=new">Novo</a></li>			    
+			<li><a href="projeto.php?acao=consult">Lista</a></li>
+		</ul>
+	</div>
+	<div class="btn-group">
+	  	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+	    	Departamento
+	    	<span class="caret"></span>
+	  	</a>
+	  	<ul class="dropdown-menu">
+		    <li><a href="departamento.php?acao=new">Novo</a></li>			    
+		    <li><a href="departamento.php?acao=consult">Lista</a></li>
+	  	</ul>
+	</div>		
+	<div class="btn-group">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		    Relatorio
+		    <span class="caret"></span>
+	  	</a>
+	  	<ul class="dropdown-menu">
+		    <li><a href="relatorio.php?acao=new">Novo</a></li>			    
+		    <li><a href="relatorio.php?acao=consult">Lista</a></li>
+	  	</ul>
+	</div>	
+	<div class="btn-group">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		    Edital
+		    <span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href="edital.php?acao=new">Novo</a></li>			    
+		    <li><a href="edital.php?acao=consult">Lista</a></li>
+		</ul>
+	</div>	
+	<div class="btn-group">
+	  	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		    Monitoria
+		    <span class="caret"></span>
+	  	</a>
+	  	<ul class="dropdown-menu">
+	    	<li><a href="monitoria.php?acao=new">Novo</a></li>			    
+	    	<li><a href="monitoria.php?acao=consult">Lista</a></li>
+	  	</ul>
+	</div>			
+	<div class="btn-group">
+	  	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		    Seleção
+		    <span class="caret"></span>
+	  	</a>
+	  	<ul class="dropdown-menu">
+	    	<li><a href="selecao.php?acao=new">Novo</a></li>
+	    	<li><a href="selecao.php?acao=consult">Lista</a></li>
+	  	</ul>
+	</div>
+	<a href="login.php?acao=sair">Sair</a>		
+{% endblock %}

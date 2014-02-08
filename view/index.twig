@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+            <link rel="stylesheet" href="../public/css/bootstrap.css" />
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <title>{% block title %}{% endblock %} - MonitorUfba </title>
+            <script type="text/javascript" src="../public/js/jquery-1.8.3.min.js"></script>
+            <script type="text/javascript" src="../public/js/bootstrap.js"></script>
+            <link href="../public/theme.css" rel="stylesheet" type="text/css"> 
+    	{% endblock %}
+    </head>
+    
+    <body>
+		<div id="menu">
+			{% block menu %}
+				{% if tipo == 'professor' %}
+					{% include 'layoutProfessor.twig'%}
+				{% elseif tipo == 'aluno' %}
+					{% include 'layoutAluno.twig' %}
+				{% elseif tipo == 'administrador' %}	
+					{% include 'layoutAdm.twig' %}
+				{% endif %}
+			{% endblock %}
+		</div>
+	    
+        <div id="content">{% block content %}{% endblock %}</div>
+
+        <div id="footer">
+            {% block footer %}
+AJA
+            {% endblock %}
+        </div>
+    </body>
+</html>
