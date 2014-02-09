@@ -187,30 +187,36 @@ if($tipo){
 	****************************/
 
 	if ($acao == 'edit') {
-
-		if(!$tipo=='aluno')
+		$aux = $idSection;
+		if($tipo!='aluno'){
 			$idSection = $_GET["idAluno"];
-			
+		}
+		
 		$sql = selecaoByID('Aluno','id_aluno',$idSection);	
+		//echo($tipo);
 		$result = mysql_query($sql, $conecta); 
+		//echo($idSection);
+		$idSection = $aux;
 		if(!$result)
 			    echo "<script>alert(\"Nenhum registro encontrado. Cadastre-se!\");</script>";       
 		else{
-
+			
 			while($consulta = mysql_fetch_array($result)) { 
+				
 				if($consulta['genero'] == 'M')
 					$consulta['genero'] = "Masculino";
 				else
 					$consulta['genero'] = "Feminino";
 				
 				$alunos[] = $consulta;
-			}
 
-		echo $twig->render($baseTemplate.'edit.twig',
-			array(
-		            'entities' => $alunos,
-		            'tipo' => $tipo,
-		        ));
+			}
+			//var_dump($alunos);
+			echo $twig->render($baseTemplate.'edit.twig',
+				array(
+			            'entities' => $alunos,
+			            'tipo' => $tipo,
+			        ));
 		}
 		 
 	/****************************

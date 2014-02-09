@@ -17,7 +17,8 @@
             <label>Tipo:</label> 
                 <select name="tipo">                   
                   <option value="aluno" >Aluno</option>
-                  <option value="professor" >Professor</option>       
+                  <option value="professor" >Professor</option>
+                  <option value="administrador" >Administrador</option>         
                 </select><br />     
             <input type="submit" class="btn" value="LOGAR"/>
             <input type="button" class="btn" value="Aluno! Cadastre-se" onClick="document.location='controller/aluno.php?acao=new'"> </p>
