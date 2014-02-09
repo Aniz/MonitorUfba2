@@ -20,7 +20,14 @@ if(mysql_num_rows($result) > 0 ) { ;
 	$_SESSION['senha'] = $senha; 
 	$_SESSION['tipo'] = $tipo; 
 
+	$_SESSION['id'] = $tipo; 
+	
 	while($consulta = mysql_fetch_array($result)) { 
+		if($tipo=='aluno')
+			$_SESSION['id'] = $consulta['id_aluno']; 
+		else
+			$_SESSION['id'] = $consulta['id_professor']; 
+		
 		if($consulta['admin']){
 			$_SESSION['tipo'] = 'administrador';
 			$tipo = 'administrador';

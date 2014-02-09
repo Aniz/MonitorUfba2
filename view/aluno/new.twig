@@ -19,7 +19,7 @@
             <div class="span9">
                 <label>Nome:</label> 
                     <input style="width: 710px;" type='text' name='nome' placeholder="nome"
-                    value='{{nome}}' error>
+                    value='{{entity.nome}}' error>
             </div>
             <div class="span3">
                 <label>Genero:</label> 
@@ -32,51 +32,50 @@
             <div class="span3"> 
                 <label>CPF:</label>
                     <input id="CPF" type='text' name='cpf' placeholder="ex: 111.111.111-11"
-                    value='' >
+                    value='{{entity.cpf}}' >
             </div>
             <div class="span3">
                 <label>Email:</label>
                     <input type='text' name='email' placeholder="@email.com"
-                    value='' >
+                    value='{{entity.email}}' >
             </div>
             <div class="span3">
                 <label>RG:</label> 
                      <input  type='text' name='rg' placeholder="ex: 11111111-11" 
-                     value='{{rg}}' >
+                     value='{{entity.rg}}' >
             </div>
             <div class="span3">
                 <label>Orgão emissor: </label>
                      <input type='text' name='orgaoEmissor' placeholder="ex: SSPBA"
-                      value='{{orgaoEmissor}}' >
+                      value='{{entity.orgaoEmissor}}' >
             </div>
             <div class="span3">
                 <label>Senha: </label>
-                    <input type='password' name='senha' placeholder="Senha"
-                    value='' > 
+                    <input type='password' name='senha' placeholder="Senha"> 
             </div>
             <div class="span9">
                 <label>Endereco: </label>
-                     <input style="width: 710px;" type='text' name='endereco' placeholder="endereço" value='{{endereco}}' >
+                     <input style="width: 710px;" type='text' name='endereco' placeholder="endereço" value='{{entity.endereco}}' >
             </div>
             <div class="span3">
                 <label>Telefone: </label>
                      <input type='text' name='telefone' placeholder="(71) XXXX-XXXX)"
-                      value='{{telefone}}' >
+                      value='{{entity.telefone}}' >
             </div>
             <div class="span3">
                 <label>Matricula: </label>
                      <input type='text' name='matricula' placeholder="ex: 111111111"
-                      value='{{matricula}}' >
+                      value='{{entity.matricula}}' >
             </div>
             <div class="span3">
                 <label>Ano de Ingresso: </label>
                      <input type='text' name='anoIngresso' placeholder="ex: 2000.1"
-                      value='{{anoIngresso}}' >
+                      value='{{entity.anoIngresso}}' >
             </div>
             <div class="span6">
                 <label>Curso: </label>
                      <input style="width: 460px;" type='text' name='curso' placeholder="curso"
-                      value='{{curso}}' >
+                      value='{{entity.curso}}' >
             </div>
             <div class="span3"> 
                 <label>Historico: </label>
@@ -91,17 +90,17 @@
                 <div class="span3"> 
                     <label>Banco: </label>
                          <input type='text' name='banco' placeholder="banco"
-                          value='{{banco}}' >
+                          value='{{entity.banco}}' >
                 </div>
                 <div class="span3"> 
                     <label>Agencia: </label>
                          <input type='text' name='agencia' placeholder="ex: 11111-1"
-                          value='{{agencia}}' >
+                          value='{{entity.agencia}}' >
                 </div>
                 <div class="span3"> 
                     <label>Conta Corrente: </label>
                          <input type='text' name='cc' placeholder="ex: 2000.1"
-                          value='{{cc}}' >
+                          value='{{entity.cc}}' >
                 </div>
             </div>
 

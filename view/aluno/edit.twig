@@ -6,6 +6,7 @@
     <style type="text/css">
         .important { color: #336699; }
     </style>
+    <script src="../helper/Mascaras.js" type="text/javascript"></script>
 {% endblock %}
 {% block content %}
     <h4>Editando aluno</h4>
@@ -18,15 +19,28 @@
   <fieldset>
     <div class="container-fluid">
         <div class="row-fluid"> 
-            <font color = 'white'> Sign up</font>
-            
-            <label>Nome: {{entity.nome}}
-            Genero: {{entity.genero}}
-             CPF: {{entity.cpf}}
-             RG: {{entity.rg}}
-             Orgão emissor: {{entity.orgao_emissor}}
-             Matricula: {{entity.matricula}}</label>
-           
+            <div class="span3">
+                <label>Genero:</label>
+                <input type='text' name='genero' value='{{entity.genero}}' disabled>
+            </div>
+            <div class="span3"> 
+                <label>CPF:</label>
+                <input id="CPF" type='text' name='cpf' value='{{entity.cpf}}' disabled>
+            </div>
+            <div class="span3">
+                <label>RG:</label> 
+                <input  type='text' name='rg' value='{{entity.rg}}/{{entity.orgao_emissor}}' disabled>
+            </div>
+            <div class="span3">
+                <label>Matricula:</label> 
+                <input  type='text' name='matricula' value='{{entity.matricula}}' disabled>
+            </div>
+        </div>
+        <div class="row-fluid"> 
+            <div class="span9">
+                <label>Nome:</label> 
+                <input style="width: 710px;" type='text' name='nome' disabled>
+            </div>
             <div class="span3">
                 <label>Email:</label>
                     <input type='text' name='email' placeholder="@email.com"
@@ -53,7 +67,7 @@
             </div>
             <div class="span3"> 
                 <label>Historico: </label>
-                     <input type="file" name="historico" value='{{historico}}'><br>
+                     <input type="file" name="historico" value='{{entity.nome_historico}}'><br>
             </div>
         </div>
     </div>
@@ -64,24 +78,24 @@
                 <div class="span3"> 
                     <label>Banco: </label>
                          <input type='text' name='banco' placeholder="banco"
-                          value='{{banco}}' >
+                          value='{{entity.banco}}' >
                 </div>
                 <div class="span3"> 
                     <label>Agencia: </label>
                          <input type='text' name='agencia' placeholder="ex: 11111-1"
-                          value='{{agencia}}' >
+                          value='{{entity.agencia}}' >
                 </div>
                 <div class="span3"> 
                     <label>Conta Corrente: </label>
                          <input type='text' name='cc' placeholder="ex: 2000.1"
-                          value='{{cc}}' >
+                          value='{{entity.cc}}' >
                 </div>
             </div>
 
-                <input type='hidden' name='id' value='{{entity.id_aluno}}'>
-            <p><input type='submit' class="btn" value="Edit" name="enviar">
-                 <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
-                 <input type="button" class="btn" value="Return" onClick="document.location='../../index.php'"> </p>
+            <input type='hidden' name='id' value='{{entity.id_aluno}}'><p>
+            <input type='submit' class="btn" value="Edit" name="enviar">
+            <input type="button" class="btn" value="Return" onClick="document.location='../index.php'"> 
+            <button><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idAluno={{entity.id_aluno}}>Excluir</a></button>    
        </fieldset>
        </form>
        </div>    
