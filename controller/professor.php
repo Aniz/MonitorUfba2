@@ -108,6 +108,18 @@ $result = mysql_query($sqlDeletar, $conecta);
 		//$senha2=$_POST['senha2'];
 		$professor = new Professor($_POST);   	
 
+$departamentos = array();
+
+	$sql = selecao("departamento"); 
+	$result = mysql_query($sql, $conecta); 
+ 
+if(!$result)
+	    echo "<script>alert(\"Não existem departamentos cadastrados. Para criar um novo selecione departamento->Novo\");</script>";       
+else{
+	while($consulta = mysql_fetch_array($result)) { 
+		$departamentos[] = $consulta;
+	}
+}
 		//var_dump($_POST);
 
 	  	/*$val = $aluno->ValidaUsuario($senha2);//valida
@@ -176,27 +188,15 @@ else
 
 
 $pquer = mysql_query("Select email from professor where email='".$email."'or cpf ='".$cpf."'");
-$aquer = mysql_query("Select email from aluno where email='".$email."'or cpf =".$cpf."'");
+$aquer = mysql_query("Select email from aluno where email='".$email."'or cpf ='".$cpf."'");
 
 if((mysql_num_rows($pquer) > 0)||(mysql_num_rows($aquer) > 0)) { 
-	echo $twig->render($baseTemplate.'new.twig', array('Erros' => 'Erro! Esse email ou cpf já está cadastrado! ',array('tipo' => $tipo,'entity'=>$entity)));
+	echo 12;
+	echo $twig->render($baseTemplate.'new.twig', array('tipo' => $tipo,'entity'=>$entity, 'departamentos'=> $departamentos));
 }
-/*
-echo "INSERT INTO 
-professor VALUES('".
-	$professor->getCpf()."','".
-	$nome."','".
-	$professor->getEmail()."','".
-	$professor->getSenha()."','".
-	$professor->getRg()."','".
-	$professor->getOrgaoEmissor()."','".
-	$professor->getEndereco()."','".
-	$professor->getTelefone()."','".	
-	$professor->getMatricula()."','".
-	$professor->getDepartamento().
-")";*/
-
-$quer = mysql_query("INSERT INTO professor VALUES(null,'".
+else{
+$admin=0;
+$quer = mysql_query("INSERT INTO professor (`cpf`, `nome`, `email`, `senha`, `rg`, `orgao_emissor`, `endereco`, `telefone`, `matricula`, `id_departamento`, `admin`) VALUES('".
 	$cpf."','".
 	$nome."','".
 	$email."','".
@@ -206,7 +206,8 @@ $quer = mysql_query("INSERT INTO professor VALUES(null,'".
 	$endereco."','".
 	$telefone."','".	
 	$matricula."','". 
-	$departamento."')");
+	$departamento."','". 
+	$admin."')");
 
 //echo $cpf;
 if(!mysql_error())
@@ -216,7 +217,7 @@ if(!mysql_error())
 }
 else
 	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!',array('tipo' => $tipo)));
-	
+	}
 } else if ($acao == 'update') {		
 		$professoralt = new Professor($_POST);   	
 		
