@@ -15,24 +15,40 @@
 <table border=2 align="center">
   <tr> 
     <td>Nota</td>
+
+  {% if tipo != 'aluno' %}    
     <td>idAluno</td>
+  {% endif %}
     <td>idProjeto</td>
     <td>aprovado</td>
     <td>Horario de atendimento</td>
-    <td>Editar</td>
-    <td>Remover</td>
+    {% if tipo != 'aluno' %}    
+      <td>Editar</td>
+    {% elseif tipo != 'professor' %}
+      <td>Remover</td>
+    {% endif %}
   </tr>
 
  {% for entity in entities %}
   <tr> 
+  {% if entity.nota is empty %}
+    <td>&nbsp;aguardando</td>
+  {% else %}   
     <td>&nbsp;{{entity.nota}}</td>
+  {% endif %}
+  {% if tipo != 'aluno' %}    
     <td>&nbsp;{{entity.id_aluno}}</td>
+  {% endif %}    
     <td>&nbsp;{{entity.id_projeto}}</td>
     <td>&nbsp;{{entity.aprovado}}</td>
     <td>&nbsp;{{entity.horario_atendimento}}</td>  
-  <td><a href = ?acao=edit&idSelecao={{entity.id_selecao}}>Editar</a></td>
-	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idSelecao={{entity.id_selecao}}>Excluir</a></td>  
+  {% if tipo != 'aluno' %}    
+    <td><a href = ?acao=edit&idSelecao={{entity.id_selecao}}>Editar</a></td>
+	{% elseif tipo != 'professor' %}
+    <td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idSelecao={{entity.id_selecao}}>Desistir</a></td>  
+  {% endif %}
     </tr>
+
   {% endfor %}
 
 <?php

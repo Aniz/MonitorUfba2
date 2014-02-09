@@ -25,33 +25,8 @@ if(!$tipo = $_SESSION['tipo'])
 ****************************/
 
 if ($acao == 'new') {
-$editais = array();
-$professores = array();
-$relatorios = array();
-$selecoes = array();
-//Professores
-	$sql = selecao('Aluno');	
-	$result = mysql_query($sql, $conecta); 
-
-	if(!$result)
-	    echo "<script>alert(\"Não existem professores cadastrados. Para criar um novo selecione Professor->Novo\");</script>";       
-	else{
-		while($consulta = mysql_fetch_array($result)) { 
-			$alunos[] = $consulta;
-		}
-	}
-	$sql = selecao('Projetodemonitoria');	
-	$result = mysql_query($sql, $conecta); 
-
-	if(!$result)
-	    echo "<script>alert(\"Não existem professores cadastrados. Para criar um novo selecione Professor->Novo\");</script>";       
-	else{
-		while($consulta = mysql_fetch_array($result)) { 
-			$projetos[] = $consulta;
-		}
-	}
-
-	echo $twig->render($baseTemplate. 'new.twig', array('alunos' => $alunos, 'projetos'=>$projetos,'tipo' => $tipo));//, 'editais' => $editais, 'relatorios' => $relatorios, 'selecoes' => $selecoes));
+	$idProjeto = $_GET['idProjeto'];
+	echo $twig->render($baseTemplate. 'new.twig', array('tipo' => $tipo,'idProjeto' => $idProjeto));//, 'editais' => $editais, 'relatorios' => $relatorios, 'selecoes' => $selecoes));
 
 /****************************
 *
@@ -61,49 +36,25 @@ $selecoes = array();
 
 } else if ($acao == 'create') {
 
-		$selecao = new Selecao($_POST);  
+	$idAluno = $_SESSION['id'];
+	$idProjeto = $_POST['id'];
+	$values = $_POST['listmultiple'];
 
-$nota = $selecao->getNota();
-if(!$nota)
-	$nota = "";
+	foreach($values as $v)
+		$horarioAtendimento = $horarioAtendimento+$v;
+	
+	$quer = mysql_query("INSERT INTO selecao (`id_aluno`,`id_projeto`,`aprovado`,`horario_atendimento`) VALUES(".
+		$idAluno.",".
+		$idProjeto.",0,".
+	    $horarioAtendimento.")");
 
-//$horarioAtendimento = $selecao->getHorarioAtendimento();
-//if(!$horarioAtendimento)
-//	$horarioAtendimento = "";
-
-$idAluno = $selecao->getIdAluno();
-if(!$idAluno)
-	$idAluno = 0;
-
-$idProjeto = $selecao->getIdProjeto();
-if(!$idProjeto)
-	$idProjeto = 0;
-
-$aprovado = $selecao->getAprovado();
-if(!$aprovado)
-	$aprovado = 0;
-
-$values = $_POST['listmultiple'];
-
-foreach($values as $v)
-	$horarioAtendimento = $horarioAtendimento+$v;
-
-//echo 
-$quer = mysql_query("INSERT INTO selecao VALUES(null,'".
-	$nota."','".
-    $idAluno."','".
-	$idProjeto."','".  
-  	$aprovado."','".
-    $horarioAtendimento."')");
-
-
-if(!mysql_error())
-{					
-	echo "<script>alert(\"Inserido! $mensagem\");</script>";       
-	echo ("<script>window.location.href = \"../index.php\";</script>");	
-}
-else
-	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!','tipo' => $tipo));
+	if(!mysql_error())
+	{					
+		echo "<script>alert(\"Inserido! $mensagem\");</script>";       
+		echo ("<script>window.location.href = \"../index.php\";</script>");	
+	}
+	else
+		echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!','tipo' => $tipo));
 
 /****************************
 *
@@ -157,22 +108,19 @@ echo $twig->render($baseTemplate.'edit.twig',
            // 'alunos' => $alunos,
             'tipo' => $tipo,
         ));
-
  
 } else if ($acao == 'delete') {
-		$idx=$_GET['idSelecao'];
-	
-		$idS = "id_selecao =".$idx;	
-	
-$sqlDeletar = deletar('Selecao',$idS);
-
-$result = mysql_query($sqlDeletar, $conecta); 
+	$idx=$_GET['idSelecao'];
+	$idS = "id_selecao =".$idx;	
+	$sqlDeletar = deletar('Selecao',$idS);
+	$result = mysql_query($sqlDeletar, $conecta); 
 
 		if(!mysql_error())
 		{
 			echo "<script>alert(\"Removido!\");</script>";       
 			unset($_GET['acao']);
 			unset($_GET['idselecao']);
+			echo ("<script>window.location.href = \"../index.php\";</script>");	
 		}	
 		else   	
 			echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
@@ -262,21 +210,30 @@ else
 ****************************/
 
 } else if ($acao == 'consult') {
-	$sql = selecao("Selecao"); 
+	if($tipo=='aluno')
+		$sql = "Select * from aluno a, selecao s where email ='".$_SESSION['login']."' and s.id_aluno = a.id_aluno";
+	elseif($tipo=='professor')
+		$sql = "Select * from professor a, selecao s where email ='".$_SESSION['login']."' and s.id_professor = a.id_professor";
+	elseif($tipo=='administrador')
+		$sql = selecao("Selecao"); 
 	$result = mysql_query($sql, $conecta); 
  
-if(!$result)
-	    echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
-else{
+	if(!mysql_num_rows($result) > 0 ) { ; 
+		if($tipo=='aluno')
+			echo "<script>alert(\"Nenhum registro encontrado. Increva-se! :)\");</script>";       
+		else
+		    echo "<script>alert(\"Nenhum registro encontrado. Cadastre um novo projeto.\");</script>";       
+		echo ("<script>window.location.href = \"../index.php\";</script>");	
+	}
+	else{
 
 	while($consulta = mysql_fetch_array($result)) { 
 	$selecoes[] = $consulta;
 }
-
 echo $twig->render($baseTemplate.'consult.twig',
 	array(
             'entities' => $selecoes,
-            'tipo' => $tipo
+            'tipo' => $tipo,
         ));
 }
 

@@ -27,8 +27,13 @@
     <td>periodoInscricaoFinal</td>
     <td>periodoSelecao</td>
     <td>Edital</td>
+  
+  {% if tipo != 'aluno' %}
     <td>Editar</td>
     <td>Remover</td>
+  {% else %}
+    <td>Inscrever</td>
+  {% endif %}
   </tr>
 
  {% for entity in entities %}
@@ -52,9 +57,13 @@
 {% endif %}
   </td>    
   
-  <td><a href = ?acao=edit&idProjeto={{entity.id_projeto}}>Atualizar Projeto</a></td>
-	<td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idProjeto={{entity.id_projeto}}>Excluir</a></td>  
-    </tr>
+  {% if tipo != 'aluno' %} 
+   <td><a href = ?acao=edit&idProjeto={{entity.id_projeto}}>Atualizar Projeto</a></td>
+	 <td><a onclick="return show_confirm('Tem certeza que deseja excluir?');" href = ?acao=delete&idProjeto={{entity.id_projeto}}>Excluir</a></td>  
+  {% else %}
+   <td><a href="../controller/selecao?acao=new&idProjeto={{entity.id_projeto}}">Clique Me!</a></td>  
+  {% endif %}
+  </tr>
   {% endfor %}
 
 <?php

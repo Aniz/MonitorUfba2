@@ -21,6 +21,12 @@ $baseTemplate="monitoria/";
 if(!$tipo = $_SESSION['tipo'])
 	header('location:../login.php'); 
 
+	/****************************
+	*
+	*  New
+	*
+	****************************/
+
 if ($acao == 'new') {
 $aluno = array();
 $professores = array();
@@ -286,16 +292,26 @@ else
 
 
 } else if ($acao == 'consult') {
-	$sql = selecao("Monitoria"); 
+	if($tipo=='aluno')
+		echo $sql = "Select * from aluno a, monitoria s where email ='".$_SESSION['login']."' and s.id_aluno = a.id_aluno";
+	elseif($tipo=='professor')
+		$sql = "Select * from professor a, monitoria s where email ='".$_SESSION['login']."' and s.id_professor = a.id_professor";
+	elseif($tipo=='administrador')
+		$sql = selecao("Monitoria"); 
 	$result = mysql_query($sql, $conecta); 
- 
-if(!$result)
-	    echo "<script>alert(\"Nenhum registro encontrado. Para criar um novo selecione `Novo Cadastro`\");</script>";       
-else{
+
+	if(!mysql_num_rows($result) > 0 ) { 
+		if($tipo=='aluno')
+		    echo "<script>alert(\"Nenhum registro encontrado. Nenhuma monitoria ativa!\");</script>";       
+		else
+		    echo "<script>alert(\"Nenhum registro encontrado. Cadastre um novo projeto.\");</script>";       
+		//echo ("<script>window.location.href = \"../index.php\";</script>");	
+	}
+	else{
 
 	while($consulta = mysql_fetch_array($result)) { 
-	$projetos[] = $consulta;
-}
+		$projetos[] = $consulta;
+	}
 echo $twig->render($baseTemplate.'consult.twig',
 	array(
             'entities' => $projetos,

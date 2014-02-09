@@ -9,37 +9,18 @@
     <script src="../helper/Mascaras.js" type="text/javascript"></script>
 {% endblock %}
 {% block content %}
-<h4>Cadastro de Selecao</h4>
+<h4>Inscrição de monitoria</h4>
 <div>         
   <form Method ="POST" enctype="multipart/form-data" Action ="?acao=create">  
   <fieldset>
     <div class="container-fluid">
-            <font color = 'white'> Sign up</font>
-                <div class="span9">    
-            <label>Nota:</label> 
-                <input type='text' name='nota' placeholder="nota"
-                value='{{nota}}' >
-            <label>Aluno:</label> 
-            <select name="aluno">
-                {% for prof in alunos %}
-                <option value="{{prof.id_aluno}}">{{prof.nome}}</option>
-                {% endfor %}
-            </select><br>
-            <label>Projeto:</label> 
-            <select name="projeto">
-                {% for prof in projetos %}
-                <option value="{{prof.id_projeto_de_monitoria}}">{{prof.atividades}}</option>
-                {% endfor %}
-            </select><br>
-            <input name="aprovado" type="checkbox">Aprovado?<br>
-            
-            <label>Horario de atendimento: </label>
+            <input type='hidden' name='id' value='{{idProjeto}}'>
+            <label>Qual seu turno disponível para monitoria?</label>
             <select name="listmultiple[]" size="3" multiple="true">
-            <option value="1">Manhã</option>
-            <option value="2">Tarde</option>
-            <option value="4">Noite</option>
-          </select>
-
+              <option value="1">Manhã</option>
+              <option value="2">Tarde</option>
+              <option value="4">Noite</option>
+            </select>
             <p><input type='submit' class="btn" value="Register" name="enviar">
                  <input name="limpar" class="btn" type="reset" id="limpar" value="Clean">
               <input type="button" class="btn" value="Return" onClick="document.location='../index.php'"> </p>

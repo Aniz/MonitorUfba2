@@ -175,11 +175,11 @@ else
 	$departamento = $professor->getDepartamento();
 
 
-$pquer = mysql_query("Select email from professor");
-$aquer = mysql_query("Select email from aluno");
+$pquer = mysql_query("Select email from professor where email='".$email."'or cpf ='".$cpf."'");
+$aquer = mysql_query("Select email from aluno where email='".$email."'or cpf =".$cpf."'");
 
 if((mysql_num_rows($pquer) > 0)||(mysql_num_rows($aquer) > 0)) { 
-	echo $twig->render($baseTemplate.'new.twig', array('Erros' => 'Erro! Esse email já está cadastrado! ',array('tipo' => $tipo,'entity'=>$entity)));
+	echo $twig->render($baseTemplate.'new.twig', array('Erros' => 'Erro! Esse email ou cpf já está cadastrado! ',array('tipo' => $tipo,'entity'=>$entity)));
 }
 /*
 echo "INSERT INTO 
