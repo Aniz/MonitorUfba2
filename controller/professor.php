@@ -286,10 +286,10 @@ if($professoralt->getMatricula())
 	$sqlUpdate .= "matricula ='".$professoralt->getMatricula()."', " ;
 
 if($professoralt->getDepartamento())
-	$sqlUpdate .= "id_departamento ='".$professoralt->getDepartamento()."' " ;
+	$sqlUpdate .= "id_departamento ='".$professoralt->getDepartamento()."', " ;
 
-$id = $_POST['id'];
-
+$sqlUpdate = substr($sqlUpdate,0,-1);
+		
 $sqlUpdate .= "where id_professor='".$id."'";
 $quer = mysql_query($sqlUpdate);
 

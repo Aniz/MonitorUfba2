@@ -39,7 +39,7 @@
            <div class="span3">
             <label>Professor:</label> 
             <select name="idProfessor">
-                {% for prof in professores %}
+                {% for prof in professor %}
                 <option value="{{prof.id_professor}}">{{prof.nome}}</option>
                 {% endfor %}
             </select>
@@ -47,6 +47,7 @@
            <div class="span3"> 
             <label>Professor orientador:</label>
              <select name="idProfessorOrientador">
+              <option value="">- select -</option>
                 {% for prof in professores %}
                 <option value="{{prof.id_professor}}">{{prof.nome}}</option>
                 {% endfor %}
@@ -75,7 +76,6 @@
           </div>
                <div class="span1">
           <input name="bolsa" type="checkbox">Bolsa?<br>
-            <input name="status" type="checkbox">Ativa?<br>
         </div>
 
          <div class="span9"> 

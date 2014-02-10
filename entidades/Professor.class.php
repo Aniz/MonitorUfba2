@@ -23,7 +23,8 @@ class Professor {
     $endereco='',
     $telefone='',    
     $matricula='',
-    $departamento='';
+    $departamento='',
+    $admin='';
   /**
    * Construtor
    *
@@ -41,6 +42,7 @@ class Professor {
     $this->setTelefone($dados['telefone']);    
     $this->setMatricula($dados['matricula']);
     $this->setDepartamento($dados['departamento']);
+    $this->setAdmin($dados['admin']);
     
   }
 

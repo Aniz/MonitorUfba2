@@ -10,8 +10,9 @@
 {% block content %}
     <h4>Editando Projetos</h4>
 
+{{entity.resumo}}
  {% for entity in entities %}
-
+{{Erros}}
      <div>         
         <form Method ="POST" enctype="multipart/form-data" Action ="?acao=update">
          
@@ -19,16 +20,14 @@
     <div class="container-fluid">
     <div class="row-fluid"> 
       <font color = 'white'>Nova Monitoria</font>
-        <font color = 'white'> Sign up</font>      
           <div class="span9">
             <label>Resumo:</label> 
                 <textarea type='text' name='resumo' placeholder="resumo"
-                value='{{resumo}}' style="margin: 0px 0px 10px; width: 724px; height: 115px;"></textarea>
+                style="margin: 0px 0px 10px; width: 724px; height: 115px;">{{entity.resumo}}</textarea>
             </div>
         <div class="span9">
             <label>Atividades:</label>
-                <textarea id="atividades" type='text' name='atividades' placeholder="a serem desenvolvidas"
-                value='' style="margin: 0px 0px 10px; width: 724px; height: 115px;"></textarea>
+                <textarea id="atividades" type='text' name='atividades' placeholder="a serem desenvolvidas" style="margin: 0px 0px 10px; width: 724px; height: 115px;">{{entity.atividades}}</textarea>
         </div>
     </div>
      <div class="row-fluid"> 
@@ -43,44 +42,53 @@
         <div class="span3">
             <label>Vagas pedidas: </label>
                  <input type='text' name='vagasPedidas' placeholder="vagas solicitadas"
-                  value='{{vagasPedidas}}' >
+                  value="{{entity.vagas_pedidas}}" >
         </div>
         <div class="span3">
             <label>Vagas aprovadas: </label>
                  <input type='text' name='vagasAprovadas' placeholder="vagas aprovadas"
-                  value='{{vagasAprovadas}}' >
+                  value="{{entity.vagas_aprovadas}}" >
         </div>
     </div>  
     <div class="row-fluid"> 
         <div class="span3">
             <label>Carga horaria total: </label>
-                 <input type='text' name='chTotal' placeholder="carga horaria total" value='{{chTotal}}' >
+                 <input type='text' name='chTotal' placeholder="carga horaria total" value="{{entity.ch_total}}" >
         </div>
         <div class="span3">
             <label>Carga horaria semanal: </label>
                  <input type='text' name='chSemanal' placeholder="carga horaria semanal"
-                  value='{{chSemanal}}' >
+                  value='{{entity.ch_semanal}}' >
         </div>
         <div class="span1">
-            <input name="bolsa" type="checkbox">Bolsa?
+          {% if aprovado %}
+            <input name="aprovado" type="checkbox" checked>Aprovado?
+          {% else %}
             <input name="aprovado" type="checkbox">Aprovado?
+          {% endif %}
+          {% if bolsa %}
+            <input name="bolsa" type="checkbox" checked>Bolsa?
+          {% else %}
+            <input name="bolsa" type="checkbox">Bolsa?
+          {% endif %}
+        
         </div>
     </div>
     <div class="row-fluid"> 
         <div class="span3">
             <label>Periodo de inscricao inicio: </label>
                  <input type='text' name='periodoInscricaoInicio' placeholder="Periodo Inscricao Inicio"
-                  value='{{periodoInscricaoInicio}}' >
+                  value='{{entity.periodo_inscricao_inicio}}' >
         </div>
         <div class="span3">
             <label>Periodo de inscricao final: </label>
                  <input type='text' name='periodoInscricaoFinal' placeholder="Periodo Inscricao Final"
-                  value='{{periodoInscricaoFinal}}' >
+                  value='{{entity.periodo_inscricao_final}}' >
         </div>
         <div class="span3">
             <label>Periodo selecao: </label>
                  <input type='text' name='periodoSelecao' placeholder="Periodo Selecao"
-                  value='{{periodoSelecao}}' >
+                  value='{{entity.periodo_selecao}}' >
            </div>
            </div>
     
@@ -89,11 +97,11 @@
               <input type="button" class="btn" value="Cancelar" onClick="document.location='../View/index.php'"> </p>
     </div>   
  <div class="container-fluid">
-         <input type="button" class="btn" value="Criar Seleção" onClick="document.location='../controller/selecao.php?acao=newSelecao&idProjeto={{entity.id_projeto}}'">
+         <input type="button" class="btn" value="Atribuir nota" onClick="document.location='../controller/selecao.php?acao=nota&idProjeto={{entity.id_projeto}}'">
 
          <input type="button" class="btn" value="Criar monitoria" onClick="document.location='../controller/monitoria.php?acao=newMonitoria&idProjeto={{entity.id_projeto}}'">
         
-         <input type="button" class="btn" value="Adicionar relatorio" onClick="document.location='../controller/selecao.php?acao=newRealatorio&idProjeto={{entity.id_projeto}}'">
+         <input type="button" class="btn" value="Adicionar relatorio" onClick="document.location='../controller/selecao.php?acao=newRelatorio&idProjeto={{entity.id_projeto}}'">
 
    </div>
 

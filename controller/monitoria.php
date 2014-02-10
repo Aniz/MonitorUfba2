@@ -13,7 +13,7 @@ $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
 session_start(); 	
 $tipo = $_SESSION['tipo'];
-
+$idSection = $_SESSION['id'];
 $twig = twig('../view/');
 
 $baseTemplate="monitoria/";
@@ -31,6 +31,22 @@ if ($acao == 'new') {
 $aluno = array();
 $professores = array();
 //Professores
+
+	if($tipo=='administrador')
+		$sql = selecao('Professor');	
+	elseif($tipo=='professor')
+		$sql = "Select * from Professor where id_professor=".$idSection;	
+	$result = mysql_query($sql, $conecta); 
+
+	if(!$result)
+	    echo "<script>alert(\"Não existem professores cadastrados. Para criar um novo selecione Professor->Novo\");</script>";       
+	else{
+		while($consulta = mysql_fetch_array($result)) { 
+			$professor[] = $consulta;
+		}
+
+	}
+
 	$sql = selecao('Professor');	
 	$result = mysql_query($sql, $conecta); 
 
@@ -43,7 +59,7 @@ $professores = array();
 	}
 
 //Alunos
-	$sql = selecao('Aluno');	
+	$sql = "Select * from Aluno where id_aluno=".$_GET['idAluno'];	
 	$result = mysql_query($sql, $conecta); 
 
 	if(!$result)
@@ -54,7 +70,7 @@ $professores = array();
 		}
 	}
 
-	echo $twig->render($baseTemplate. 'new.twig', array('professores' => $professores, 'alunos' => $alunos,'tipo' => $tipo));//, 'editais' => $editais, 'relatorios' => $relatorios, 'selecoes' => $selecoes));
+	echo $twig->render($baseTemplate. 'new.twig', array('professores' => $professores,'professor' => $professor, 'alunos' => $alunos,'tipo' => $tipo));//, 'editais' => $editais, 'relatorios' => $relatorios, 'selecoes' => $selecoes));
 
 } else if ($acao == 'create') {
 		$monitoria = new Monitoria($_POST);  

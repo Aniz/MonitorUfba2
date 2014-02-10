@@ -138,61 +138,19 @@ echo $twig->render($baseTemplate.'edit.twig',
 *
 ****************************/
 
-} else if ($acao == 'update') {		
+} else if ($acao == 'update') {	
+echo 98;
 		$id = $_POST['id'];
 		$selecaoalt = new selecao($_POST);  
 			
 		$sqlUpdate = "UPDATE selecao SET ";
 
-$sqlUpdate .= "vagas_pedidas ='".$selecaoalt->getVagasPedidas()."'";
+$sqlUpdate .= "nota ='".$_POST['nota']."',";
 
-
-if($selecaoalt->getAtividades())
-	$sqlUpdate .= ", atividades ='".$selecaoalt->getAtividades()."'";
-
-if($selecaoalt->getResumo())
-	$sqlUpdate .= ", resumo ='".$selecaoalt->getResumo()."'";
-
-if($selecaoalt->getBolsa())
-	$sqlUpdate .= ", bolsa ='".$selecaoalt->getBolsa()."'";
-
-if($selecaoalt->getAprovado())
-	if($selecaoalt->getAprovado()=='on')
-		$sqlUpdate .= ", aprovado = 1";
-	else
-		$sqlUpdate .= ", aprovado = 0";
-
-if($selecaoalt->getVagasAprovadas())
-	$sqlUpdate .= ", vagas_aprovadas ='".$selecaoalt->getVagasAprovadas()."'";
-
-if($selecaoalt->getChTotal())
-	$sqlUpdate .= ", ch_total ='".$selecaoalt->getChTotal()."'";
-
-if($selecaoalt->getChSemanal())
-	$sqlUpdate .= ", ch_semanal ='".$selecaoalt->getChSemanal()."'";
-
-if($selecaoalt->getPeriodoInscricaoInicio())
-	$sqlUpdate .= ", periodo_inscricao_inicio ='".$selecaoalt->getPeriodoInscricaoInicio()."'";
-
-if($selecaoalt->getPeriodoInscricaoFinal())
-	$sqlUpdate .= ", periodo_inscricao_final ='".$selecaoalt->getPeriodoInscricaoFinal()."'";
-
-if($selecaoalt->getPeriodoSelecao())
-	$sqlUpdate .= ", periodo_selecao ='".$selecaoalt->getPeriodoSelecao()."'";
-
-if($selecaoalt->getIdProfessor())
-	$sqlUpdate .= ", id_professor ='".$selecaoalt->getIdProfessor()."'";
-
-if($selecaoalt->getIdSelecao())
-	$sqlUpdate .= ", id_selecao ='".$selecaoalt->getIdSelecao()."'";
-
-if($selecaoalt->getIdEdital())
-	$sqlUpdate .= ", id_edital ='".$selecaoalt->getIdEdital()."'";
-
-if($selecaoalt->getIdRelatorio())
-	$sqlUpdate .= ", id_relatorio ='".$selecaoalt->getIdRelatorio()."'";
-
+$sqlUpdate = substr($sqlUpdate,0,-1);
+		
 $sqlUpdate .= " where id_selecao='".$id."'";
+
 $quer = mysql_query($sqlUpdate);
 
 if(!mysql_error())
@@ -258,6 +216,38 @@ echo $twig->render($baseTemplate.'consult.twig',
 	header("Content-Disposition: attachment; filename=$nome");
 	print($conteudo);
 
+
+/****************************
+*
+*  nota
+*
+****************************/
+
+} else if ($acao == 'nota') { 
+	if(($tipo=='administrador')||($tipo=='professor'))
+	{
+	$sql = "Select * from selecao where id_projeto=".$_GET['idProjeto']." order by nota";
+	$result = mysql_query($sql, $conecta); 
+ 
+	if(!mysql_num_rows($result) > 0 ) { ; 
+		if($tipo=='aluno')
+			echo "<script>alert(\"Nenhum registro encontrado. Increva-se! :)\");</script>";       
+		else
+		    echo "<script>alert(\"Nenhum registro encontrado. Cadastre um novo projeto.\");</script>";       
+		echo ("<script>window.location.href = \"../index.php\";</script>");	
+	}
+	else{
+
+	while($consulta = mysql_fetch_array($result)) { 
+	$selecoes[] = $consulta;
+}
+echo $twig->render($baseTemplate.'consultNotas.twig',
+	array(
+            'entities' => $selecoes,
+            'tipo' => $tipo,
+        ));
+	}
+}
 /****************************
 *
 *  Erro

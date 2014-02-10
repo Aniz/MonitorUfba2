@@ -14,6 +14,7 @@ session_start();
 $tipo = $_SESSION['tipo'];
 $twig = twig('../view/');
 
+$idSection = $_SESSION['id'];
 $baseTemplate="projeto/";
 
 if(!$tipo = $_SESSION['tipo'])
@@ -28,13 +29,12 @@ if(!$tipo = $_SESSION['tipo'])
 if(($tipo=='professor')||($tipo=='administrador'))
 {
 	if ($acao == 'new') {
-		$editais = array();
-		$professores = array();
-		$relatorios = array();
-		$selecoes = array();
-
-		//Professores
-		$sql = selecao('Professor');	
+		
+		if($tipo="professor")
+			$sql = "Select * from Professor where id_professor =".$idSection;	
+		elseif($tipo="administrador")
+			$sql = "Select * from Professor";	
+		
 		$result = mysql_query($sql, $conecta); 
 
 		if(!$result)
@@ -55,6 +55,7 @@ if(($tipo=='professor')||($tipo=='administrador'))
 	} else if ($acao == 'create') {
 
 		$projeto = new Projetodemonitoria($_POST);  
+		var_dump($projeto);
 		//	var_dump($projeto);
 			/*	
 			if(!empty($val))
@@ -136,7 +137,7 @@ if(($tipo=='professor')||($tipo=='administrador'))
 	    $periodoSelecao."','".
 	    $id_professor."',null,null,null)";*/
 
-	echo $quer = mysql_query("INSERT INTO projetoDeMonitoria VALUES(null,'".
+	$quer = mysql_query("INSERT INTO projetoDeMonitoria (`codigo`, `resumo`, `atividades`, `bolsa`, `aprovado`, `vagas_pedidas`, `vagas_aprovadas`, `ch_total`, `ch_semanal`, `periodo_inscricao_inicio`, `periodo_inscricao_final`, `periodo_selecao`, `id_professor`) VALUES('".
 		$codigo."','".
 		$resumo."','".
 	    $atividades."','".
@@ -148,9 +149,8 @@ if(($tipo=='professor')||($tipo=='administrador'))
 	    $chSemanal."','".
 	    $periodoInscricaoInicio."','".
 	    $periodoInscricaoFinal."','".
-	    $periodoSelecao."',null,null,null,'".
+	    $periodoSelecao."','".
 	    $id_professor."')");
-
 
 	if(!mysql_error())
 	{					
@@ -242,53 +242,55 @@ if(($tipo=='professor')||($tipo=='administrador'))
 			//else 
 			//		{				
 		$sqlUpdate = "UPDATE Projetodemonitoria SET ";
-		$sqlUpdate .= "vagas_pedidas ='".$projetoalt->getVagasPedidas()."'";
+		$sqlUpdate .= "vagas_pedidas ='".$projetoalt->getVagasPedidas()."',";
 
 
 		if($projetoalt->getAtividades())
-			$sqlUpdate .= ", atividades ='".$projetoalt->getAtividades()."'";
+			$sqlUpdate .= "atividades ='".$projetoalt->getAtividades()."',";
 
 		if($projetoalt->getResumo())
-			$sqlUpdate .= ", resumo ='".$projetoalt->getResumo()."'";
+			$sqlUpdate .= "resumo ='".$projetoalt->getResumo()."',";
 
 		if($projetoalt->getBolsa())
-			$sqlUpdate .= ", bolsa ='".$projetoalt->getBolsa()."'";
+			$sqlUpdate .= "bolsa ='".$projetoalt->getBolsa()."',";
 
 		if($projetoalt->getAprovado())
 			if($projetoalt->getAprovado()=='on')
-				$sqlUpdate .= ", aprovado = 1";
+				$sqlUpdate .= "aprovado = 1,";
 			else
-				$sqlUpdate .= ", aprovado = 0";
+				$sqlUpdate .= "aprovado = 0,";
 
 		if($projetoalt->getVagasAprovadas())
-			$sqlUpdate .= ", vagas_aprovadas ='".$projetoalt->getVagasAprovadas()."'";
+			$sqlUpdate .= "vagas_aprovadas ='".$projetoalt->getVagasAprovadas()."',";
 
 		if($projetoalt->getChTotal())
-			$sqlUpdate .= ", ch_total ='".$projetoalt->getChTotal()."'";
+			$sqlUpdate .= "ch_total ='".$projetoalt->getChTotal()."',";
 
 		if($projetoalt->getChSemanal())
-			$sqlUpdate .= ", ch_semanal ='".$projetoalt->getChSemanal()."'";
+			$sqlUpdate .= "ch_semanal ='".$projetoalt->getChSemanal()."',";
 
 		if($projetoalt->getPeriodoInscricaoInicio())
-			$sqlUpdate .= ", periodo_inscricao_inicio ='".$projetoalt->getPeriodoInscricaoInicio()."'";
+			$sqlUpdate .= "periodo_inscricao_inicio ='".$projetoalt->getPeriodoInscricaoInicio()."',";
 
 		if($projetoalt->getPeriodoInscricaoFinal())
-			$sqlUpdate .= ", periodo_inscricao_final ='".$projetoalt->getPeriodoInscricaoFinal()."'";
+			$sqlUpdate .= "periodo_inscricao_final ='".$projetoalt->getPeriodoInscricaoFinal()."',";
 
 		if($projetoalt->getPeriodoSelecao())
-			$sqlUpdate .= ", periodo_selecao ='".$projetoalt->getPeriodoSelecao()."'";
+			$sqlUpdate .= "periodo_selecao ='".$projetoalt->getPeriodoSelecao()."',";
 
 		if($projetoalt->getIdProfessor())
-			$sqlUpdate .= ", id_professor ='".$projetoalt->getIdProfessor()."'";
+			$sqlUpdate .= "id_professor ='".$projetoalt->getIdProfessor()."',";
 
 		if($projetoalt->getIdSelecao())
-			$sqlUpdate .= ", id_selecao ='".$projetoalt->getIdSelecao()."'";
+			$sqlUpdate .= "id_selecao ='".$projetoalt->getIdSelecao()."',";
 
 		if($projetoalt->getIdEdital())
-			$sqlUpdate .= ", id_edital ='".$projetoalt->getIdEdital()."'";
+			$sqlUpdate .= "id_edital ='".$projetoalt->getIdEdital()."',";
 
 		if($projetoalt->getIdRelatorio())
-			$sqlUpdate .= ", id_relatorio ='".$projetoalt->getIdRelatorio()."'";
+			$sqlUpdate .= "id_relatorio ='".$projetoalt->getIdRelatorio()."',";
+
+		$sqlUpdate = substr($sqlUpdate,0,-1);
 
 		$sqlUpdate .= " where id_projeto='".$id."'";
 		$quer = mysql_query($sqlUpdate);
@@ -311,6 +313,8 @@ if(($tipo=='professor')||($tipo=='administrador'))
 	} if ($acao == 'consult') {
 		if($tipo=='aluno')
 			$sql = 'Select * from projetoDeMonitoria where aprovado=1';
+		elseif($tipo=='professor')
+			$sql = 'Select * from projetoDeMonitoria where id_professor='.$idSection;
 		else
 			$sql = selecao("projetoDeMonitoria"); 
 		$result = mysql_query($sql, $conecta); 
@@ -355,7 +359,7 @@ if(($tipo=='professor')||($tipo=='administrador'))
 		header('Content-Type: application/pdf');
 		header("Content-Disposition: attachment; filename=$nome");
 		print($conteudo);
-	}else {
+	} if(((!$acao=='new')||(!$acao=='create'))&&((!$acao=='edit')||(!$acao=='update'))) {
 		echo $twig->render('404.twig');
 	}
 
