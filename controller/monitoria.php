@@ -154,6 +154,12 @@ else
 	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!','tipo' => $tipo));
 
 
+	/****************************
+	*
+	*  Edit
+	*
+	****************************/
+
 }else if ($acao == 'edit') {
 
 $id=$_GET['idMonitoria'];
@@ -223,6 +229,15 @@ echo $twig->render($baseTemplate.'edit.twig',
 	//	else
 	//		echo "<script>alert(\"Não foi possível remover!\");</script>";       
 	//	
+
+
+	/****************************
+	*
+	*  Update
+	*
+	****************************/
+
+
 } else if ($acao == 'update') {		
 		//$senha2=$_POST['senha2'];
 		$id = $_POST['id'];
@@ -302,10 +317,11 @@ else
 	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!','tipo' => $tipo));
 
 
-
-
-
-
+	/****************************
+	*
+	*  Consult
+	*
+	****************************/
 
 } else if ($acao == 'consult') {
 	if($tipo=='aluno')

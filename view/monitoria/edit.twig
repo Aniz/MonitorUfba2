@@ -22,17 +22,17 @@
           <div class="span3">
             <label>Data de inicio:</label> 
                 <input type='date' name='dataInicio' placeholder="dataInicio"
-                value='{{dataInicio}}' >
+                value='{{entity.data_inicio}}' >
           </div>
           <div class="span3">
             <label>Data de Fim:</label> 
                 <input type='date' name='dataFim' placeholder="data de fim"
-                value='{{dataFim}}' >
+                value='{{entity.data_fim}}' >
           </div>
           <div class="span3">
             <label>Semestre:</label>
                 <input id="semestre" type='text' name='semestre' placeholder="semestre"
-                value='{{ semestre }}' >
+                value='{{entity.semestre}}' >
           </div>
       </div>
       
@@ -48,16 +48,24 @@
            <div class="span3"> 
             <label>Professor orientador:</label>
              <select name="idProfessorOrientador">
-                {% for prof in professores %}
-                <option value="{{prof.id_professor}}">{{prof.nome}}</option>
-                {% endfor %}
+              {% for prof in professores %}
+                {% if entity.id_professor == prof.id_professor %}
+                  <option value="{{prof.id_professor}}" checked>{{prof.nome}}</option>
+                {% else %}
+                  <option value="{{prof.id_professor}}">{{prof.nome}}</option>
+                {% endif %}
+              {% endfor %}
             </select>
           </div>
            <div class="span3"> 
             <label>Aluno:</label> 
             <select name="idAluno">
                 {% for alu in alunos %}
-                <option value="{{alu.id_aluno}}">{{alu.nome}}</option>
+                {% if entity.id_aluno == prof.id_aluno %}
+                  <option value="{{alu.id_aluno}}" checked>{{alu.nome}}</option>
+                {% else %}
+                  <option value="{{alu.id_aluno}}">{{alu.nome}}</option>
+                {% endif %}
                 {% endfor %}
             </select>
           </div>
@@ -67,16 +75,27 @@
         <div class="span3">
              <label>Unidade: </label>
                  <input type='text' name='unidade' placeholder="unidade"
-                  value='{{unidade}}' >
+                  value='{{entity.unidade}}' >
         </div>
          <div class="span3"> 
             <label>Orgão: </label>
                  <input type='text' name='orgao' placeholder="orgão"
-                  value='{{orgao}}' >
+                  value='{{entity.orgao}}' >
           </div>
                <div class="span1">
+
+        {% if entity.bolsa is empty %}
           <input name="bolsa" type="checkbox">Bolsa?<br>
-            <input name="status" type="checkbox">Fechar?<br>
+        {% else %}
+         <input name="bolsa" type="checkbox" checked>Bolsa?<br>
+         {% endif %}
+
+        {% if entity.bolsa is empty %}
+          <input name="status" type="checkbox">Fechar?<br>
+        {% else %}
+          <input name="status" type="checkbox" checked>Fechar?<br>
+        {% endif %}
+
         </div>  
          <div class="span9"> 
             <label>Componentes curriculares: </label>

@@ -21,17 +21,17 @@
           <div class="span3">
             <label>Data de inicio:</label> 
                 <input type='date' name='dataInicio' placeholder="dataInicio"
-                value='{{dataInicio}}' >
+                value='{{entity.data_inicio}}' >
           </div>
           <div class="span3">
             <label>Data de Fim:</label> 
                 <input type='date' name='dataFim' placeholder="data de fim"
-                value='{{dataFim}}' >
+                value='{{entity.data_fim}}' >
           </div>
           <div class="span3">
             <label>Semestre:</label>
                 <input id="semestre" type='text' name='semestre' placeholder="semestre"
-                value='{{ semestre }}' >
+                value='{{ entity.semestre }}' >
           </div>
       </div>
       
@@ -39,6 +39,7 @@
            <div class="span3">
             <label>Professor:</label> 
             <select name="idProfessor">
+                <option value=""> - select - </option>
                 {% for prof in professor %}
                 <option value="{{prof.id_professor}}">{{prof.nome}}</option>
                 {% endfor %}
@@ -56,6 +57,7 @@
            <div class="span3"> 
             <label>Aluno:</label> 
             <select name="idAluno">
+                 <option value="">- select -</option>
                 {% for alu in alunos %}
                 <option value="{{alu.id_aluno}}">{{alu.nome}}</option>
                 {% endfor %}
@@ -67,20 +69,23 @@
         <div class="span3">
              <label>Unidade: </label>
                  <input type='text' name='unidade' placeholder="unidade"
-                  value='{{unidade}}' >
+                  value='{{entity.unidade}}' >
         </div>
          <div class="span3"> 
             <label>Orgão: </label>
                  <input type='text' name='orgao' placeholder="orgão"
-                  value='{{orgao}}' >
+                  value='{{entity.orgao}}' >
           </div>
-               <div class="span1">
-          <input name="bolsa" type="checkbox">Bolsa?<br>
-        </div>
-
+            <div class="span1">
+                {% if entity.bolsa is empty %}
+                  <input name="bolsa" type="checkbox">Bolsa?<br>
+                {% else %}
+                  <input name="bolsa" type="checkbox" checked>Bolsa?<br>
+                {% endif %}
+            </div>
          <div class="span9"> 
             <label>Componentes curriculares: </label>
-                 <textarea id="content" style="margin: 0px 0px 10px; width: 724px; height: 115px;" type='text' name='componentesCurriculres' placeholder="componentes curriculres" value='{{componentesCurriculres}}' ></textarea>
+                 <textarea id="content" style="margin: 0px 0px 10px; width: 724px; height: 115px;" type='text' name='componentesCurriculres' placeholder="componentes curriculres">{{entity.componentes_curriculares}}</textarea>
         </div>
       </div>
       </div>
@@ -89,8 +94,6 @@
                  <input type="button" class="btn" value="Return" onClick="document.location='../View/index.php'"> </p>
       
        </fieldset>
-   
        </form>
-       </div>    
-
+       </div> 
 {% endblock %}
