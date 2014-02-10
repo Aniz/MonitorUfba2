@@ -44,9 +44,6 @@ if ($acao == 'new') {
 	}*/
 //	else 
 //			{			
-	//echo $aluno->getOrgaoEmissor();
-	//echo $aluno->getAnoIngresso();
-
 	/*$dados=array($aluno->getNome(),$aluno->getCpf(),$aluno->getEmail(),$aluno->getRg(),$aluno->getOrgaoEmissor(),
 		$aluno->getSenha(),$aluno->getEndereco(),$aluno->getTelefone(),$aluno->getMatricula(), 
 		$aluno->getCurso(),$aluno->getAnoIngresso(),$aluno->getBanco(),$aluno->getAgencia(),$aluno->getCc(),$aluno->getGenero(),$aluno->getHistorico());
@@ -127,11 +124,12 @@ if ($acao == 'new') {
 		$genero = $aluno->getGenero();
 
 	$pquer = mysql_query("Select email from professor where email='".$email."'or cpf ='".$cpf."'");
-$aquer = mysql_query("Select email from aluno where email='".$email."'or cpf =".$cpf."'");
+	$aquer = mysql_query("Select email from aluno where email='".$email."'or cpf ='".$cpf."'");
 
-if((mysql_num_rows($pquer) > 0)||(mysql_num_rows($aquer) > 0)) { 
-	echo $twig->render($baseTemplate.'new.twig', array('Erros' => 'Erro! Esse email ou cpf já está cadastrado! ',array('tipo' => $tipo,'entity'=>$entity)));
-}
+	if((mysql_num_rows($pquer) > 0)||(mysql_num_rows($aquer) > 0)) { 
+		echo $twig->render($baseTemplate. 'new.twig', array('tipo' => $tipo,'entity'=>$aluno,'Erros'=>'Cpf ou email ja cadastrado'));
+		die;
+	}
 
 	$dados;
 	$tipo_historico;

@@ -10,15 +10,14 @@
     <body>          
             <form method="post" action="controller/login.php" id="formlogin" name="formlogin" > <fieldset id="fie"> 
             <legend>LOGIN</legend><br /> 
-            <label>NOME : </label> 
+            <label>EMAIL : </label> 
                 <input type="text" name="login" id="login" /><br /> 
             <label>SENHA :</label> 
                 <input type="password" name="senha" id="senha" /><br /> 
             <label>Tipo:</label> 
                 <select name="tipo">                   
                   <option value="aluno" >Aluno</option>
-                  <option value="professor" >Professor</option>
-                  <option value="administrador" >Administrador</option>         
+                  <option value="professor" >Professor</option>       
                 </select><br />     
             <input type="submit" class="btn" value="LOGAR"/>
             <input type="button" class="btn" value="Aluno! Cadastre-se" onClick="document.location='controller/aluno.php?acao=new'"> </p>

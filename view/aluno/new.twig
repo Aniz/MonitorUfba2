@@ -10,13 +10,15 @@
 {% endblock %}
 {% block content %}
 <h4>Cadastro de Aluno</h4>
-<div>         
-    <form Method ="POST" enctype="multipart/form-data" Action ="?acao=create">
+<div>      
+  {% if Erros %}
+    <font color = 'red'>{{Erros}}</font>          
+  {% endif %}
+  <form Method ="POST" enctype="multipart/form-data" Action ="?acao=create">
     <fieldset>
     <div class="container-fluid">
-        <div class="row-fluid"> 
-            <font color = 'white'> Sign up</font>
-            <div class="span9">
+        <div class="row-fluid">
+            <div class="span10">
                 <label>Nome:</label> 
                     <input style="width: 710px;" type='text' name='nome' placeholder="nome"
                     value='{{entity.nome}}' error>

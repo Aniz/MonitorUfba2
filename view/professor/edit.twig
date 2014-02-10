@@ -10,37 +10,36 @@
 {% block content %}
     <h4>Editando Professor</h4>
 
- {% for entity in entities %}
-
-     <div>         
+    <div>         
         <form Method ="POST" enctype="multipart/form-data" Action ="?acao=update">
-         
      <fieldset>
+  {% for entity in entities %}
+  
     <div class="container-fluid">
         <div class="row-fluid"> 
             <font color = 'white'> Sign up</font>
                 <div class="span9">    
                     <label>Nome:</label> 
                         <input style="width: 710px;" type='text' name='nome' placeholder="nome"
-                        value='{{nome}}' >
+                        value='{{entity.nome}}' disabled>
                 </div>
                 <div class="span3">    
                     <label>CPF:</label>
                         <input id="CPF" type='text' name='cpf' placeholder="ex: 111.111.111-11"
-                        value='' >
+                        value='{{entity.cpf}}' disabled>
                 </div>
                 <div class="span3">    
                     <label>Email:</label>
-                        <input type='text' name='email' placeholder="@email.com" value='' >
+                        <input type='text' name='email' placeholder="@email.com" value='{{entity.email}}' >
                 </div>
                 <div class="span3">    
                     <label>RG:</label> 
-                         <input  type='text' name='rg' placeholder="ex: 11111111-11" value='{{rg}}' >
+                         <input  type='text' name='rg' placeholder="ex: 11111111-11" value='{{entity.rg}}' disabled>
                 </div>
                 <div class="span3">    
                     <label>Orgão emissor: </label>
                          <input type='text' name='orgaoEmissor' placeholder="ex: SSPBA"
-                          value='{{orgaoEmissor}}' >
+                          value='{{entity.orgaoEmissor}}' disabled>
                 </div>
                 <div class="span3">    
                 <label>Senha: </label>
@@ -50,16 +49,16 @@
                 <div class="span3">    
                     <label>Telefone: </label>
                          <input type='text' name='telefone' placeholder="(71) XXXX-XXXX)"
-                          value='{{telefone}}' >  
+                          value='{{entity.telefone}}' >  
                 </div>
                 <div class="span9">    
                 <label>Endereco: </label>
-                     <input style="width: 710px;" type='text' name='endereco' placeholder="endereço" value='{{endereco}}' >
+                     <input style="width: 710px;" type='text' name='endereco' placeholder="endereço" value='{{entity.endereco}}' >
                 </div>
                 <div class="span3">          
                     <label>Matricula: </label>
                          <input type='text' name='matricula' placeholder="ex: 111111111"
-                          value='{{matricula}}' >
+                          value='{{entity.matricula}}' >
                 </div>
                 <div class="span3">    
                 <label>Departamento: </label>
@@ -74,10 +73,13 @@
                 <input type='hidden' name='id' value='{{entity.id_professor}}'>
             <p><input type='submit' class="btn" value="Edit" name="enviar">
                  <input type="button" class="btn" value="Return" onClick="document.location='../View/index.php'"> </p>
+            {% endfor %}
+               
        </fieldset>
+               
        </form>
+               
        </div>    
-{% endfor %}
 
 
 {% endblock %}

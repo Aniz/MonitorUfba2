@@ -24,7 +24,8 @@ if(!$tipo = $_SESSION['tipo'])
 	*  New
 	*
 	****************************/
-if(!$tipo=='aluno')
+
+if(($tipo=='professor')||($tipo=='administrador'))
 {
 	if ($acao == 'new') {
 		$editais = array();

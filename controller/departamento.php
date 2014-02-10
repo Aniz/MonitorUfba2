@@ -138,9 +138,14 @@ if(!mysql_error())
 else
 	echo $twig->render($baseTemplate.'erro.twig', array('Erros' => 'Erro! Nao foi possivel inserir!', 'tipo' => $tipo));
 
+		/****************************
+		*
+		*  Consult
+		*
+		****************************/
 
 } else if ($acao == 'consult') {
-	$sql = selecao("Departamento"); 
+	$sql = "Select d.nome, p.nome as chefe from departamento d LEFT JOIN professor p on p.id_professor = d.chefe";  //
 	$result = mysql_query($sql, $conecta); 
  
 if(!$result)

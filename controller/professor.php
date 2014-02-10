@@ -13,9 +13,9 @@ $acao = isset($_GET['acao']) ? $_GET['acao'] : '';
 
 session_start(); 	
 $tipo = $_SESSION['tipo'];
+$idSection = $_SESSION['id'];
 
 $twig = twig('../view/');
-
 
 $baseTemplate="professor/";
 
@@ -42,13 +42,22 @@ else{
 }
 	//echo $twig->render($baseTemplate. 'new.twig', array('name' => 'Professor'));
 
+	/****************************
+	*
+	*  Edit
+	*  Apenas professor logados ou o administrador podem editar os dados do aluno
+	*
+	****************************/
 
 }else if ($acao == 'edit') {
 
-$id = $_GET["idProfessor"];
+	$aux = $idSection;
+		if($tipo!='professor'){
+			$idSection = $_GET["idProfessor"];
+		}
+		
+		$sql = selecaoByID('Professor','id_professor',$idSection);	
 	
-$sql = selecaoByID('professor','id_professor',$id);	
-
 $departamentos = array();
 
 $result = mysql_query($sql, $conecta); 
@@ -69,7 +78,7 @@ while($consulta = mysql_fetch_array($result)) {
 		$departamentos[] = $consulta;
 }
 
-//	var_dump($alunos);
+var_dump($professores);
 echo $twig->render($baseTemplate.'edit.twig',
 	array(
             'entities' => $professores,
@@ -186,14 +195,24 @@ if(!$professor->getDepartamento())
 else
 	$departamento = $professor->getDepartamento();
 
+	$pquer = mysql_query("Select email from professor where email='".$email."'or cpf ='".$cpf."'");
+	$aquer = mysql_query("Select email from aluno where email='".$email."'or cpf ='".$cpf."'");
 
-$pquer = mysql_query("Select email from professor where email='".$email."'or cpf ='".$cpf."'");
-$aquer = mysql_query("Select email from aluno where email='".$email."'or cpf ='".$cpf."'");
+	$departamentos = array();
+	if((mysql_num_rows($pquer) > 0)||(mysql_num_rows($aquer) > 0)) { 
+	
+		$dsql = selecao("departamento"); 
 
-if((mysql_num_rows($pquer) > 0)||(mysql_num_rows($aquer) > 0)) { 
-	echo 12;
-	echo $twig->render($baseTemplate.'new.twig', array('tipo' => $tipo,'entity'=>$entity, 'departamentos'=> $departamentos));
-}
+		$result = mysql_query($sql, $conecta); 
+
+		while($consulta = mysql_fetch_array($result)) { 
+				$departamentos[] = $consulta;
+		}
+
+		echo $twig->render($baseTemplate. 'new.twig', array('tipo' => $tipo,'entity'=>$professor,'Erros'=>'Cpf ou email ja cadastrado','departamentos'=>$departamentos));
+		die;
+	}
+
 else{
 $admin=0;
 $quer = mysql_query("INSERT INTO professor (`cpf`, `nome`, `email`, `senha`, `rg`, `orgao_emissor`, `endereco`, `telefone`, `matricula`, `id_departamento`, `admin`) VALUES('".

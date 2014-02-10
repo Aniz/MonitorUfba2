@@ -10,24 +10,28 @@
 {% endblock %}
 {% block content %}
 <h4>Cadastro de Professor</h4>   
-<div>         
+<div>   
+
+  {% if Erros %}
+    <font color = 'red'>{{Erros}}</font>          
+  {% endif %}      
     <form Method ="POST" enctype="multipart/form-data" Action ="?acao=create"> <fieldset>
     <div class="container-fluid">
         <div class="row-fluid"> 
             <font color = 'white'> Sign up</font>
+                
                 <div class="span9">    
                     <label>Nome:</label> 
-                        <input style="width: 710px;" type='text' name='nome' placeholder="nome"
-                        value='{{entity.nome}}' >
+                        <input style="width: 710px;" type='text' name='nome' placeholder="nome" value='{{entity.nome}}' >
                 </div>
                 <div class="span3">    
                     <label>CPF:</label>
                         <input id="CPF" type='text' name='cpf' placeholder="ex: 111.111.111-11"
-                        value='' >
+                        value='{{entity.cpf}}' >
                 </div>
                 <div class="span3">    
                     <label>Email:</label>
-                        <input type='text' name='email' placeholder="@email.com" value='' >
+                        <input type='text' name='email' placeholder="@email.com" value='{{entity.email}}' >
                 </div>
                 <div class="span3">    
                     <label>RG:</label> 
