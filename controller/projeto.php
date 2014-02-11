@@ -197,7 +197,7 @@ echo "INSERT INTO projetoDeMonitoria (`codigo`, `resumo`, `atividades`, `bolsa`,
 			$projetos[] = $consulta;
 		}
 
-		var_dump($projetos);
+		//var_dump($projetos);
 	//////edita professor
 		$sql = selecao('Professor');	
 		$result = mysql_query($sql, $conecta); 

@@ -223,7 +223,8 @@ echo $twig->render($baseTemplate.'consult.twig',
 } else if ($acao == 'nota') { 
 	if(($tipo=='administrador')||($tipo=='professor'))
 	{
-	$sql = "Select * from selecao where id_projeto=".$_GET['idProjeto']." order by nota";
+	//$sql = "Select * from selecao where id_projeto=".$_GET['idProjeto']." order by nota";
+	$sql  = "CALL `plistAlunoNota` (".$_GET['idProjeto'].");";
 	$result = mysql_query($sql, $conecta); 
  
 	if(!mysql_num_rows($result) > 0 ) { ; 

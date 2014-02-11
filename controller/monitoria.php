@@ -73,9 +73,10 @@ $professores = array();
 	echo $twig->render($baseTemplate. 'new.twig', array('professores' => $professores,'professor' => $professor, 'alunos' => $alunos,'tipo' => $tipo));//, 'editais' => $editais, 'relatorios' => $relatorios, 'selecoes' => $selecoes));
 
 } else if ($acao == 'create') {
-		$monitoria = new Monitoria($_POST);  
-	//var_dump($_POST);
-		
+	$monitoria = new Monitoria($_POST);  
+	var_dump($_POST);
+	echo('passou');
+	
 	//	var_dump($projeto);
 		/*	
 		if(!empty($val))
@@ -87,7 +88,7 @@ $professores = array();
 	//			{	
 //trocaPorID(&$post['id_relatorio']);		
 		//echo $projeto->getResumo();
-//var_dump($monitoria);
+var_dump($monitoria);
 $dataInicio = implode("-", array_reverse(explode("/", $monitoria->getDataInicio())));
 if(!$dataInicio)
 	$dataInicio = ''; 
@@ -115,11 +116,11 @@ if(!$unidade)
 $orgao = $monitoria->getOrgao();
 if(!$orgao)
 	$orgao = 0;
-
 $componentesCurriculres = $monitoria->getComponentesCurriculres();
+$componentesCurriculres = $_POST["componentesCurriculres"];
 if(!$componentesCurriculres)
 	$componentesCurriculres = 0;
-
+//echo($componentesCurriculres);
 $idProfessor = $monitoria->getIdProfessor();
 if(!$idProfessor)
 	$idProfessor = 0;
@@ -132,6 +133,19 @@ $idProfessorOrientador = $monitoria->getIdProfessorOrientador();
 if(!$idProfessorOrientador)
 	$idProfessorOrientador = 0;
 
+echo "INSERT INTO Monitoria VALUES(null,'".
+	$dataInicio."','".
+	$dataFim."','".
+	$semestre."','".
+	$status."','".
+	$bolsa."',null,null,'".
+	$unidade."','".
+	$orgao."','".
+	$componentesCurriculres."',null,'".
+	$idProfessorOrientador."',null,null,'".
+	$idAluno."','".
+	$idProfessor."')";
+
 echo $quer = mysql_query("INSERT INTO Monitoria VALUES(null,'".
 	$dataInicio."','".
 	$dataFim."','".
@@ -140,10 +154,12 @@ echo $quer = mysql_query("INSERT INTO Monitoria VALUES(null,'".
 	$bolsa."',null,null,'".
 	$unidade."','".
 	$orgao."','".
-	$componentesCurriculares."','".
+	$componentesCurriculres."',null,'".
 	$idProfessorOrientador."',null,null,'".
 	$idAluno."','".
 	$idProfessor."')");
+//echo($componentesCurriculres);
+//echo("---".$monitoria->getComponentesCurriculres());
 
 if(!mysql_error())
 {					
