@@ -2,33 +2,46 @@
 <html>
     <head>
         {% block head %}
-            <link rel="stylesheet" href="../public/css/bootstrap.css" />
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>{% block title %}{% endblock %} - MonitorUfba </title>
+            
+            <link rel="stylesheet" href="../public/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="../public/css/bootstrap-responsive.min.css" />
+
             <script type="text/javascript" src="../public/js/jquery-1.8.3.min.js"></script>
             <script type="text/javascript" src="../public/js/bootstrap.js"></script>
-            <link href="../public/theme.css" rel="stylesheet" type="text/css"> 
-    	{% endblock %}
+            
+
+            <title>{% block title %}{% endblock %} - MonitorUfba </title>
+        {% endblock %}
     </head>
     
     <body>
-		<div id="menu">
-			{% block menu %}
-				{% if tipo == 'professor' %}
-					{% include 'layoutProfessor.twig'%}
-				{% elseif tipo == 'aluno' %}
-					{% include 'layoutAluno.twig' %}
-				{% elseif tipo == 'administrador' %}	
-					{% include 'layoutAdm.twig' %}
-				{% endif %}
-			{% endblock %}
-		</div>
-	    
-        <div id="content">{% block content %}<h1>MonitorUfba</h1>{% endblock %}</div>
+        <div class="navbar navbar-inverse" style="margin-top: 10px; position: static;">
+            <div class="navbar-inner" style="border-radius: 0;">
+                <div class="container">
+                    <a class="brand" href="#"><b>MonitorUFBA</b></a>
+                    <a class="pull-right btn" href="login.php?acao=sair">Sair</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="menu">
+            {% block menu %}
+                {% if tipo == 'professor' %}
+                    {% include 'layoutProfessor.twig'%}
+                {% elseif tipo == 'aluno' %}
+                    {% include 'layoutAluno.twig' %}
+                {% elseif tipo == 'administrador' %}    
+                    {% include 'layoutAdm.twig' %}
+                {% endif %}
+            {% endblock %}
+        </div>
+        
+        <div id="content">{% block content %}{% endblock %}</div>
 
         <div id="footer">
             {% block footer %}
-AJA
+            AJA
             {% endblock %}
         </div>
     </body>
