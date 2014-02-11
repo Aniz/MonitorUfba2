@@ -1,3 +1,3 @@
 <?php
-header('location:../MonitorUfba2/login.php'); 
+header('location:../MonitorUfba2/controller/welcome.php'); 
 ?>
