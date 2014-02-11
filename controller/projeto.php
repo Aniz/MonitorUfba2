@@ -193,8 +193,11 @@ echo "INSERT INTO projetoDeMonitoria (`codigo`, `resumo`, `atividades`, `bolsa`,
 	else{
 
 		while($consulta = mysql_fetch_array($result)) { 
-		$projetos[] = $consulta;
-	}
+		
+			$projetos[] = $consulta;
+		}
+
+		var_dump($projetos);
 	//////edita professor
 		$sql = selecao('Professor');	
 		$result = mysql_query($sql, $conecta); 
@@ -203,8 +206,11 @@ echo "INSERT INTO projetoDeMonitoria (`codigo`, `resumo`, `atividades`, `bolsa`,
 		    echo "<script>alert(\"Não existem professores cadastrados. Para criar um novo selecione Professor->Novo\");</script>";       
 		else{
 			while($consulta = mysql_fetch_array($result)) { 
+				
 				$professores[] = $consulta;
+
 			}
+			//var_dump($projetos);
 
 	echo $twig->render($baseTemplate.'edit.twig',
 		array(
@@ -266,7 +272,12 @@ echo "INSERT INTO projetoDeMonitoria (`codigo`, `resumo`, `atividades`, `bolsa`,
 			$sqlUpdate .= "resumo ='".$projetoalt->getResumo()."',";
 
 		if($projetoalt->getBolsa())
-			$sqlUpdate .= "bolsa ='".$projetoalt->getBolsa()."',";
+			if($projetoalt->getBolsa()=='on')
+				$sqlUpdate .= "bolsa = 1,";
+			else
+				$sqlUpdate .= "bolsa = 0,";	
+			
+				
 
 		if($projetoalt->getAprovado())
 			if($projetoalt->getAprovado()=='on')
@@ -307,6 +318,9 @@ echo "INSERT INTO projetoDeMonitoria (`codigo`, `resumo`, `atividades`, `bolsa`,
 		$sqlUpdate = substr($sqlUpdate,0,-1);
 
 		$sqlUpdate .= " where id_projeto='".$id."'";
+
+		var_dump($sqlUpdate);
+
 		$quer = mysql_query($sqlUpdate);
 
 		if(!mysql_error())

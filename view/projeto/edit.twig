@@ -35,7 +35,12 @@
             <label>Professor:</label> 
             <select name="professor">
                 {% for prof in professores %}
-                <option value="{{prof.id_professor}}">{{prof.nome}}</option>
+                {% if entity.id_professor == prof.id_professor %}
+                    <option value="{{prof.id_professor}}" selected = "selected">{{prof.nome}}</option>
+                  {% else %}
+                      <option value="{{prof.id_professor}}">{{prof.nome}}</option>
+                  {% endif %}
+                        
                 {% endfor %}
             </select>
         </div>
@@ -61,12 +66,12 @@
                   value='{{entity.ch_semanal}}' >
         </div>
         <div class="span1">
-          {% if aprovado %}
+          {% if entity.aprovado %}
             <input name="aprovado" type="checkbox" checked>Aprovado?
           {% else %}
             <input name="aprovado" type="checkbox">Aprovado?
           {% endif %}
-          {% if bolsa %}
+          {% if entity.bolsa %}
             <input name="bolsa" type="checkbox" checked>Bolsa?
           {% else %}
             <input name="bolsa" type="checkbox">Bolsa?
@@ -96,6 +101,7 @@
               <input type="button" class="btn" value="Adicionar Edital" onClick="document.location='../controller/edital.php?acao=newProjeto&idProjeto={{entity.id_projeto}}'">
               <input type="button" class="btn" value="Cancelar" onClick="document.location='../View/index.php'"> </p>
     </div>   
+    <input type='hidden' name='id' value='{{entity.id_projeto}}'><p>
  <div class="container-fluid">
          <input type="button" class="btn" value="Atribuir nota" onClick="document.location='../controller/selecao.php?acao=nota&idProjeto={{entity.id_projeto}}'">
 
