@@ -66,7 +66,7 @@ if ($acao == 'new') {
 
 	$id=$_GET['idSelecao'];
 		
-	$sql = selecaoByID('Selecao','id_selecao',$id);	
+	echo $sql = selecaoByID('Selecao','id_selecao',$id);	
 	$result = mysql_query($sql, $conecta); 
 	
 	if(!$result)
@@ -139,19 +139,16 @@ echo $twig->render($baseTemplate.'edit.twig',
 ****************************/
 
 } else if ($acao == 'update') {	
-echo 98;
-		$id = $_POST['id'];
-		$selecaoalt = new selecao($_POST);  
-			
-		$sqlUpdate = "UPDATE selecao SET ";
 
-$sqlUpdate .= "nota ='".$_POST['nota']."',";
+	$id = $_POST['id'];
+	$selecaoalt = new selecao($_POST);  
 
-$sqlUpdate = substr($sqlUpdate,0,-1);
-		
-$sqlUpdate .= " where id_selecao='".$id."'";
+	$sqlUpdate = "UPDATE selecao SET ";
+	$sqlUpdate .= "nota ='".$_POST['nota']."',";
+	$sqlUpdate = substr($sqlUpdate,0,-1);		
+	$sqlUpdate .= " where id_selecao='".$id."'";
 
-$quer = mysql_query($sqlUpdate);
+	$quer = mysql_query($sqlUpdate);
 
 if(!mysql_error())
 {					

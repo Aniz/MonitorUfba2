@@ -17,37 +17,31 @@
     <td>Nota</td>
 
   {% if tipo != 'aluno' %}    
-    <td>idAluno</td>
+    <td>Aluno</td>
   {% endif %}
-    <td>idProjeto</td>
+    <td>Projeto</td>
     <td>Horario de atendimento</td>
-    {% if tipo != 'aluno' %}    
-      <td>Editar</td>
-    {% elseif tipo != 'professor' %}
-      <td>Remover</td>
-    {% endif %}
   </tr>
 
+{% for entity in entities %} 
 <form Method ="POST" enctype="multipart/form-data" Action ="?acao=update">  
- {% for entity in entities %}
   <tr> 
   {% if entity.nota is empty %}
-    <td><input type='text' name='nota' value='{{entity.nota}}' ><td>
+    <td><input type='text' name='nota' value='{{entity.nota}}' ></td>
   {% else %}   
-   <td><input type='text' name='nota' value='{{entity.nota}}' disabled><td>
+   <td><input type='text' name='nota' value='{{entity.nota}}' disabled></td>
   {% endif %}
-  {% if tipo != 'aluno' %}    
     <td>&nbsp;{{entity.id_aluno}}</td>
-  {% endif %}    
     <td>&nbsp;{{entity.id_projeto}}</td>
     <td>&nbsp;{{entity.horario_atendimento}}</td>  
-    <input type='hidden' name='id' value='{{entity.id_selecao}}'><p>  
+  <td><input type='submit' style="right" class="btn" value="Cadastrar nota!" name="enviar"></td> 
     <td><input type='button' onClick="document.location='../controller/monitoria.php?acao=new&idAluno={{entity.id_aluno}}&idProjeto={{entity.id_projeto}}'" class="btn" value="Aprovar aluno" name="ap"></td>
+  <input type='hidden' name='id' value='{{entity.id_selecao}}'><p>  
   </tr>
- 
-{% endfor %}
-<input type='submit' style="right" class="btn" value="Register" name="enviar"> 
+
 </div></form>
+     
+{% endfor %}
 
 <?php  
      
