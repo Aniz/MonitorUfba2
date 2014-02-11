@@ -90,6 +90,26 @@ echo $twig->render($baseTemplate.'permissoes.twig',
 	echo "<script>alert(\"Ops! Algo está errado.\");</script>";       
 	
 	}
+}else if ($acao == 'relatorio') {
+	$sql = selecao("vrelatorio"); 
+	$result = mysql_query($sql, $conecta); 
+ 
+	if(!mysql_num_rows($result) > 0 ) { ; 
+		echo "<script>alert(\"Nenhum registro encontrado. \");</script>";       
+		echo ("<script>window.location.href = \"../index.php\";</script>");	
+	}
+	else{
+
+		while($consulta = mysql_fetch_array($result)) { 
+			$relatorio[] = $consulta;
+		}
+		//var_dump($relatorio);
+		echo $twig->render($baseTemplate.'relatorio.twig',
+		array(
+	            'entities' => $relatorio,
+	            'tipo' => $tipo,
+	        ));
+	}
 }
 
 
