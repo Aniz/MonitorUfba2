@@ -136,6 +136,20 @@ if(($tipo=='professor')||($tipo=='administrador'))
 	    $periodoInscricaoFinal."','".
 	    $periodoSelecao."','".
 	    $id_professor."',null,null,null)";*/
+echo "INSERT INTO projetoDeMonitoria (`codigo`, `resumo`, `atividades`, `bolsa`, `aprovado`, `vagas_pedidas`, `vagas_aprovadas`, `ch_total`, `ch_semanal`, `periodo_inscricao_inicio`, `periodo_inscricao_final`, `periodo_selecao`, `id_professor`) VALUES('".
+		$codigo."','".
+		$resumo."','".
+	    $atividades."','".
+	    $bolsa."','".
+	    $aprovado."','".
+	    $vagasPedidas."','".
+	    $vagasAprovadas."','".
+	    $chTotal."','".
+	    $chSemanal."','".
+	    $periodoInscricaoInicio."','".
+	    $periodoInscricaoFinal."','".
+	    $periodoSelecao."','".
+	    $id_professor."')";
 
 	$quer = mysql_query("INSERT INTO projetoDeMonitoria (`codigo`, `resumo`, `atividades`, `bolsa`, `aprovado`, `vagas_pedidas`, `vagas_aprovadas`, `ch_total`, `ch_semanal`, `periodo_inscricao_inicio`, `periodo_inscricao_final`, `periodo_selecao`, `id_professor`) VALUES('".
 		$codigo."','".
