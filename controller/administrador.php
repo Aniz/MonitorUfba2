@@ -38,7 +38,7 @@ if ($acao == 'log') {
 		$logs[] = $consulta;
 		}
 }
-echo $twig->render($baseTemplate.'log.twig',
+	echo $twig->render($baseTemplate.'log.twig',
 	array(
             'entities' => $logs,
             'tipo' => $tipo,
