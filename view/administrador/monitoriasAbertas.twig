@@ -1,0 +1,58 @@
+{% extends "layout.twig" %}
+{% block title %}List Aluno{% endblock %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+      <script src="../helper/Mascaras.js" type="text/javascript"></script>
+{% endblock %}
+{% block content %}
+    <h4>Relatorio Monitoria e Aluno</h4>
+     <ul><div>
+      <fieldset>
+           
+<table border=2 align="center">
+  <tr> 
+    <td>Nome do Professor</td>
+    <td>CPF do Professor</td>
+    <td>Data de Inicio</td>
+    <td>Data de Fim</td>
+    <td>Status</td>
+    <td>Unidade</td>
+    <td>Orgão</td>    
+    <td>Nome do Aluno</td>   
+    <td>CPF do Aluno</td>
+    
+    
+   
+    
+  </tr>
+
+ {% for entity in entities %}
+  <tr> 
+    <td>&nbsp;{{entity.nome}}</td>
+    <td>&nbsp;{{entity.cpf_professor}}</td>
+    <td>&nbsp;{{entity.data_inicio}}</td>
+    <td>&nbsp;{{entity.data_fim}}</td>   
+    <td>&nbsp;{{entity.status}}</td>
+    <td>&nbsp;{{entity.unidade}}</td>
+    <td>&nbsp;{{entity.orgao}}</td>
+    <td>&nbsp;{{entity.nome_aluno}}</td>
+    <td>&nbsp;{{entity.cpf_aluno}}</td>
+    
+    
+  </a></td> 
+  
+   </tr>
+  {% endfor %}
+
+<?php
+}
+}
+?>
+
+</table> 
+       </fieldset>
+      </div></ul>    
+{% endblock %}

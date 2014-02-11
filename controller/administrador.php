@@ -110,6 +110,26 @@ echo $twig->render($baseTemplate.'permissoes.twig',
 	            'tipo' => $tipo,
 	        ));
 	}
+}else if ($acao == 'procedimento') {
+	$sql = "CALL `pMoniAberta` ();"; 
+	$result = mysql_query($sql, $conecta); 
+ 
+	if(!mysql_num_rows($result) > 0 ) { ; 
+		echo "<script>alert(\"Nenhum registro encontrado. \");</script>";       
+		echo ("<script>window.location.href = \"../index.php\";</script>");	
+	}
+	else{
+
+		while($consulta = mysql_fetch_array($result)) { 
+			$procedimento[] = $consulta;
+		}
+		//var_dump($procedimento);
+		echo $twig->render($baseTemplate.'monitoriasAbertas.twig',
+		array(
+	            'entities' => $procedimento,
+	            'tipo' => $tipo,
+	        ));
+	}
 }
 
 
